@@ -1,0 +1,37 @@
+.otalk-post-item{
+    background: #fff;
+    min-height: 80px;
+    overflow: hidden;
+    border-radius: 3px;
+    border: 1px solid #e6e6e6;
+}
+
+.otalk-post-item-title{
+    padding: 0.5em 1em;
+    padding-bottom: 0.5em;
+}
+
+.otalk-post-item-title .otalk-dp{
+    margin-right: 0.8em;
+}
+
+.otalk-post-item-title .otalk-post-item-owner{
+    font-weight: bold;
+}
+
+.otalk-post-item-title .otalk-btn{
+    margin-left: 0.5em;
+}
+
+.otalk-post-item-date{
+    font-size: 0.85em;
+    color: #555;
+}
+
+.otalk-post-item-content{
+    margin: 0 1.5em;
+    margin-bottom: 1.5em;
+    font-size: 1em;
+    line-height: 1.6em;
+    color: #333;
+}

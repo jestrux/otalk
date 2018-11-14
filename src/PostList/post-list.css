@@ -1,0 +1,8 @@
+.otalk-post-list{
+    max-width: 660px;
+    margin: 2em auto;
+}
+
+.otalk-post-list .otalk-post-list-item:not(:last-child){
+    margin-bottom: 1em;
+}
