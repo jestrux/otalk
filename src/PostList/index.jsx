@@ -32,7 +32,7 @@ class PostList extends React.Component {
         const { posts, initial_fetch } = this.state;
 
         return ( 
-            <div className="otalk-post-list">
+            <div className="ot-post-list">
                 {!initial_fetch && <span>Fetching posts....</span>}
 
                 {initial_fetch && (

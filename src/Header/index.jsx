@@ -7,16 +7,16 @@ const Header = (props) => {
     const { dp } = props;
 
     return ( 
-        <div className="otalk-header layout center">
-            <img className="otalk-logo" src={logo} alt=""/>
+        <div className="ot-header layout center">
+            <img className="ot-logo" src={logo} alt=""/>
             &emsp;
-            <span className="otalk-header-title">
-                Otalk
+            <span className="ot-header-title">
+                ot
             </span>
 
             <span className="flex"></span>
 
-            <div className="otalk-dp">
+            <div className="ot-dp">
                 <img src={dp} alt="" onClick={props.onViewProfile} />
             </div>
         </div>

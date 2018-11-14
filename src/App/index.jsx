@@ -31,7 +31,7 @@ class App extends React.Component {
     const user_logged_in = user && user.id && user.token;
 
     return (
-      <div className="otalk-app-wrapper">
+      <div className="ot-app-wrapper">
         { user_logged_in && ( 
             <Header dp={user.image} onViewProfile={ this.viewProfile } />
         )}

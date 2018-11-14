@@ -1,4 +1,4 @@
-.otalk-post-item{
+.ot-post-item{
     background: #fff;
     min-height: 80px;
     overflow: hidden;
@@ -6,29 +6,29 @@
     border: 1px solid #e6e6e6;
 }
 
-.otalk-post-item-title{
+.ot-post-item-title{
     padding: 0.5em 1em;
     padding-bottom: 0.5em;
 }
 
-.otalk-post-item-title .otalk-dp{
+.ot-post-item-title .ot-dp{
     margin-right: 0.8em;
 }
 
-.otalk-post-item-title .otalk-post-item-owner{
+.ot-post-item-title .ot-post-item-owner{
     font-weight: bold;
 }
 
-.otalk-post-item-title .otalk-btn{
+.ot-post-item-title .ot-btn{
     margin-left: 0.5em;
 }
 
-.otalk-post-item-date{
+.ot-post-item-date{
     font-size: 0.85em;
     color: #555;
 }
 
-.otalk-post-item-content{
+.ot-post-item-content{
     margin: 0 1.5em;
     margin-bottom: 1.5em;
     font-size: 1em;

@@ -1,4 +1,4 @@
-.otalk-header{
+.ot-header{
     position: fixed;
     top: 0;
     width: 100vw;
@@ -9,10 +9,10 @@
     padding: 0 1.5em;
 }
 
-.otalk-header .otalk-logo{
+.ot-header .ot-logo{
     height: 40px;
 }
 
-.otalk-header-title{
+.ot-header-title{
     font-size: 1.4em;
 }

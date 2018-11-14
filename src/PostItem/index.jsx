@@ -7,19 +7,19 @@ const PostItem = (props) => {
     const { owner, owned, date } = post;
 
     return ( 
-        <div className="otalk-post-item">
-            <div className="otalk-post-item-title layout center">
-                <div className="otalk-dp">
+        <div className="ot-post-item">
+            <div className="ot-post-item-title layout center">
+                <div className="ot-dp">
                     <img src={owner.dp} alt="" />
                 </div>
                 
-                <span className="otalk-post-item-owner">
+                <span className="ot-post-item-owner">
                     { owner.name }
                 </span>
 
                 { !owned && 
                     (
-                        <button className="otalk-btn flat primary">
+                        <button className="ot-btn flat primary">
                             Follow
                         </button>
                     )
@@ -27,12 +27,12 @@ const PostItem = (props) => {
 
                 <span className="flex"></span>
 
-                <span className="otalk-post-item-date">
+                <span className="ot-post-item-date">
                     { date }
                 </span>
             </div>
             
-            <p className="otalk-post-item-content">
+            <p className="ot-post-item-content">
                 { post.content }
             </p>
         </div>

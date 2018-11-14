@@ -13,7 +13,7 @@ body {
     height: 100vh;
 }
 
-.otalk-dp{
+.ot-dp{
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -21,12 +21,12 @@ body {
     background: #ddd;
 }
 
-.otalk-dp.small{
+.ot-dp.small{
     width: 30px;
     height: 30px;
 }
 
-.otalk-dp img{
+.ot-dp img{
     width: 100%;
     min-height: 100%;
     object-fit: cover;
@@ -34,7 +34,7 @@ body {
 }
 
 
-.otalk-btn{
+.ot-btn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -58,7 +58,7 @@ body {
     box-shadow: 2px 5px 10px var(--color-smoke);
 }
 
-.otalk-btn.flat{
+.ot-btn.flat{
     background: transprent;
     box-shadow: none;
     padding: 8px;
@@ -66,7 +66,7 @@ body {
     letter-spacing: 0.02em;
 }
 
-.otalk-btn.flat.primary{
+.ot-btn.flat.primary{
     color: var(--primary-color);
 }
 
