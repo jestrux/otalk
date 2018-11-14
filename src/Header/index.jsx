@@ -11,7 +11,7 @@ const Header = (props) => {
             <img className="ot-logo" src={logo} alt=""/>
             &emsp;
             <span className="ot-header-title">
-                ot
+                Otalk
             </span>
 
             <span className="flex"></span>
