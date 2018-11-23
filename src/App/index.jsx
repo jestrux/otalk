@@ -1,6 +1,8 @@
 import React from 'react';
 import './app.css';
 
+import axios from "axios";
+
 import Header from '../Header';
 import PostList from '../PostList';
 
@@ -12,8 +14,22 @@ class App extends React.Component {
   }
 
   fetchUser = () => {
-    const user = {id: 123, token: 1234, image: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
-    this.setState({user, user_fetched: true});
+    var params = { username: "wakyj07@gmail.com", password: "Stann3r" };
+    axios.post("https://www.olbongo.com/api/login/", params)
+    .then( response => {
+        const result = response.data;
+        const { user, token } = result;
+        const { id, displayName, dp } = user;
+        console.log("APi result: ", result);
+
+        const new_user = {token : token, id, displayName, dp};
+        this.setState({new_user, user_fetched: true});
+    })
+    .catch( err => {
+        console.error("API Error", err);
+        const user = {id: 123, token: 1234, displayName: "Walter Kimaro", dp: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
+        this.setState({user, user_fetched: true});
+    });
   }
 
   viewProfile = () => {
@@ -33,7 +49,7 @@ class App extends React.Component {
     return (
       <div className="ot-app-wrapper">
         { user_logged_in && ( 
-            <Header dp={user.image} onViewProfile={ this.viewProfile } />
+            <Header dp={user.dp} onViewProfile={ this.viewProfile } />
         )}
 
         <main>
