@@ -1,6 +1,8 @@
 import React from 'react';
 import './post-list.css';
 
+import sample_posts from './posts';
+
 import PostItem from "../PostItem";
 
 class PostList extends React.Component {
@@ -13,23 +15,14 @@ class PostList extends React.Component {
 
     fetchUserPosts = (id, token) => {
         console.log(`Fetching posts for ${id}, with token ${token}`);
-        const posts = [
-            {
-                id: "q3agaaf",
-                date: "May 14th",
-                content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum, blanditiis sit. Odio praesentium magni aliquam porro laborum numquam, possimus perspiciatis voluptas earum, odit, soluta debitis laudantium! Qui, iure quaerat? Obcaecati!",
-                owner: {
-                    name: "Walter Kimaro",
-                    dp: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"
-                }
-            }
-        ];
-
-        this.setState({posts, initial_fetch: true});
+        setTimeout(() => {
+            this.setState({posts: sample_posts, initial_fetch: true});
+        }, 2000);
     }
 
     render() { 
         const { posts, initial_fetch } = this.state;
+        const { user } = this.props;
 
         return ( 
             <div className="ot-post-list">
@@ -37,7 +30,7 @@ class PostList extends React.Component {
 
                 {initial_fetch && (
                     <React.Fragment>
-                        { posts.map( post => <PostItem key={post.id} post={post} />) }
+                        { posts.map( post => <PostItem key={post.id} post={post} user={user} />) }
                     </React.Fragment>
                 )}
             </div>

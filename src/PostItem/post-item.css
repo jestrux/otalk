@@ -8,7 +8,7 @@
 
 .ot-post-item-title{
     padding: 0.5em 1em;
-    padding-bottom: 0.5em;
+    margin-top: 0.5em;
 }
 
 .ot-post-item-title .ot-dp{
@@ -17,10 +17,12 @@
 
 .ot-post-item-title .ot-post-item-owner{
     font-weight: bold;
+    display: block;
+    margin-bottom: 0.06em;
 }
 
-.ot-post-item-title .ot-btn{
-    margin-left: 0.5em;
+.ot-post-item-title .ot-follow-btn{
+    margin-left: 0.9em;
 }
 
 .ot-post-item-date{
@@ -29,9 +31,55 @@
 }
 
 .ot-post-item-content{
-    margin: 0 1.5em;
-    margin-bottom: 1.5em;
+    margin: 0.5em 1.2em;
+    margin-bottom: 1em;
     font-size: 1em;
     line-height: 1.6em;
     color: #333;
+}
+
+.ot-post-options-btn{
+    margin-right: 0;
+    transition: 0.3s ease-out;
+}
+
+.ot-post-item:not(:hover) .ot-post-options-btn{
+    opacity: 0;
+    transition: none;
+}
+
+.ot-post-reactions{
+    padding: 0.5em 1.2em;
+    margin-bottom: 0.7em;
+    display: flex;
+    align-items: center;
+    color: #5a5a5a;
+}
+
+.ot-post-item-content + .ot-post-reactions{
+    margin-top: -0.5em;
+}
+
+.ot-post-media + .ot-post-reactions{
+    justify-content: center;
+}
+
+.ot-post-reactions small{
+    word-spacing: 0.2em;
+    font-size: 0.8em;
+    /* font-weight: 100; */
+    display: inline-block;
+}
+
+.ot-post-reactions span{
+    height: 12px;
+    width: 1px;
+    background: #ccc;
+    display: inline-block;
+    margin: 0 0.8em;
+    margin-bottom: -0.065em;
+}
+
+.ot-post-reactions span:last-child{
+    margin-right: 0;
 }

@@ -1,0 +1,42 @@
+.ot-post-commenter{
+    padding: 0.3em 1.2em;
+    border-top: 1px solid #f1f1f1;
+}
+
+.ot-post-commenter .ot-dp{
+    margin-right: 0.7em;
+}
+
+.ot-post-commenter input{
+    font-size: 1em;
+    padding: 0.3em 0;
+    border: none;
+    outline: none;
+}
+
+.ot-post-commenter input::placeholder{
+    color: #aaa;
+}
+
+.ot-post-commenter-actions{
+    position: relative;
+    margin-right: -10px;
+}
+
+.ot-post-commenter .ot-btn.action{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto 10px;
+}
+
+.ot-btn.action svg.ot-post-like-icon{
+    fill: #ffa200
+}
+
+.ot-post-commenter-actions.can-like .ot-btn.flat,
+.ot-post-commenter-actions:not(.can-like) .ot-btn.action{
+    opacity: 0;
+    pointer-events: none;
+}

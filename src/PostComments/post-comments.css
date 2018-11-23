@@ -1,0 +1,27 @@
+.ot-post-comments{
+    padding: 0.8em 1.2em;
+    background: #f2f4f3;
+}
+
+.ot-post-comment{
+    padding: 0.4em 0;
+}
+
+.ot-post-comment + .ot-post-comment{
+    margin-top: 0.5em;
+}
+
+.ot-post-comment .ot-dp{
+    margin-right: 0.7em;
+    align-self: flex-start;
+}
+
+.ot-post-comment p{
+    font-size: 0.9em;
+    line-height: 1.5em;
+    color: #4a4a4a;
+}
+
+.ot-post-comment p strong{
+    color: #2f2f2f;
+}
