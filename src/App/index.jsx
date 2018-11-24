@@ -3,6 +3,7 @@ import './app.css';
 
 import axios from "axios";
 
+import Login from '../Login';
 import Header from '../Header';
 import PostList from '../PostList';
 
@@ -13,8 +14,15 @@ class App extends React.Component {
     this.fetchUser();
   }
 
-  fetchUser = () => {
-    var params = { username: "wakyj07@gmail.com", password: "Stann3r" };
+  fetchUser = async () => {
+    const session_user = await localStorage.getItem('ot-user');
+    console.log("Session User: ", session_user);
+    this.setState({user_fetched: true});
+  }
+
+  login = (username, password) => {
+    // var params = { username: "wakyj07@gmail.com", password: "Stann3r" };
+    var params = { username, password };
     axios.post("https://www.olbongo.com/api/login/", params)
     .then( response => {
         const result = response.data;
@@ -23,12 +31,12 @@ class App extends React.Component {
         console.log("Login result: ", result);
 
         const new_user = {token : token, id, displayName, dp};
-        this.setState({new_user, user_fetched: true});
+        this.setState({new_user});
     })
     .catch( err => {
         console.error("Login Error", err);
         const user = {id: 123, token: 1234, displayName: "Walter Kimaro", dp: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
-        this.setState({user, user_fetched: true});
+        this.setState({user});
     });
   }
 
@@ -36,11 +44,11 @@ class App extends React.Component {
     console.log("View profile");
   }
   
-  login = () => {
-    const user = {id: 123, token: 1234, image: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
-    this.setState({user, user_fetched: true});
-    console.log("Authing a user...");
-  }
+  // login = () => {
+  //   const user = {id: 123, token: 1234, image: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
+  //   this.setState({user, user_fetched: true});
+  //   console.log("Authing a user...");
+  // }
 
   render(){
     const { user, user_fetched } = this.state;
@@ -54,7 +62,7 @@ class App extends React.Component {
 
         <main>
             { !user_logged_in && user_fetched && ( 
-                <span>No user found... <button onClick={this.login}>LOGIN</button></span> 
+                <Login onLogin={this.login} /> 
             )}
 
             { user_logged_in && <PostList user={ user } /> }

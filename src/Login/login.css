@@ -1,0 +1,99 @@
+.ot-login-page{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
+
+.ot-login-form{
+    background: #fff;
+    right: 0;
+    margin: auto;
+    z-index: 2;
+    width: 420px;
+    padding: 4.5em 3em;
+    border-radius: 10px;
+    box-shadow: 5px 10px 30px rgba(6, 5, 48, 0.14);
+}
+
+.ot-login-form .ot-login-title{
+    font-size: 1.6em;
+    margin-bottom: 1em;
+}
+
+.ot-login-form .ot-login-title img{
+    margin-right: 0.5em;
+}
+
+.ot-input-box{
+    position: relative;
+    margin-bottom: 1.6em;
+ }
+
+.ot-input-box input,
+.ot-input-box select{
+    position: relative;
+    display: block;
+    background: #f0f0f0;
+    width: 100%;
+    font-size: 1em;
+    padding: 0.6em 0.5em;
+    padding-top: 1.6em;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #999;
+    transition: all 0.35s ease-out;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.ot-input-box select{
+    border-radius: 0;
+    background: #f0f0f0 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23999'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat scroll 96.5% 60%;
+    ;
+    background-size: 12px;
+}
+
+.ot-input-box input:focus,
+.ot-input-box input:valid,
+.ot-input-box select:focus,
+.ot-input-box select:valid {
+    border-bottom-color: var(--primary-color);
+}
+
+.ot-input-box label {
+    position: absolute;
+    left: 0.5em;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 16px;
+    transition: transform 0.15s ease-out;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.ot-input-box input:focus + label,
+.ot-input-box input:valid + label{
+    opacity: 1;
+    transform: scale(0.7) translate3d(-1em, -1em, 0)
+}
+
+.ot-input-box select:focus+label,
+.ot-input-box select:valid+label {
+    opacity: 1;
+    transform: scale(0.7) translate3d(-1.3em, -1em, 0)
+}
+
+.ot-login-form p:last-child{
+    margin-top: 2em;
+}
+
+.ot-btn{
+    margin: 0;
+    outline: none;
+}
