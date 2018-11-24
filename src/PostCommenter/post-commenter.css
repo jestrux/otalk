@@ -31,8 +31,9 @@
     margin: auto 10px;
 }
 
-.ot-btn.action svg.ot-post-like-icon{
-    fill: #ffa200
+.ot-post-commenter-actions .ot-btn.flat,
+.ot-post-commenter-actions .ot-btn.action{
+    outline: none;
 }
 
 .ot-post-commenter-actions.can-like .ot-btn.flat,

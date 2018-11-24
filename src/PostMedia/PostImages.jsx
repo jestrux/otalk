@@ -13,8 +13,8 @@ const PostImage = ( props ) => {
         <div className={'ot-post-images ' + templateClass } extras={extras}>
             {   
                 images.slice(0, 4).map( i => 
-                    <div className="ot-post-image">
-                        <img key={i.id} src={i.image} alt=""/> 
+                    <div key={i.id} className="ot-post-image">
+                        <img src={i.image} alt=""/> 
                     </div>
                 )
             }

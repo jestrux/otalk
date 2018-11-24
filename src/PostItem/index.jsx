@@ -61,7 +61,10 @@ const PostItem = (props) => {
 
             { (comments.length > 0) && (<PostComments comments={comments} />) }
 
-            <PostCommenter user={user} faved={is_liked} />
+            <PostCommenter 
+                user={user} faved={is_liked}
+                onToggleLiked={ props.onToggleLiked }
+                onNewComment = { props.onNewComment } />
         </div>
     );
 }

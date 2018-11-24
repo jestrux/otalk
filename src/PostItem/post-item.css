@@ -43,6 +43,10 @@
     transition: 0.3s ease-out;
 }
 
+.ot-post-options-btn svg{
+    fill: #656565;
+}
+
 .ot-post-item:not(:hover) .ot-post-options-btn{
     opacity: 0;
     transition: none;

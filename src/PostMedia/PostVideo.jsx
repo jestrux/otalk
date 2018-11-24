@@ -18,7 +18,7 @@ const PostVideo = ( props ) => {
 
     return ( 
         <div className="ot-post-video">
-            <iframe title="post video" src={embed} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe title="post video" src={embed} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
         </div>
     );
 }

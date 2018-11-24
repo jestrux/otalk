@@ -20,13 +20,13 @@ class App extends React.Component {
         const result = response.data;
         const { user, token } = result;
         const { id, displayName, dp } = user;
-        console.log("APi result: ", result);
+        console.log("Login result: ", result);
 
         const new_user = {token : token, id, displayName, dp};
         this.setState({new_user, user_fetched: true});
     })
     .catch( err => {
-        console.error("API Error", err);
+        console.error("Login Error", err);
         const user = {id: 123, token: 1234, displayName: "Walter Kimaro", dp: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
         this.setState({user, user_fetched: true});
     });
