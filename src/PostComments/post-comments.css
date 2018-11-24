@@ -5,6 +5,8 @@
 
 .ot-post-comment{
     padding: 0.4em 0;
+    padding-right: 2em;
+    position: relative;
 }
 
 .ot-post-comment + .ot-post-comment{
@@ -24,4 +26,15 @@
 
 .ot-post-comment p strong{
     color: #2f2f2f;
+}
+
+.ot-comment-liker{
+    position: absolute;
+    top: 0;
+    right: -8px;
+}
+
+.ot-btn.action.ot-comment-liker svg{
+    width: 15px;
+    height: 15px;
 }

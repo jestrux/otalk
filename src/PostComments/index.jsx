@@ -11,6 +11,17 @@ class PostComments extends React.Component {
         this.setState({ comments });
     }
 
+    toggleLiked = (comment, index) => {
+        const isLiked = comment.is_liked;
+        comment.is_liked = !isLiked;
+        comment.total_likes += isLiked ? -1 : 1;
+
+        let new_comments = [...this.state.comments]
+        new_comments.splice(index, 1, comment);
+
+        this.setState({ comments: new_comments });
+    }
+
     render() { 
         const { comments, initial_fetch } = this.state;
 
@@ -20,7 +31,7 @@ class PostComments extends React.Component {
 
                 {(comments.length > 0 || initial_fetch) && (
                     <React.Fragment>
-                        { comments.map( comment => <PostComment key={comment.id} comment={comment} />) }
+                        { comments.map( (comment, index) => <PostComment key={comment.id} comment={comment} onToggleLiked={() => this.toggleLiked(comment, index) } />) }
                     </React.Fragment>
                 )}
             </div>

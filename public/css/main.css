@@ -109,6 +109,7 @@ body {
     background: transparent;
     box-shadow: none;
     padding: 0;
+    outline: none;
 }
 
 .ot-btn.action svg{

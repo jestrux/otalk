@@ -1,4 +1,5 @@
 import React from 'react';
+import { FavToggle } from '../Utils';
 
 const PostComment = ( props ) => {
     const { comment } = props;
@@ -13,6 +14,10 @@ const PostComment = ( props ) => {
             <p>
                 <strong>{ display_name }</strong> { content }
             </p>
+
+            <button className="ot-comment-liker ot-btn action" onClick={ props.onToggleLiked }>
+                { <FavToggle faved={is_liked} /> }
+            </button>
         </div>
     );
 }
