@@ -14,12 +14,20 @@ class PostCommenter extends React.Component {
     handleChange = (event) => {
         this.setState({comment: event.target.value});
     }
+    
+    handleKeyup = (event) => {
+        if(event.key === 'Enter')
+            this.sendComment();
+    }
 
     sendComment = () => {
         const state_copy = JSON.parse(JSON.stringify(this.state));
         const comment = state_copy.comment;
-        this.props.onNewComment(comment);
-        this.setState({comment : ""});
+
+        if(comment.length){
+            this.props.onNewComment(comment);
+            this.setState({comment : ""});
+        }
     }
 
     render(){
@@ -35,7 +43,9 @@ class PostCommenter extends React.Component {
                 </div>
 
                 <input className="flex" type="text" placeholder="Write a Comment" 
-                    value={comment} onChange={this.handleChange} />
+                    value={comment} 
+                    onChange={this.handleChange}
+                    onKeyUp={this.handleKeyup} />
 
                 <div className={'ot-post-commenter-actions' + ((!comment.length) ? ' can-like' : '')}>
                     <button className="ot-btn flat" onClick={ this.sendComment } >

@@ -9,23 +9,30 @@ import PostCommenter from "../PostCommenter";
 
 const PostItem = (props) => {
     const { user, post } = props;
-    const { is_liked, owner, owned, published_at, content, images, videos, comments, total_likes, total_comments } = post;
+    const { fetching_comments, is_liked, publisher, owned, published_at, content, images, videos, comments, total_likes, total_commenets } = post;
+    const total_comments = total_commenets;
+    
     let like_text = total_likes + ' Like';
     like_text += ( total_likes != 1) ? 's' : '';
     
     let comment_text = total_comments + ' Comment';
     comment_text += ( total_comments != 1) ? 's' : '';
 
+    function handleShowComments(){
+        if(total_comments > 0 && total_comments !== comments.length)
+            props.onShowComments()
+    }
+
     return ( 
         <div className="ot-post-item">
             <div className="ot-post-item-title layout center">
                 <div className="ot-dp">
-                    <img src={owner.dp} alt="" />
+                    <img src={publisher.dp} alt="" />
                 </div>
                 
                 <div>
                     <span className="ot-post-item-owner">
-                        { owner.name }
+                        { publisher.display_name }
                     </span>
                     <span className="ot-post-item-date">
                         { published_at }
@@ -56,10 +63,14 @@ const PostItem = (props) => {
             <div className="ot-post-reactions">
                 <small>{ like_text }</small>
                 <span></span>
-                <small>{ comment_text }</small>
+                <small className={total_comments > 0 ? 'can-click' : ''}
+                    onClick={ handleShowComments }>{ comment_text }</small>
             </div>
 
-            { (comments.length > 0) && (<PostComments comments={comments} />) }
+            { (comments.length > 0 || fetching_comments) && (
+                <PostComments comments={comments} loading={fetching_comments}
+                    onToggleCommentLiked={props.onToggleCommentLiked} />
+            ) }
 
             <PostCommenter 
                 user={user} faved={is_liked}

@@ -7,7 +7,7 @@ const PostComment = ( props ) => {
     const { dp, display_name } = publisher;
 
     return ( 
-        <div className="ot-post-comment layout center">
+        <div className={'ot-post-comment layout ' + ( id.toString().indexOf('ot-temp-id') !== -1 ? 'temp' : '' )}>
             <div className="ot-dp small">
                 <img src={dp} alt=""/>
             </div>

@@ -10,8 +10,10 @@ const PostMedia = (props) => {
 
     return ( 
         <div className="ot-post-media">
+            {/* <PostImages images={images} /> */}
+            {/* <PostVideo videos={videos} /> */}
             { images.length > 0 && (<PostImages images={images} /> ) }
-            { images.length < 1 && videos.length > 0 && ( <PostVideo video={videos[0]} /> )}
+            { !images.length && videos.length > 0 && ( <PostVideo videos={videos} /> )}
         </div>
     );
 }

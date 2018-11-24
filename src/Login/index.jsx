@@ -30,7 +30,7 @@ class Login extends React.Component {
                     </div>
 
                     <button className={ 'ot-btn primary rounded ' + ( !isValid ? 'disabled' : '' ) }
-                        onClick={() => this.props.onLogin(username, password)}>LOGIN</button>
+                        onClick={() => this.props.onLogin({username, password})}>LOGIN</button>
                 </div>
             </div>
         );

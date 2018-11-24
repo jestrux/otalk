@@ -19,6 +19,7 @@
     font-weight: bold;
     display: block;
     margin-bottom: 0.06em;
+    text-transform: capitalize;
 }
 
 .ot-post-item-title .ot-follow-btn{
@@ -66,6 +67,15 @@
 
 .ot-post-media + .ot-post-reactions{
     justify-content: center;
+}
+
+.ot-post-reactions small.can-click{
+    cursor: pointer;
+}
+
+.ot-post-reactions small.can-click:hover{
+    text-decoration: underline;
+    text-decoration-color: #a0a0a0;
 }
 
 .ot-post-reactions small{

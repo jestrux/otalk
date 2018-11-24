@@ -3,10 +3,23 @@
     background: #f2f4f3;
 }
 
+.ot-comments-loader{
+    display: block;
+    padding: 0.7em 0.2em;
+    font-size: 0.9em;
+    text-align: center;
+    color: #8d8e8e;
+}
+
 .ot-post-comment{
     padding: 0.4em 0;
     padding-right: 2em;
     position: relative;
+    transition: opacity 0.35s ease-out;
+}
+
+.ot-post-comment.temp{
+    opacity: 0.6;
 }
 
 .ot-post-comment + .ot-post-comment{
@@ -15,13 +28,13 @@
 
 .ot-post-comment .ot-dp{
     margin-right: 0.7em;
-    align-self: flex-start;
 }
 
 .ot-post-comment p{
     font-size: 0.9em;
     line-height: 1.5em;
     color: #4a4a4a;
+    margin-top: 0.3em;
 }
 
 .ot-post-comment p strong{
@@ -30,7 +43,7 @@
 
 .ot-comment-liker{
     position: absolute;
-    top: 0;
+    top: 0.7em;
     right: -8px;
 }
 

@@ -16,27 +16,37 @@ class App extends React.Component {
 
   fetchUser = async () => {
     const session_user = await localStorage.getItem('ot-user');
-    console.log("Session User: ", session_user);
     this.setState({user_fetched: true});
+
+    if(session_user != null){
+      this.setState({user: JSON.parse(session_user)});
+    }
   }
 
-  login = (username, password) => {
-    // var params = { username: "wakyj07@gmail.com", password: "Stann3r" };
-    var params = { username, password };
-    axios.post("https://www.olbongo.com/api/login/", params)
+  login = ({username, password}) => {
+    const params = {username, password}
+    axios({
+      method: 'POST',
+      url: "https://www.olbongo.com/api/login/",
+      params
+    })
     .then( response => {
         const result = response.data;
-        const { user, token } = result;
-        const { id, displayName, dp } = user;
-        console.log("Login result: ", result);
 
-        const new_user = {token : token, id, displayName, dp};
-        this.setState({new_user});
+        if(!result.status){
+          alert("Wrong credentials!");
+          return;
+        }
+
+        let { user, token } = result;
+        user.token = token;
+        localStorage.setItem('ot-user', JSON.stringify(user));
+        
+        this.setState({user});
     })
     .catch( err => {
         console.error("Login Error", err);
-        const user = {id: 123, token: 1234, displayName: "Walter Kimaro", dp: "https://olbongo.blob.core.windows.net/olbongo/cache/f7/d3/f7d3935a5a673db483a59b9fa3c104cd.jpg"};
-        this.setState({user});
+        alert("Wrong credentials");
     });
   }
 

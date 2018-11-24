@@ -7,23 +7,13 @@ class PostComments extends React.Component {
     state = { initial_fetch: false, comments: [] };
 
     componentDidMount(){
-        const { comments } = this.props;
+        const { comments, loading } = this.props;
         this.setState({ comments });
-    }
-
-    toggleLiked = (comment, index) => {
-        const isLiked = comment.is_liked;
-        comment.is_liked = !isLiked;
-        comment.total_likes += isLiked ? -1 : 1;
-
-        let new_comments = [...this.state.comments]
-        new_comments.splice(index, 1, comment);
-
-        this.setState({ comments: new_comments });
     }
 
     render() { 
         const { comments, initial_fetch } = this.state;
+        const { loading } = this.props;
 
         return ( 
             <div className="ot-post-comments">
@@ -31,9 +21,20 @@ class PostComments extends React.Component {
 
                 {(comments.length > 0 || initial_fetch) && (
                     <React.Fragment>
-                        { comments.map( (comment, index) => <PostComment key={comment.id} comment={comment} onToggleLiked={() => this.toggleLiked(comment, index) } />) }
+                        { comments.map( (comment, index) => 
+                            <PostComment 
+                                key={comment.id} 
+                                comment={comment} 
+                                onToggleLiked={() => this.props.onToggleCommentLiked(index) } />) 
+                        }
                     </React.Fragment>
                 )}
+
+                { loading && (
+                    <span className="ot-comments-loader">
+                        { comments.length > 0 ? 'loading more comments....' : 'loading comments....'}
+                    </span>
+                ) }
             </div>
         );
     }

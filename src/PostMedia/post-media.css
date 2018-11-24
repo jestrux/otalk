@@ -79,6 +79,9 @@
 .ot-post-video{
     position: relative;
     background: #ddd;
+}
+
+.ot-post-video.for-youtube{
     padding-bottom: calc(900% / 16);
 }
 
@@ -88,4 +91,8 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.ot-post-video video{
+    width: 100%;
 }
