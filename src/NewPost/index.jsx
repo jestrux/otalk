@@ -26,6 +26,7 @@ class NewPost extends React.Component {
                 <TextareaAutosize rows={1} />
 
                 <NewPostMedia
+                    images={images}
                     onImageLoaded={this.imageLoaded } />
             </div>
         );
