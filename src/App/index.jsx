@@ -5,6 +5,7 @@ import axios from "axios";
 
 import Login from '../Login';
 import Header from '../Header';
+import NewPost from '../NewPost';
 import PostList from '../PostList';
 
 class App extends React.Component {
@@ -75,7 +76,8 @@ class App extends React.Component {
                 <Login onLogin={this.login} /> 
             )}
 
-            { user_logged_in && <PostList user={ user } /> }
+            { user_logged_in && <NewPost user={ user } /> }
+            {/* { user_logged_in && <PostList user={ user } /> } */}
         </main>
       </div>
     );
