@@ -1,0 +1,124 @@
+.ot-new-post{
+    position: relative;
+    max-width: 660px;
+    margin: 2em auto;
+    margin-bottom: -0.5em;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #e6e6e6;
+}
+
+.ot-new-post-button-wrapper{
+    padding: 0.4em 1em;
+}
+
+.ot-new-post-button-wrapper:not(.visible){
+    display: none;
+}
+
+.ot-new-post.dragging{
+    /* min-height: 300px; */
+    pointer-events: none;
+}
+
+.ot-new-post::after{
+    content: 'DROP FILES HERE';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.75);
+    border: 4px dashed #555;
+    z-index: 1;
+    transition: opacity 0.25s ease-out;
+}
+
+.ot-new-post:not(.dragging)::after{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ot-new-post-wrapper{
+    padding: 0.7em;
+    position: relative;
+}
+
+.ot-new-post-text{
+    width: 100%;
+    padding: 0.5em;
+    font-size: 1.1em;
+    resize: none !important;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.ot-new-post-images{
+    padding: 0.3em;
+}
+
+.ot-new-post.dragging .ot-new-post-media{
+    min-height: 135px;
+}
+
+.ot-new-post-image{
+    background-color: #ccd6dd;
+    border: 1px solid #e6ecf0;
+    border-radius: 6px;
+    box-shadow: inset 0 1px 0 rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.5);
+    width: 130px;
+    height: 130px;
+    position: relative;
+    margin: 0.3em;
+}
+
+.ot-new-post-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ot-new-post-image:after{
+    content: 'LOADING...';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-size: 0.85em;
+    letter-spacing: 0.05em;
+}
+
+.ot-new-post-image:not(.loading):not(.is-temp):after{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ot-new-post-image.is-temp:not(.loading):after{
+    content: 'UPLOADING...';
+    color: var(--primary-color);
+}
+
+.ot-new-post-image .ot-btn.action{
+    position: absolute;
+    top: 0.2em;
+    right: 0.2em;
+    background: #000;
+    width: 22px;
+    height: 22px;
+}
+
+.ot-new-post-image .ot-btn.action svg{
+    fill: #fff;
+    width: 14px;
+    height: 14px;
+}

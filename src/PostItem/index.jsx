@@ -19,7 +19,7 @@ const PostItem = (props) => {
     comment_text += ( total_comments != 1) ? 's' : '';
 
     function handleShowComments(){
-        if(total_comments > 0 && total_comments !== comments.length)
+        if(comments && total_comments > 0 && total_comments !== comments.length)
             props.onShowComments()
     }
 
@@ -67,7 +67,7 @@ const PostItem = (props) => {
                     onClick={ handleShowComments }>{ comment_text }</small>
             </div>
 
-            { (comments.length > 0 || fetching_comments) && (
+            { ((comments && comments.length > 0) || fetching_comments) && (
                 <PostComments comments={comments} loading={fetching_comments}
                     onToggleCommentLiked={props.onToggleCommentLiked} />
             ) }

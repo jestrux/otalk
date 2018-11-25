@@ -8,6 +8,8 @@ import sample_posts from './posts';
 import { API_BASE_URL } from '../constants';
 
 import PostItem from "../PostItem";
+import NewPost from '../NewPost';
+import { notification, notify } from '../Notifications';
 
 class PostList extends React.Component {
     state = { initial_fetch: false, posts: [] };
@@ -107,6 +109,16 @@ class PostList extends React.Component {
             });
     }
     
+    newPost = (post) => {
+        let new_posts = [...this.state.posts];
+        new_posts.unshift(post);
+
+        console.log(post, new_posts);
+        notify( notification(`Your post has been submitted`) )
+
+        this.setState({ posts: new_posts });
+    }
+
     addComment = (post, index, content) => {
         let post_copy = {...post}
         const comment_index = post_copy.comments.length;
@@ -216,21 +228,25 @@ class PostList extends React.Component {
         const { user } = this.props;
 
         return ( 
-            <div className="ot-post-list">
-                {!initial_fetch && <span>Fetching posts....</span>}
+            <React.Fragment>
+                <NewPost user={ user } onNewPost={ this.newPost } />
+            
+                <div className="ot-post-list">
+                    {!initial_fetch && <span>Fetching posts....</span>}
 
-                {initial_fetch && (
-                    <React.Fragment>
-                        { posts.map( (post, index) => 
-                            <PostItem key={post.id} post={post} user={user}
-                                onToggleLiked={ () => this.toggleLiked(post, index) }
-                                onNewComment={ (comment) => this.addComment(post, index, comment) }
-                                onToggleCommentLiked={ (comment_index) => this.toggleCommentLiked(post, index, comment_index) }
-                                onShowComments={ () => this.showComments(post, index) } />
-                        )}
-                    </React.Fragment>
-                )}
-            </div>
+                    {initial_fetch && (
+                        <React.Fragment>
+                            { posts.map( (post, index) => 
+                                <PostItem key={post.id} post={post} user={user}
+                                    onToggleLiked={ () => this.toggleLiked(post, index) }
+                                    onNewComment={ (comment) => this.addComment(post, index, comment) }
+                                    onToggleCommentLiked={ (comment_index) => this.toggleCommentLiked(post, index, comment_index) }
+                                    onShowComments={ () => this.showComments(post, index) } />
+                            )}
+                        </React.Fragment>
+                    )}
+                </div>
+            </React.Fragment>
         );
     }
 }
