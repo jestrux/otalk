@@ -117,6 +117,32 @@ body {
     height: 20px;
 }
 
+.ot-btn.fab{
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-color);
+    box-shadow: none;
+    padding: 0;
+    outline: none;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 50;
+
+    transition: transform 0.35s ease-out;
+}
+
+.ot-btn.fab svg{
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+}
+
 .ot-btn.flat.primary{
     color: var(--primary-color);
 }
