@@ -31,6 +31,7 @@ class PostList extends React.Component {
             
         axios.get(API_BASE_URL + '/wall/', { params })
         .then(({data}) => {
+            console.log("Fetch posts result", data);
             this.setState({posts: data, initial_fetch: true})
         })
         .catch((err) => {
@@ -224,11 +225,11 @@ class PostList extends React.Component {
     }
 
     render() { 
-        const { posts, initial_fetch } = this.state;
+        const { scrolled, posts, initial_fetch } = this.state;
         const { user } = this.props;
 
         return ( 
-            <React.Fragment>
+            <div className={ 'ot-post-list-wrapper ' + ( scrolled ? 'scrolled' : '' )}>
                 <NewPost user={ user } onNewPost={ this.newPost } />
             
                 <div className="ot-post-list">
@@ -246,7 +247,7 @@ class PostList extends React.Component {
                         </React.Fragment>
                     )}
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }

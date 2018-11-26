@@ -6,14 +6,17 @@ import { slice } from 'lodash'
 
 import axios, { post as aPost } from 'axios';
 
+import PostVideo, { _parseYoutubeURL, _getEmbedUrl } from "../PostMedia/PostVideo";
+
 import TextareaAutosize from 'react-autosize-textarea';
+import NewPostMobile from "./NewPostMobile";
 import NewPostMedia from "./NewPostMedia";
 
 import { notification, notify } from '../Notifications';
 import { API_BASE_URL } from '../constants';
 
 class NewPost extends React.Component {
-    state = { dragover: false, focused: false, content: '', images: [], videos: [] }
+    state = { creatingOnMobile: false, dragover: false, focused: false, content: '', images: [], videos: [] }
 
     constructor(props){
         super(props);
@@ -24,6 +27,21 @@ class NewPost extends React.Component {
         window.addEventListener("dragover", this.FileDragHover, false);
         window.addEventListener("dragleave", this.FileDragHover, false);
         window.addEventListener("drop", this.FileSelectHandler, false);
+
+        this._isMounted = true;
+        window.onpopstate = () => {
+            console.log("State popped!");
+            if(this._isMounted) {
+                const { hash } = window.location;
+                console.log("Popstate hash: ", hash);
+                if(hash.indexOf('creatingOnMobile') === -1 && this.state.creatingOnMobile)
+                    this.setState({creatingOnMobile: false})
+            }
+        }
+    }
+
+    closeCreate = () => {
+        window.history.back();
     }
 
     FileDragHover = (e) => {
@@ -104,10 +122,34 @@ class NewPost extends React.Component {
 
     setFocus = (state) => {
         this.setState({focused: state});
+
+        if(state){
+            if(window.innerWidth < 541){
+                this.openMobileCreate();
+            }
+        }
+    }
+
+    openMobileCreate = () => {
+        window.history.pushState({}, '', '#creatingOnMobile');
+        this.setState({creatingOnMobile: true})
     }
     
     handleChange = (event) => {
-        this.setState({content: event.target.value});
+        const content = event.target.value;
+        const video_index = content.indexOf("https");
+        const video = content.substr(video_index, content.length);
+
+        this.setState({content}, () => {
+            if(video_index !== -1 && _parseYoutubeURL(video)){
+                let new_videos = [...this.state.videos];
+                new_videos.push({ video });
+    
+                this.setState({ videos: new_videos });
+    
+                this.setState({content: content.replace(video, "")});
+            }
+        });
     }
     
     handleKeyup = (event) => {
@@ -139,6 +181,19 @@ class NewPost extends React.Component {
             const photo = this.state.images[0].file;
             formData.append('photo', photo);
         }
+        
+        if(this.state.videos.length){
+            // const photos = this.state.images.map( i => { 
+            //     i.photo = i.file;
+            //     return i;
+            // });
+            // formData.append('photo_list', photos);
+
+            const video = this.state.videos[0].video;
+            // console.log("Post vidfeo: ", video);
+            // formData.append('video', video);
+            formData.set('content', this.state.content + video);
+        }
 
         const params = { token: this.props.user.token };
         this.sendPost(API_BASE_URL + '/publish_post/', formData, params)
@@ -169,40 +224,63 @@ class NewPost extends React.Component {
 
     render() {
         const { user } = this.props;
-        const { dragover, focused, content, images, videos } = this.state;
+        const { creatingOnMobile, dragover, focused, content, images, videos } = this.state;
         const has_media = images.length || videos.length;
         const media_type = has_media ? images.length ? 'image' : 'video' : null;
 
-        return ( 
-            <div ref={this.wrapper} className={ 'ot-new-post ' + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
-                <div className="ot-new-post-wrapper layout">
-                    <div className="ot-dp">
-                        <img src={user.dp} alt=""/>
-                    </div>
-
-                    <TextareaAutosize 
-                        placeholder="Share your inisights..." className="ot-new-post-text" rows={1}
+        return (
+            <React.Fragment>
+                { creatingOnMobile && 
+                    <NewPostMobile
+                        user={user}
+                        content={content}
+                        images={images} 
+                        videos={videos}
                         onFocus={ () => this.setFocus(true) }
                         onBlur={ () => this.setFocus(false) }
                         onChange={this.handleChange}
                         onKeyUp={this.handleKeyup}
-                        value={content} />
+                        onFilesPicked={this.FileSelectHandler}
+                        onRemoveImage={this.removeImage}
+                        onSubmitClicked={this.submitClicked}
+                        onBackClicked={this.closeCreate} />
+                }
+
+                <div ref={this.wrapper} className={ 'ot-new-post ' + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
+                    <div className="ot-new-post-wrapper layout">
+                        <div className="ot-dp">
+                            <img src={user.dp} alt=""/>
+                        </div>
+
+                        <TextareaAutosize 
+                            placeholder="Share your inisights..." className="ot-new-post-text" rows={1}
+                            onFocus={ () => this.setFocus(true) }
+                            onBlur={ () => this.setFocus(false) }
+                            onChange={this.handleChange}
+                            onKeyUp={this.handleKeyup}
+                            value={content} />
+                    </div>
+
+                    <NewPostMedia
+                        token={user.token}
+                        videos={videos}
+                        images={images}
+                        onImageLoaded={this.imageLoaded}
+                        onImageUpLoaded={this.imageUpLoaded}
+                        onRemoveImage={this.removeImage} />
+
+                    <div className={'layout end-justified ot-new-post-button-wrapper' + (content.length || focused ? ' visible' : '')}>
+                        <button className={'ot-btn flat' + (!content.length ? ' disabled' : '') }
+                            onClick={ this.submitClicked }>
+                            POST
+                        </button>
+                    </div>
                 </div>
 
-                <NewPostMedia
-                    token={user.token}
-                    images={images}
-                    onImageLoaded={this.imageLoaded}
-                    onImageUpLoaded={this.imageUpLoaded}
-                    onRemoveImage={this.removeImage} />
-
-                <div className={'layout end-justified ot-new-post-button-wrapper' + (content.length || focused ? ' visible' : '')}>
-                    <button className={'ot-btn flat' + (!content.length ? ' disabled' : '') }
-                        onClick={ this.submitClicked }>
-                        POST
-                    </button>
-                </div>
-            </div>
+                <button className="ot-btn fab ot-post-creator-fab" onClick={this.openMobileCreate}>
+                    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </button>
+            </React.Fragment> 
         );
     }
 }

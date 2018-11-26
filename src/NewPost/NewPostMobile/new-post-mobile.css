@@ -1,0 +1,81 @@
+.ot-new-post-mobile{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    z-index: 100;
+}
+
+.ot-new-post-mobile-nav{
+    padding: 0.5em;
+    padding-left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.ot-new-post-mobile-nav .ot-btn.action,
+.ot-new-post-mobile-actions .ot-btn.action{
+    width: 40px;
+    height: 40px;
+    padding-bottom: 2px;
+    margin-right: 1em;
+}
+
+.ot-new-post-mobile-nav .ot-btn.action svg,
+.ot-new-post-mobile-actions .ot-btn.action svg{
+    width: 24px;
+    height: 24px;
+}
+
+.ot-new-post-mobile-nav span{
+    font-size: 1.2em;
+}
+
+.ot-new-post-mobile-actions{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 100;
+    border-top: 1px solid #e5e5e5;
+    padding: 0.7em 0.8em;
+}
+
+.ot-new-post-mobile-actions .ot-btn.action{
+    width: 35px;
+    height: 35px;
+    padding-bottom: 2px;
+    margin-right: 1em;
+}
+
+.ot-new-post-mobile-actions .ot-btn.action svg{
+    width: 20px;
+    height: 20px;
+}
+
+.ot-new-post-mobile-actions .ot-btn.action{
+    background: #e0e0e0;
+}
+
+#mobileImages{
+    display: none;
+}
+
+.ot-new-post-mobile-content .ot-new-post-wrapper{
+    margin-bottom: 0.5em;
+}
+
+.ot-new-post-mobile-content{
+    position: fixed;
+    top: 56px;
+    bottom: 59px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

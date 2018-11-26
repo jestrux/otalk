@@ -16,3 +16,9 @@
 .ot-header-title{
     font-size: 1.4em;
 }
+
+@media screen and (max-width: 540px){
+    .ot-header{
+        padding: 0 0.5em;
+    }
+}

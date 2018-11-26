@@ -68,7 +68,7 @@ class App extends React.Component {
 
                 <main>
                     { !user_logged_in && user_fetched && ( 
-                        <Login onLogin={this.login} /> 
+                        <Login user={user} onLogin={this.login} /> 
                     )}
 
                     { user_logged_in && <PostList user={ user } /> }

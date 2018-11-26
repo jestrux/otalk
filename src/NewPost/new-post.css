@@ -50,6 +50,7 @@
 .ot-new-post-text{
     width: 100%;
     padding: 0.5em;
+    font-family: 'OpenSans', sans-serif;
     font-size: 1.1em;
     resize: none !important;
     background: transparent;
@@ -121,4 +122,15 @@
     fill: #fff;
     width: 14px;
     height: 14px;
+}
+
+@media screen and (max-width: 500px){
+    .ot-new-post-wrapper {
+        padding: 0.7em 0.5em;
+        position: relative;
+    }
+    .ot-new-post {
+        margin: 1em auto;
+        margin-bottom: -1em;
+    }
 }

@@ -97,3 +97,10 @@
 .ot-post-reactions span:last-child{
     margin-right: 0;
 }
+
+@media screen and (max-width: 540px){
+    .ot-post-item-title {
+        padding: 0.5em;
+        margin-top: 0.5em;
+    }
+}

@@ -58,10 +58,19 @@
     background-size: 12px;
 }
 
+.ot-input-box input:-webkit-autofill{
+    background: #f0f0f0;
+}
+
+input:-webkit-autofill {
+    transition: background-color 0.1s ease-in-out 0s;
+}
+
 .ot-input-box input:focus,
-.ot-input-box input:valid,
+.ot-input-box input.valid,
+.ot-input-box input:-webkit-autofill,
 .ot-input-box select:focus,
-.ot-input-box select:valid {
+.ot-input-box select.valid {
     border-bottom-color: var(--primary-color);
 }
 
@@ -78,13 +87,13 @@
 }
 
 .ot-input-box input:focus + label,
-.ot-input-box input:valid + label{
+.ot-input-box input.valid + label{
     opacity: 1;
     transform: scale(0.7) translate3d(-1em, -1em, 0)
 }
 
 .ot-input-box select:focus+label,
-.ot-input-box select:valid+label {
+.ot-input-box select.valid+label {
     opacity: 1;
     transform: scale(0.7) translate3d(-1.3em, -1em, 0)
 }

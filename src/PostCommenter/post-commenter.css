@@ -42,3 +42,10 @@
     opacity: 0;
     pointer-events: none;
 }
+
+@media screen and (max-width: 500px){
+    .ot-post-commenter {
+        padding: 0.5em 1.1em;
+        padding-left: 0.7em;
+    }
+}

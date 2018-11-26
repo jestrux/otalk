@@ -10,3 +10,14 @@
 .ot-post-item{
     margin-bottom: 1.5em;
 }
+
+.ot-post-list-wrapper:not(.scrolled) .ot-post-creator-fab{
+    /* transform: scale(0); */
+    /* pointer-events: none; */
+}
+
+@media screen and (min-width: 541px){
+    .ot-post-creator-fab{
+        display: none;
+    }
+}
