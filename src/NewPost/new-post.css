@@ -89,11 +89,16 @@
     padding: 0.3em;
 }
 
+.ot-new-post-media{
+    overflow-x: auto;
+}
+
 .ot-new-post.dragging .ot-new-post-media{
     min-height: 135px;
 }
 
 .ot-new-post-image{
+    flex-shrink: 0;
     background-color: #ccd6dd;
     border: 1px solid #e6ecf0;
     border-radius: 6px;
