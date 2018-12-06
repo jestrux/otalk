@@ -79,7 +79,8 @@ class NewPostMobile extends React.Component {
                             token={user.token}
                             videos={videos}
                             images={images}
-                            onRemoveImage={this.props.onRemoveImage} />
+                            onRemoveImage={this.props.onRemoveImage}
+                            onRemoveVideo={this.props.onRemoveVideo} />
                     </div>
                     
                     <div className="ot-new-post-mobile-actions layout center-center">
