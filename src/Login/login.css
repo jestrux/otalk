@@ -106,3 +106,34 @@ input:-webkit-autofill {
     margin: 0;
     outline: none;
 }
+
+@media all and (max-width: 540px){
+    @media all and (max-width: 540px){
+        .ot-login-page{
+            background: #fff;
+        }
+    }
+    .ot-login-form{
+        width: 100vw !important;
+        padding: 0 2.5em !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    .ot-login-title{
+        flex-direction: column;
+    }
+    
+    .ot-login-form .ot-login-title img{
+        margin-right: 0;
+        margin-bottom: 0.6em;
+        width: 100px;
+        height: 100px;
+    }
+
+    .ot-btn{
+        width: 100%;
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+}

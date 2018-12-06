@@ -3,7 +3,7 @@ import './app.css';
 
 import axios from "axios";
 
-import Notifications from '../Notifications';
+import Notifications, { notify, notification } from '../Notifications';
 
 import Login from '../Login';
 import Header from '../Header';
@@ -35,9 +35,9 @@ class App extends React.Component {
         .then( response => {
             const result = response.data;
 
-            if(!result.status){
-            alert("Wrong credentials!");
-            return;
+            if(!result.status){    
+                notify( notification("Wrong credentials!") )
+                return;
             }
 
             let { user, token } = result;
@@ -48,12 +48,13 @@ class App extends React.Component {
         })
         .catch( err => {
             console.error("Login Error", err);
-            alert("Wrong credentials");
+            notify( notification("Wrong credentials!") )
         });
     }
 
-    viewProfile = () => {
-        console.log("View profile");
+    logout = () => {
+        localStorage.removeItem('ot-user');
+        this.setState({user_fetched: true, user: null});
     }
   
     render() { 
@@ -63,7 +64,7 @@ class App extends React.Component {
             <div className="ot-app-wrapper" context="counter1">
                 <Notifications />
                 { user_logged_in && ( 
-                    <Header dp={user.dp} onViewProfile={ this.viewProfile } />
+                    <Header dp={user.dp} onLogout={ this.logout } />
                 )}
 
                 <main>

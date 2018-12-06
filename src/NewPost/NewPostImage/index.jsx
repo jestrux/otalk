@@ -15,17 +15,22 @@ class NewPostImage extends React.Component {
 
     componentWillReceiveProps(props){
         const { image } = props;
-        const { file } = image;
+        const { file, src } = image;
 
         if(!this.state.was_setup && image){
             this.setState({ image, was_setup: true })
-            this.processImage(file);
-            // this.uploadImage(file);
-            // loader(file).then(img => {
-                // console.log("Loaded image", img);
-                // this.props.onImageLoaded(img);
-                // this.ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
-            // });
+
+            if(file){
+                this.processImage(file);
+                this.uploadImage(file);
+                // loader(file).then(img => {
+                    // console.log("Loaded image", img);
+                    // this.props.onImageLoaded(img);
+                    // this.ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
+                // });
+            }else{
+                this.uploadImage(src);
+            }
         }
     }
 
@@ -61,9 +66,9 @@ class NewPostImage extends React.Component {
         const params = { token: this.props.token };
         this.fileUpload(API_BASE_URL + '/upload_post_images/', file, 'photo', params)
             .then(({data}) => {
-                // const response = data[0];
-                console.log("Upload image result: ", data);
-                // this.props.onImageUpLoaded( response );
+                const response = data.images[0];
+                console.log("Upload image result: ", response);
+                this.props.onImageUpLoaded( response );
             })
             .catch((error) => {
                 let err = "";
@@ -82,8 +87,8 @@ class NewPostImage extends React.Component {
     render() {
         const { image } = this.props;
         const { id, src, loading } = image;
-        // const is_temp = id.toString().indexOf('ot-temp-id') !== -1;
-        const is_temp = false;
+        const is_temp = id.toString().indexOf('ot-temp-id') !== -1;
+        // const is_temp = false;
         return ( 
             <div className={'ot-new-post-image ' + ( loading ? 'loading' : '' ) + ( is_temp ? ' is-temp' : '' )}>
                 <img src={src} alt=""/>

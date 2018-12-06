@@ -5,11 +5,11 @@ import NotificationItem from './NotificationItem';
 
 export const notification = (message, ...rest) => {
     const options = rest && rest.length ? rest[0] : {};
-    return new CustomEvent('notification', { detail: { message, options: options } })
+    return new CustomEvent('ot-notification', { detail: { message, options: options } })
 }
 
 export const notify = ( event ) => {
-    document.querySelector(".ot-notifications-wrapper").dispatchEvent(event);
+    document.dispatchEvent(event);
 }
 
 class Notifications extends React.Component {
@@ -20,9 +20,8 @@ class Notifications extends React.Component {
     }
 
     componentDidMount(){
-        document.querySelector(".ot-notifications-wrapper").addEventListener('notification', (e) => {
-            const { message, options } = e.detail;
-            const _notification = { message, ...options };
+        document.addEventListener('ot-notification', (e) => {
+            const _notification = e.detail;
             _notification.id = 'ot-notif-' + Math.random().toString(36).substr(2, 5);
 
             this.showNotification(_notification)

@@ -8,72 +8,143 @@
 }
 
 .ot-post-images .ot-post-image{
-    min-height: 200px;
     background: #ddd;
     position: relative;
 }
 
 .ot-post-images img{
     width: 100%;
-    max-height: 360px;
     object-fit: cover;
-    object-position: center;
+    object-position: top;
 }
 
 .ot-post-images.two-image-grid,
-.ot-post-images.three-image-grid{
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -0.1em;
+.ot-post-images.three-image-grid,
+.ot-post-images.four-image-grid,
+.ot-post-images.five-image-grid{
+    height: 530px;
+    position: relative;
+    margin: 0 -1.5px;
 }
 
-.ot-post-images.three-image-grid:before,
-.ot-post-images.three-image-grid:after{
+.ot-post-images.five-image-grid{
+    height: 660px;
+}
+
+.ot-post-images.two-image-grid,
+.ot-post-images.four-image-grid{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ot-post-images.two-image-grid .ot-post-image,
+.ot-post-images.three-image-grid .ot-post-image,
+.ot-post-images.four-image-grid .ot-post-image,
+.ot-post-images.five-image-grid .ot-post-image{
+    width: 50%;
+    width: calc(50% - 3px);
+    margin: 0 1.5px;
+}
+
+.ot-post-images.three-image-grid .ot-post-image,
+.ot-post-images.four-image-grid .ot-post-image,
+.ot-post-images.five-image-grid .ot-post-image{
+    margin: 1.5px;
+    height: 50%;
+    height: calc(50% - 3px);
+}
+
+.ot-post-images.three-image-grid .ot-post-image:nth-child(1){
+    height: 100%;
+    height: calc(100% - 1.5px);
+}
+
+.ot-post-images.three-image-grid .ot-post-image:nth-child(n + 2){
+    position: absolute;
+    top: 0;
+    left: 50%;
+}
+
+.ot-post-images.three-image-grid .ot-post-image:nth-child(3){
+    top: 50%;
+}
+
+.ot-post-images.five-image-grid .ot-post-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ot-post-images.five-image-grid .ot-post-image:nth-child(2){
+    top: 50%;
+}
+
+.ot-post-images.five-image-grid .ot-post-image:nth-child(n + 3){
+    left: 50%;
+    min-height: 0;
+    height: 33.333%;
+    height: calc(33.333% - 3px);
+}
+
+.ot-post-images.five-image-grid .ot-post-image:nth-child(4){
+    top: 33.333%;
+    /* top: calc(33.333% + 1.5px); */
+}
+
+.ot-post-images.five-image-grid .ot-post-image:nth-child(5){
+    top: 66.666%;
+    /* top: calc(66.666% + 3px); */
+}
+
+.ot-post-images.two-image-grid img,
+.ot-post-images.three-image-grid img,
+.ot-post-images.four-image-grid img,
+.ot-post-images.five-image-grid img{
+    height: 100%;
+}
+
+.ot-post-images.has-more:before,
+.ot-post-images.has-more:after{
     content: '';
     display: flex;
     align-items: center;
     justify-content: center;
     letter-spacing: 0.05em;
     position: absolute;
-    right: 0.08em;
+    left: 50%;
     bottom: 0.16em;
-    height: 200px;
-    width: calc(50% - 0.16em);
+    height: 50%;
+    height: calc(50% - 3px);
+    width: 50%;
+    width: calc(50% - 3px);
     z-index: 1;
-    background: rgba(0, 0, 0, 0.7);
-    opacity: 0.5;
+    background: rgba(0, 0, 0, 1);
+    opacity: 0.58;
     transition: opacity 0.2s ease-out;
 }
 
-.ot-post-images.three-image-grid:after{
+.ot-post-images.has-more:after{
     content: '+ ' attr(extras) ' more';
-    font-size: 0.9em;
+    font-size: 1.6em;
     color: #fff;
-    left: 50%;
+    left: 75%;
+    transform: translateX(-50%);
     top: 50%;
-    margin: auto;
-    width: 70px;
-    height: 30px;
+    top: calc(50% + 1.5px);
+    width: auto;
+    margin: auto 0;
+    padding: 0 1em;
     letter-spacing: 0.07em;
     z-index: 1;
-    border-bottom: 1px solid #fff;
     cursor: pointer;
     opacity: 1;
+    background: transparent;
+    text-align: center;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 1);
 }
 
-.ot-post-images.three-image-grid:hover:before{
-    opacity: 1;
-}
-
-
-.ot-post-images.two-image-grid .ot-post-image,
-.ot-post-images.three-image-grid .ot-post-image{
-    width: calc(50% - 0.16em);
-    margin: 0.08em;
-}
-
-.ot-post-images.three-image-grid img{
-    height: 200px;
+.ot-post-images.has-more:hover:before{
+    opacity: 0.7;
 }
 
 .ot-post-video{
@@ -95,4 +166,15 @@
 
 .ot-post-video video{
     width: 100%;
+}
+
+@media all and (max-width: 540px){
+    .ot-post-images.two-image-grid,
+    .ot-post-images.three-image-grid,
+    .ot-post-images.four-image-grid,
+    .ot-post-images.five-image-grid{
+        height: 100vw;
+        position: relative;
+        margin: 0 -8px;
+    }
 }

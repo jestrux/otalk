@@ -6,18 +6,35 @@ const PostImage = ( props ) => {
     let extras = ''; 
 
     if(images.length > 1){
-        templateClass = ( images.length > 2 ) ? 'three-image' : 'two-image';
-        templateClass += '-grid';
-        if(images.length > 3)
+        switch (images.length) {
+            case 2:
+                templateClass = 'two';
+                break;
+            case 3:
+                templateClass = 'three';
+                break;
+            case 4:
+                templateClass = 'four';
+                break;
+            case 5:
+                templateClass = 'five';
+                break;
+        
+            default:
+                break;
+        }
+        templateClass += '-image-grid';
+
+        if(images.length > 5)
             templateClass += ' has-more';
     
-        extras = images.length > 4 ? images.length - 4 : '';
+        extras = images.length > 5 ? images.length - 5 : '';
     }
 
     return ( 
         <div className={'ot-post-images ' + templateClass } extras={extras}>
             {   
-                images.slice(0, 4).map( i => 
+                images.slice(0, 5).map( i => 
                     <div key={i.id} className="ot-post-image">
                         <img src={i.photo} alt=""/> 
                     </div>

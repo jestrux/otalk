@@ -16,7 +16,7 @@ class PostList extends React.Component {
 
     componentDidMount(){
         const { user } = this.props;
-        this.setState({user});
+        // this.setState({user, posts: sample_posts, initial_fetch: true});
         this.setState({token: user.token}, () => {
             this.fetchUserPosts();
         });
@@ -36,7 +36,7 @@ class PostList extends React.Component {
         })
         .catch((err) => {
             console.error("Fetch posts Error", err);
-            this.setState({posts: sample_posts, initial_fetch: true});
+            this.setState({initial_fetch: true});
         });
 
     }
@@ -143,12 +143,13 @@ class PostList extends React.Component {
 
         this.setState({ posts: new_posts });
 
-        const params = { token: this.state.token, post_id: post.id, content };
+        const params = { token: this.state.token };
 
         axios({
             method: 'POST',
             url: API_BASE_URL + '/publish_comment/',
-            params
+            params,
+            data: { post_id: post.id, content }
         })
         .then(({data}) => {
             const response = data[0];

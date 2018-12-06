@@ -15,6 +15,7 @@ import NewPostMedia from "./NewPostMedia";
 import { notification, notify } from '../Notifications';
 import { API_BASE_URL } from '../constants';
 
+const MAX_IMAGE_COUNT = 5;
 class NewPost extends React.Component {
     state = { creatingOnMobile: false, dragover: false, focused: false, content: '', images: [], videos: [] }
 
@@ -38,10 +39,6 @@ class NewPost extends React.Component {
                     this.setState({creatingOnMobile: false})
             }
         }
-    }
-
-    closeCreate = () => {
-        window.history.back();
     }
 
     FileDragHover = (e) => {
@@ -96,6 +93,18 @@ class NewPost extends React.Component {
         this.setState({ images: new_images });
     }
 
+    handleAddPicture = (pic) => {
+        if(this.state.images.length === MAX_IMAGE_COUNT){
+            notify( notification(`You can not upload more than ${MAX_IMAGE_COUNT} images`) );
+            return;
+        }
+
+        const id = 'ot-temp-id' + Math.random().toString(36).substr(2, 5);
+        pic.lastModifiedDate = new Date();
+        pic.name = 'ot-file-' + Math.random().toString(36).substr(2, 5);
+        this.setState({ images: [...this.state.images, { id, file: pic, loading: true, src: ""}] });
+    }
+
     processFiles = (files) => {
         const valid_files = Array.from(files).filter(f => f.type.indexOf("image") !== -1);
         const images = valid_files.map( f => { 
@@ -103,12 +112,12 @@ class NewPost extends React.Component {
             return { id, file: f, loading: true, src: ""}; 
         });
 
-        let diff = 4 - this.state.images.length;
+        let diff = MAX_IMAGE_COUNT - this.state.images.length;
         if(diff < 0)
             diff = 0;
         
         if(diff < images.length){
-            notify( notification(`You can not upload more than 4 images`) )
+            notify( notification(`You can not upload more than ${MAX_IMAGE_COUNT} images`) )
         }
         this.setState({ images: this.state.images.concat(slice(images, 0, diff)) });
         
@@ -133,6 +142,11 @@ class NewPost extends React.Component {
     openMobileCreate = () => {
         window.history.pushState({}, '', '#creatingOnMobile');
         this.setState({creatingOnMobile: true})
+    }
+
+    closeMobileCreate = () => {
+        window.history.back();
+        this.setState({creatingOnMobile: false})
     }
     
     handleChange = (event) => {
@@ -160,43 +174,33 @@ class NewPost extends React.Component {
     sendPost = (url, formData, params) => {
         const config = {
             headers: {
-                'content-type': 'multipart/form-data'
+                'content-type': 'application/x-www-form-urlencode'
             },
             params
         }
         return aPost(url, formData, config)
     }
 
-    submitClicked = () => {
-        const formData = new FormData();
-        formData.append('content', this.state.content);
+    submitClicked = async () => {
+        let form_data = new FormData();
+        form_data.append('content', this.state.content);
 
         if(this.state.images.length){
-            // const photos = this.state.images.map( i => { 
-            //     i.photo = i.file;
-            //     return i;
-            // });
-            // formData.append('photo_list', photos);
-
-            const photo = this.state.images[0].file;
-            formData.append('photo', photo);
+            await this.state.images.map( i => { 
+                i.photo = i.file;
+                console.log(i.id);
+                form_data.append('photo_list', i.id);
+                return i.id;
+            });
         }
         
         if(this.state.videos.length){
-            // const photos = this.state.images.map( i => { 
-            //     i.photo = i.file;
-            //     return i;
-            // });
-            // formData.append('photo_list', photos);
-
-            const video = this.state.videos[0].video;
-            // console.log("Post vidfeo: ", video);
-            // formData.append('video', video);
-            formData.set('content', this.state.content + video);
+            // const video = this.state.videos[0].video;
+            // formData.set('content', this.state.content + video);
         }
 
         const params = { token: this.props.user.token };
-        this.sendPost(API_BASE_URL + '/publish_post/', formData, params)
+        this.sendPost(API_BASE_URL + '/publish_post/', form_data, params)
             .then(({data}) => {
                 const response = data[0];
                 console.log("Submit post result: ", response);
@@ -204,8 +208,10 @@ class NewPost extends React.Component {
 
                 if(response.status){
                     this.props.onNewPost(response.post);
-
-                    this.setState({ dragover: false, focused: false, content: '', images: [], videos: [] });
+                    if(this.state.creatingOnMobile){
+                        this.closeMobileCreate();
+                    }
+                    this.setState({ posting: false, dragover: false, focused: false, content: '', images: [], videos: [] });
                 }
             })
             .catch((error) => {
@@ -224,7 +230,7 @@ class NewPost extends React.Component {
 
     render() {
         const { user } = this.props;
-        const { creatingOnMobile, dragover, focused, content, images, videos } = this.state;
+        const { creatingOnMobile, posting, dragover, focused, content, images, videos } = this.state;
         const has_media = images.length || videos.length;
         const media_type = has_media ? images.length ? 'image' : 'video' : null;
 
@@ -236,6 +242,7 @@ class NewPost extends React.Component {
                         content={content}
                         images={images} 
                         videos={videos}
+                        posting={posting}
                         onFocus={ () => this.setFocus(true) }
                         onBlur={ () => this.setFocus(false) }
                         onChange={this.handleChange}
@@ -243,7 +250,8 @@ class NewPost extends React.Component {
                         onFilesPicked={this.FileSelectHandler}
                         onRemoveImage={this.removeImage}
                         onSubmitClicked={this.submitClicked}
-                        onBackClicked={this.closeCreate} />
+                        onBackClicked={this.closeMobileCreate}
+                        onAddPicture={this.handleAddPicture} />
                 }
 
                 <div ref={this.wrapper} className={ 'ot-new-post ' + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
