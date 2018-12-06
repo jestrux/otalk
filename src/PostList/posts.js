@@ -71,6 +71,10 @@ export default [
             {
                 id: "bufb90023",
                 photo: 'https://scontent.fnbo1-1.fna.fbcdn.net/v/t1.0-9/46508670_2278051698918885_7509086100363673600_o.jpg?_nc_cat=102&_nc_ht=scontent.fnbo1-1.fna&oh=de7ab2498d6fee182d43db28ca2e08e7&oe=5C653A40'
+            },
+            {
+                id: "9897b90023",
+                photo: 'https://scontent.fnbo1-1.fna.fbcdn.net/v/t1.0-9/46508670_2278051698918885_7509086100363673600_o.jpg?_nc_cat=102&_nc_ht=scontent.fnbo1-1.fna&oh=de7ab2498d6fee182d43db28ca2e08e7&oe=5C653A40'
             }
         ],
         videos: [],

@@ -16,10 +16,10 @@ class PostList extends React.Component {
 
     componentDidMount(){
         const { user } = this.props;
-        // this.setState({user, posts: sample_posts, initial_fetch: true});
-        this.setState({token: user.token}, () => {
-            this.fetchUserPosts();
-        });
+        this.setState({user, posts: sample_posts, initial_fetch: true});
+        // this.setState({token: user.token}, () => {
+        //     this.fetchUserPosts();
+        // });
     }
 
     fetchUserPosts = () => {
