@@ -8,6 +8,33 @@
     border: 1px solid #e6e6e6;
 }
 
+.ot-new-post:before{
+    content: 'POSTING...';
+    color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    font-size: 0.85em;
+    letter-spacing: 0.05em;
+}
+
+.ot-new-post:not(.posting):before{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ot-btn{
+    margin: 0;
+    outline: none;
+}
+
 .ot-new-post-button-wrapper{
     padding: 0.4em 1em;
 }
@@ -83,7 +110,8 @@
     object-fit: cover;
 }
 
-.ot-new-post-image:after{
+.ot-new-post-image:after,
+.ot-new-post-video:after{
     content: 'LOADING...';
     position: absolute;
     top: 0;
@@ -99,17 +127,20 @@
     letter-spacing: 0.05em;
 }
 
-.ot-new-post-image:not(.loading):not(.is-temp):after{
+.ot-new-post-image:not(.loading):not(.is-temp):after,
+.ot-new-post-video:not(.loading):not(.is-temp):after{
     opacity: 0;
     pointer-events: none;
 }
 
-.ot-new-post-image.is-temp:not(.loading):after{
+.ot-new-post-image.is-temp:not(.loading):after,
+.ot-new-post-video.is-temp:not(.loading):after{
     content: 'UPLOADING...';
     color: var(--primary-color);
 }
 
-.ot-new-post-image .ot-btn.action{
+.ot-new-post-image .ot-btn.action,
+.ot-new-post-video .ot-btn.action{
     position: absolute;
     top: 0.2em;
     right: 0.2em;
@@ -118,7 +149,8 @@
     height: 22px;
 }
 
-.ot-new-post-image .ot-btn.action svg{
+.ot-new-post-image .ot-btn.action svg,
+.ot-new-post-video .ot-btn.action svg{
     fill: #fff;
     width: 14px;
     height: 14px;

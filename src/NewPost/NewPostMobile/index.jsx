@@ -16,33 +16,14 @@ class NewPostMobile extends React.Component {
 
     componentDidMount(){
         if(this.inputField){
-            // this.inputField.current.focus();
-            console.log(this.inputField.current.textarea.focus());
+            this.inputField.current.textarea.focus();
         }
-
-        window.onpopstate = () => {
-            console.log("State popped!");
-            // if(this._isMounted) {
-                const { hash } = window.location;
-                console.log("Popstate hash: ", hash);
-                if(hash.indexOf('takingPicture') === -1 && this.state.takingPicture)
-                    this.setState({takingPicture: false})
-            // }
-        }
-    }
-
-    openCamera = () => {
-        window.history.pushState({}, '', '#creatingOnMobile/takingPicture');
-        this.setState({takingPicture: true})
     }
 
     closeCamera = () => {
-        window.history.back();
-        this.setState({takingPicture: false});
-
+        this.props.onCloseCamera();
         if(this.inputField){
-            // this.inputField.current.focus();
-            console.log(this.inputField.current.textarea.focus());
+            this.inputField.current.textarea.focus();
         }
     }
 
@@ -52,8 +33,7 @@ class NewPostMobile extends React.Component {
     }
 
     render() { 
-        const { user, content, videos, images } = this.props;
-        const { takingPicture } = this.state;
+        const { takingPicture, posting, user, content, videos, images } = this.props;
         return (
             <React.Fragment>
                 { takingPicture && 
@@ -64,7 +44,7 @@ class NewPostMobile extends React.Component {
                             onAddPicture={this.handleAddPicture} /> 
                     </Fullscreen>
                 }
-                <div className="ot-new-post-mobile">
+                <div className={'ot-new-post-mobile ' + ( posting ? 'posting ' : ' ')}>
                     <div className="ot-new-post-mobile-nav layout center">
                         <button className="ot-btn action" onClick={this.props.onBackClicked}>
                             <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
@@ -89,8 +69,6 @@ class NewPostMobile extends React.Component {
                                 ref={this.inputField} 
                                 placeholder="Share your inisights..." className="ot-new-post-text" rows={1}
                                 value={content}
-                                onFocus={ () => this.props.onFocus(true) }
-                                onBlur={ () => this.props.onBlur(false) }
                                 onChange={this.props.onChange}
                                 onKeyUp={this.props.onKeyUp} />
 
@@ -111,7 +89,7 @@ class NewPostMobile extends React.Component {
                             ADD FILES
                         </label>
                         &emsp;&emsp;
-                        <button className="ot-btn flat" onClick={this.openCamera}>
+                        <button className="ot-btn flat" onClick={this.props.onOpenCamera}>
                             {/* <svg viewBox="0 0 24 24"><path d="M19 7v2.99s-1.99.01-2 0V7h-3s.01-1.99 0-2h3V2h2v3h3v2h-3zm-3 4V8h-3V5H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8h-3zM5 19l3-4 2 3 3-4 4 5H5z"/></svg> */}
                             TAKE PICTURE
                         </button>

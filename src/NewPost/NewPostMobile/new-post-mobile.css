@@ -79,3 +79,25 @@
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+.ot-new-post-mobile:after{
+    content: 'POSTING...';
+    color: var(--primary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    font-size: 1.05em;
+    letter-spacing: 0.08em;
+}
+
+.ot-new-post-mobile:not(.posting):after{
+    opacity: 0;
+    pointer-events: none;
+}

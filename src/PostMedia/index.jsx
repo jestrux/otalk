@@ -13,7 +13,7 @@ const PostMedia = (props) => {
             {/* <PostImages images={images} /> */}
             {/* <PostVideo videos={videos} /> */}
             { images.length > 0 && (<PostImages images={images} /> ) }
-            { !images.length && videos.length > 0 && ( <PostVideo videos={videos} /> )}
+            { !images.length && videos.length > 0 && ( <PostVideo video={videos[0]} /> )}
         </div>
     );
 }

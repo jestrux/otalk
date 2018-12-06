@@ -16,9 +16,8 @@ export function _getEmbedUrl(url) {
 }
 
 const PostVideo = ( props ) => {
-    const { videos } = props;
-    const video = videos.length ? videos[0] : null;
-    const is_youtube_url = videos.length ? _parseYoutubeURL(video.video) : false;
+    const { video } = props;
+    const is_youtube_url = video ? _parseYoutubeURL(video.video) : false;
 
     let url = "";
     let embed = "";

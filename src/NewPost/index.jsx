@@ -17,7 +17,7 @@ import { API_BASE_URL } from '../constants';
 
 const MAX_IMAGE_COUNT = 5;
 class NewPost extends React.Component {
-    state = { creatingOnMobile: false, dragover: false, focused: false, content: '', images: [], videos: [] }
+    state = { creatingOnMobile: false, takingPicture: false, posting: false, dragover: false, focused: false, content: '', images: [], videos: [] }
 
     constructor(props){
         super(props);
@@ -34,9 +34,12 @@ class NewPost extends React.Component {
             console.log("State popped!");
             if(this._isMounted) {
                 const { hash } = window.location;
-                console.log("Popstate hash: ", hash);
+                console.log("Popstate hash: ", hash, hash.indexOf('creatingOnMobile'));
                 if(hash.indexOf('creatingOnMobile') === -1 && this.state.creatingOnMobile)
                     this.setState({creatingOnMobile: false})
+
+                if(hash.indexOf('takingPicture') === -1 && this.state.takingPicture)
+                    this.setState({takingPicture: false})
             }
         }
     }
@@ -63,6 +66,17 @@ class NewPost extends React.Component {
         this.processFiles(files);
     }
 
+    openCamera = () => {
+        console.log("Opening camera....");
+        window.history.pushState({takingPicture: true}, 'takingPicture', '#creatingOnMobile/takingPicture');
+        this.setState({takingPicture: true})
+    }
+
+    closeCamera = () => {
+        window.history.back();
+        this.setState({takingPicture: false});
+    }
+
     imageLoaded = (image, index, src) => {
         let new_images = [...this.state.images]
 
@@ -83,6 +97,18 @@ class NewPost extends React.Component {
         new_images.splice(index, 1, image);
 
         this.setState({ images: new_images });
+    }
+    
+    videoUpLoaded = (res) => {
+        let new_videos = [...this.state.videos];
+        let video = new_videos[0];
+        video.id = res.id;
+
+        this.setState({ videos: [video] });
+    }
+    
+    removeVideo = () => {
+        this.setState({ videos: [] });
     }
     
     removeImage = (index) => {
@@ -129,18 +155,17 @@ class NewPost extends React.Component {
             });
     }
 
-    setFocus = (state) => {
-        this.setState({focused: state});
-
-        if(state){
-            if(window.innerWidth < 541){
-                this.openMobileCreate();
-            }
+    setFocus = (state, fromClick) => {
+        if(!fromClick)
+            this.setState({focused: state});
+        
+        if(state && fromClick && window.innerWidth < 541){
+            this.openMobileCreate();
         }
     }
 
     openMobileCreate = () => {
-        window.history.pushState({}, '', '#creatingOnMobile');
+        window.history.pushState({creating: true}, 'creating', '#creatingOnMobile');
         this.setState({creatingOnMobile: true})
     }
 
@@ -150,18 +175,17 @@ class NewPost extends React.Component {
     }
     
     handleChange = (event) => {
-        const content = event.target.value;
+        let content = event.target.value;
         const video_index = content.indexOf("https");
-        const video = content.substr(video_index, content.length);
+        const src = content.substr(video_index, content.length);
 
         this.setState({content}, () => {
-            if(video_index !== -1 && _parseYoutubeURL(video)){
-                let new_videos = [...this.state.videos];
-                new_videos.push({ video });
-    
-                this.setState({ videos: new_videos });
-    
-                this.setState({content: content.replace(video, "")});
+            if(video_index !== -1 && _parseYoutubeURL(src)){
+                const id = 'ot-temp-id' + Math.random().toString(36).substr(2, 5);
+                const videos = [ { id, video: src } ];
+                content = content.replace(src, "");
+
+                this.setState({ content, videos });
             }
         });
     }
@@ -182,6 +206,8 @@ class NewPost extends React.Component {
     }
 
     submitClicked = async () => {
+        this.setState({posting: true})
+
         let form_data = new FormData();
         form_data.append('content', this.state.content);
 
@@ -194,14 +220,20 @@ class NewPost extends React.Component {
             });
         }
         
-        if(this.state.videos.length){
-            // const video = this.state.videos[0].video;
-            // formData.set('content', this.state.content + video);
+        if(this.state.videos.length && !this.state.images.length){
+            const video = this.state.videos[0];
+            // if(video.id)
+            //     form_data.append('video_list', video.id);
+            // else
+            //     form_data.set('content', this.state.content + video);
+
+            form_data.set('content', this.state.content + video.video);
         }
 
         const params = { token: this.props.user.token };
         this.sendPost(API_BASE_URL + '/publish_post/', form_data, params)
             .then(({data}) => {
+                this.setState({posting: false});
                 const response = data[0];
                 console.log("Submit post result: ", response);
                 // this.props.onImageUpLoaded( response );
@@ -215,6 +247,9 @@ class NewPost extends React.Component {
                 }
             })
             .catch((error) => {
+                this.setState({posting: false});
+                notify( notification(`Error submitting post`) )
+
                 let err = "";
                 if (error.response) {
                     err = error.response.data;
@@ -230,7 +265,7 @@ class NewPost extends React.Component {
 
     render() {
         const { user } = this.props;
-        const { creatingOnMobile, posting, dragover, focused, content, images, videos } = this.state;
+        const { creatingOnMobile, takingPicture, posting, dragover, focused, content, images, videos } = this.state;
         const has_media = images.length || videos.length;
         const media_type = has_media ? images.length ? 'image' : 'video' : null;
 
@@ -242,19 +277,21 @@ class NewPost extends React.Component {
                         content={content}
                         images={images} 
                         videos={videos}
+                        takingPicture={takingPicture}
                         posting={posting}
-                        onFocus={ () => this.setFocus(true) }
-                        onBlur={ () => this.setFocus(false) }
                         onChange={this.handleChange}
                         onKeyUp={this.handleKeyup}
                         onFilesPicked={this.FileSelectHandler}
                         onRemoveImage={this.removeImage}
+                        onRemoveVideo={this.removeVideo}
                         onSubmitClicked={this.submitClicked}
                         onBackClicked={this.closeMobileCreate}
+                        onOpenCamera={this.openCamera}
+                        onCloseCamera={this.closeCamera}
                         onAddPicture={this.handleAddPicture} />
                 }
 
-                <div ref={this.wrapper} className={ 'ot-new-post ' + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
+                <div ref={this.wrapper} className={ 'ot-new-post ' + ( posting ? 'posting ' : ' ') + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
                     <div className="ot-new-post-wrapper layout">
                         <div className="ot-dp">
                             <img src={user.dp} alt=""/>
@@ -262,6 +299,7 @@ class NewPost extends React.Component {
 
                         <TextareaAutosize 
                             placeholder="Share your inisights..." className="ot-new-post-text" rows={1}
+                            onClick={ () => this.setFocus(true, true) }
                             onFocus={ () => this.setFocus(true) }
                             onBlur={ () => this.setFocus(false) }
                             onChange={this.handleChange}
@@ -274,8 +312,10 @@ class NewPost extends React.Component {
                         videos={videos}
                         images={images}
                         onImageLoaded={this.imageLoaded}
-                        onImageUpLoaded={this.imageUpLoaded}
-                        onRemoveImage={this.removeImage} />
+                        onImageUploaded={this.imageUpLoaded}
+                        onRemoveImage={this.removeImage}
+                        onVideoUploaded={this.videoUpLoaded}
+                        onRemoveVideo={this.removeVideo} />
 
                     <div className={'layout end-justified ot-new-post-button-wrapper' + (content.length || focused ? ' visible' : '')}>
                         <button className={'ot-btn flat' + (!content.length ? ' disabled' : '') }

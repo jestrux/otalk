@@ -68,7 +68,7 @@ class NewPostImage extends React.Component {
             .then(({data}) => {
                 const response = data.images[0];
                 console.log("Upload image result: ", response);
-                this.props.onImageUpLoaded( response );
+                this.props.onImageUploaded( response );
             })
             .catch((error) => {
                 let err = "";

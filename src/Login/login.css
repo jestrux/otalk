@@ -102,7 +102,7 @@ input:-webkit-autofill {
     margin-top: 2em;
 }
 
-.ot-btn{
+.ot-login-form .ot-btn{
     margin: 0;
     outline: none;
 }
@@ -131,7 +131,7 @@ input:-webkit-autofill {
         height: 100px;
     }
 
-    .ot-btn{
+    .ot-login-form .ot-btn{
         width: 100%;
         padding: 12px 30px;
         font-size: 16px;
