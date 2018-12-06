@@ -65,6 +65,12 @@ class UserProfile extends React.Component {
 
                     { loading && <Loader thin /> }
 
+                    { sessionUser.id === user.id &&  
+                        <button className="ot-btn fla" onClick={this.props.onLogout}>
+                            LOGOUT
+                        </button>
+                    }
+
                     { profileLoaded &&
                         <React.Fragment>
                             <div className="user-stats layout center-center">
@@ -93,12 +99,9 @@ class UserProfile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
-                            { sessionUser.id === user.id &&  
-                                <button className="ot-btn fla" onClick={this.props.onLogout}>
-                                    LOGOUT
-                                </button>
-                            }
+                            <button className="ot-btn fla">
+                                FOLLOW
+                            </button>
                         </React.Fragment>
                     }
                 </div>
