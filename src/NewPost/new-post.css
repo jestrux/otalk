@@ -154,11 +154,21 @@
     height: 22px;
 }
 
-.ot-new-post-image .ot-btn.action svg,
-.ot-new-post-video .ot-btn.action svg{
+.ot-new-post-video .ot-btn.action{
+    width: 35px;
+    height: 35px;
+}
+
+.ot-new-post-image .ot-btn.action svg{
     fill: #fff;
     width: 14px;
     height: 14px;
+}
+
+.ot-new-post-video .ot-btn.action svg{
+    fill: #fff;
+    width: 18px;
+    height: 18px;
 }
 
 .ot-post-list-wrapper:not(.scrolled) .ot-post-creator-fab{
