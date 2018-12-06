@@ -5,22 +5,10 @@ class Camera extends Component {
   state = { facingMode: "user" };
   componentWillMount() {
     this.setup();
-    // const { video, audio } = this.props;
-    // if (navigator.mediaDevices) {
-    //   navigator.mediaDevices.getUserMedia(
-    //     { video, audio, 
-    //       advanced: [{
-    //         facingMode: this.state.facingMode
-    //       }]
-    //     }
-    //   )
-    //   .then((mediaStream) => {
-    //     this.setState({ mediaStream });
-    //     this.video.srcObject = mediaStream;
-    //     this.video.play();
-    //   })
-    //   .catch(error => error);
-    // }
+  }
+
+  componentWillUnmount(){
+    this.state.mediaStream.getVideoTracks()[0].stop();
   }
 
   setup = () => {
