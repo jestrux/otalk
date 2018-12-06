@@ -63,13 +63,14 @@ class UserProfile extends React.Component {
                     </div>
                     <h5>{display_name}</h5>
 
-                    { loading && <Loader thin /> }
-
                     { sessionUser.id === user.id &&  
-                        <button className="ot-btn fla" onClick={this.props.onLogout}>
+                        <button className="ot-btn logout-btn" onClick={this.props.onLogout}>
                             LOGOUT
                         </button>
                     }
+                    
+                    { loading && <Loader thin /> }
+
 
                     { profileLoaded &&
                         <React.Fragment>
@@ -99,9 +100,12 @@ class UserProfile extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <button className="ot-btn fla">
-                                FOLLOW
-                            </button>
+                            
+                            {  sessionUser.id !== user.id &&  
+                                <button className="ot-btn fla">
+                                    FOLLOW
+                                </button>
+                            }
                         </React.Fragment>
                     }
                 </div>

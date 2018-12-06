@@ -43,6 +43,10 @@
     color: #444;
 }
 
+.logout-btn{
+    margin-top: 1.1em;
+}
+
 .ot-bottom-sheet .ot-post-list{
     margin: 0 -2em;
     margin-top: 1.5em;
