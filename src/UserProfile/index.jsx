@@ -39,6 +39,9 @@ class UserProfile extends React.Component {
         axios.get(API_BASE_URL + '/user_wall/', { params })
             .then(({data}) => {
                 console.log("Fetch user posts result", data);
+                if(this.props.onPostsLoaded){
+                    this.props.onPostsLoaded();
+                }
                 this.setState({ postsLoaded: true, user: {...this.state.user, posts: data}})
             })
             .catch((err) => {
@@ -53,54 +56,55 @@ class UserProfile extends React.Component {
         const { display_name, dp, posts } = user;
         
         return (
-            <BottomSheet contentLoaded={postsLoaded} peekHeight={310} onClose={this.props.onClose}>
-                <div className="ot-user-profile">
-                    <div className="ot-user-profile-title layout vertical center">
-                        <div className="ot-dp">
-                            <img src={dp} alt=""/>
-                        </div>
-                        <h5>{display_name}</h5>
+            <div className="ot-user-profile">
+                <div className="ot-user-profile-title layout vertical center">
+                    <div className="ot-dp">
+                        <img src={dp} alt=""/>
+                    </div>
+                    <h5>{display_name}</h5>
 
-                        { loading && <Loader thin /> }
+                    { loading && <Loader thin /> }
 
-                        { profileLoaded &&
-                            <React.Fragment>
-                                <div className="user-stats layout center-center">
-                                    <div className="user-stat">
-                                        <div className="number">
-                                            { user.followers }
-                                        </div>
-                                        <div className="label">
-                                            Followers
-                                        </div>
+                    { profileLoaded &&
+                        <React.Fragment>
+                            <div className="user-stats layout center-center">
+                                <div className="user-stat">
+                                    <div className="number">
+                                        { user.followers }
                                     </div>
-                                    <div className="user-stat">
-                                        <div className="number">
-                                            { user.following }
-                                        </div>
-                                        <div className="label">
-                                            Following
-                                        </div>
-                                    </div>
-                                    <div className="user-stat">
-                                        <div className="number">
-                                            { user.friends }
-                                        </div>
-                                        <div className="label">
-                                            Friends
-                                        </div>
+                                    <div className="label">
+                                        Followers
                                     </div>
                                 </div>
-                                <button className="ot-btn fla">
-                                    FOLLOW
+                                <div className="user-stat">
+                                    <div className="number">
+                                        { user.following }
+                                    </div>
+                                    <div className="label">
+                                        Following
+                                    </div>
+                                </div>
+                                <div className="user-stat">
+                                    <div className="number">
+                                        { user.friends }
+                                    </div>
+                                    <div className="label">
+                                        Friends
+                                    </div>
+                                </div>
+                            </div>
+
+                            { sessionUser.id === user.id &&  
+                                <button className="ot-btn fla" onClick={this.props.onLogout}>
+                                    LOGOUT
                                 </button>
-                            </React.Fragment>
-                        }
-                    </div>
-                    
-                    { postsLoaded && <PostList readonly user={sessionUser} posts={ posts } /> }
+                            }
+                        </React.Fragment>
+                    }
                 </div>
-            </BottomSheet>
+                
+                { postsLoaded && <PostList readonly user={sessionUser} posts={ posts } /> }
+            </div>
         );
     }
 }

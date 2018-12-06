@@ -17,7 +17,7 @@ const Header = (props) => {
             <span className="flex"></span>
 
             <div className="ot-dp">
-                <img src={dp} alt="" onClick={props.onLogout} />
+                <img src={dp} alt="" onClick={props.onViewProfile} />
             </div>
         </div>
     );
