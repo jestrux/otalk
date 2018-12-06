@@ -2,10 +2,10 @@ import React from 'react';
 
 import './post-item.css';
 
-import PostMedia from "../PostMedia";
+import PostMedia from "./PostMedia";
 
-import PostComments from "../PostComments";
-import PostCommenter from "../PostCommenter";
+import PostComments from "./PostComments";
+import PostCommenter from "./PostCommenter";
 
 const PostItem = (props) => {
     const { user, post } = props;
@@ -26,12 +26,12 @@ const PostItem = (props) => {
     return ( 
         <div className="ot-post-item">
             <div className="ot-post-item-title layout center">
-                <div className="ot-dp">
+                <div className="ot-dp" onClick={props.onViewUser}>
                     <img src={publisher.dp} alt="" />
                 </div>
                 
                 <div>
-                    <span className="ot-post-item-owner">
+                    <span className="ot-post-item-owner" onClick={props.onViewUser}>
                         { publisher.display_name }
                     </span>
                     <span className="ot-post-item-date">

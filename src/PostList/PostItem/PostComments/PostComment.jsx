@@ -1,5 +1,5 @@
 import React from 'react';
-import { FavToggle } from '../Utils';
+import { FavToggle } from '../../../Utils';
 
 const PostComment = ( props ) => {
     const { comment } = props;

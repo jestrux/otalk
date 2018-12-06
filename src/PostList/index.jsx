@@ -7,19 +7,25 @@ import sample_posts from './posts';
 
 import { API_BASE_URL } from '../constants';
 
-import PostItem from "../PostItem";
-import NewPost from '../NewPost';
+import PostItem from "./PostItem";
+import NewPost from './NewPost';
 import { notification, notify } from '../Notifications';
+import Loader from '../components/Loader';
 
 class PostList extends React.Component {
     state = { initial_fetch: false, posts: [] };
 
     componentDidMount(){
-        const { user } = this.props;
+        const { user, posts, readonly } = this.props;
         // this.setState({user, posts: sample_posts, initial_fetch: true});
-        this.setState({token: user.token}, () => {
-            this.fetchUserPosts();
-        });
+
+        if(!readonly){
+            this.setState({token: user.token}, () => {
+                this.fetchUserPosts();
+            });
+        }else if(user){
+            this.setState({posts, initial_fetch: true})
+        }
     }
 
     fetchUserPosts = () => {
@@ -227,14 +233,14 @@ class PostList extends React.Component {
 
     render() { 
         const { scrolled, posts, initial_fetch } = this.state;
-        const { user } = this.props;
+        const { user, readonly } = this.props;
 
         return ( 
             <div className={ 'ot-post-list-wrapper ' + ( scrolled ? 'scrolled' : '' )}>
-                <NewPost user={ user } onNewPost={ this.newPost } />
+                { !readonly && <NewPost user={ user } onNewPost={ this.newPost } /> }
             
                 <div className="ot-post-list">
-                    {!initial_fetch && <span>Fetching posts....</span>}
+                    {!initial_fetch && <div className="layout center-justified"><Loader/></div>}
 
                     {initial_fetch && (
                         <React.Fragment>
@@ -243,7 +249,8 @@ class PostList extends React.Component {
                                     onToggleLiked={ () => this.toggleLiked(post, index) }
                                     onNewComment={ (comment) => this.addComment(post, index, comment) }
                                     onToggleCommentLiked={ (comment_index) => this.toggleCommentLiked(post, index, comment_index) }
-                                    onShowComments={ () => this.showComments(post, index) } />
+                                    onShowComments={ () => this.showComments(post, index) }
+                                    onViewUser={() => this.props.onViewUser(post.publisher)} />
                             )}
                         </React.Fragment>
                     )}

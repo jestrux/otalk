@@ -2,7 +2,7 @@ import React from 'react';
 import workerize from 'workerize'
 import axios, { post } from 'axios'
 
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL } from "../../../constants";
 
 class NewPostImage extends React.Component {
     state = { was_setup: false };

@@ -1,0 +1,56 @@
+.ot-bottom-sheet{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: auto;
+    z-index: 200;
+}
+
+.ot-bottom-sheet:not(.visible){
+    pointer-events: none;
+}
+
+.ot-bottom-sheet:not(.content-loaded){
+    overflow-y: hidden;
+}
+
+.ot-bottom-sheet-bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 0.25s ease-out;
+}
+
+.ot-bottom-sheet:not(.visible) .ot-bottom-sheet-bg{
+    opacity: 0;
+}
+
+.ot-bottom-sheet-content{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    padding: 2em;
+    height: 100vh;
+    background: #fff;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.35s ease-out, border-radius 0.25s ease;
+    overflow-y: hidden;
+}
+
+.ot-bottom-sheet.fixed .ot-bottom-sheet-content{
+    overflow-y: auto;
+}
+
+.ot-bottom-sheet:not(.fixed) .ot-bottom-sheet-content{
+    border-radius: 30px 30px 0 0;
+}
+
+.ot-bottom-sheet:not(.visible) .ot-bottom-sheet-content{
+    transform: translateY(100vh) !important;
+}

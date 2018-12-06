@@ -1,5 +1,5 @@
 import React from 'react';
-import { FavoriteIcon, FavoritedIcon } from '../Utils';
+import { FavoriteIcon, FavoritedIcon } from '../../../Utils';
 import { MorphReplace } from 'react-svg-morph';
 
 import './post-commenter.css';

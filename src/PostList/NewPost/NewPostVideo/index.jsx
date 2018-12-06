@@ -1,9 +1,8 @@
 import React from 'react';
-import workerize from 'workerize'
-import axios, { post } from 'axios'
+import { post } from 'axios'
 
-import { API_BASE_URL } from "../../constants";
-import PostVideo from '../../PostMedia/PostVideo';
+import { API_BASE_URL } from "../../../constants";
+import PostVideo from '../../PostItem/PostMedia/PostVideo';
 
 class NewPostVideo extends React.Component {
     state = { was_setup: false };

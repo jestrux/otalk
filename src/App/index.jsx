@@ -8,9 +8,11 @@ import Notifications, { notify, notification } from '../Notifications';
 import Login from '../Login';
 import Header from '../Header';
 import PostList from '../PostList';
+import UserProfile from '../UserProfile';
 
+const profileUser = {display_name: "Daniel Kindimba", id: 290, dp: "https://olbongo.blob.core.windows.net/olbongo/stuff_images/2018/12/01/takescripter.jpg"}
 class App extends React.Component {
-    state = {user: {}, user_fetched: false};
+    state = {user: {}, profileUser: null, user_fetched: false};
 
     componentWillMount(){
         this.fetchUser();
@@ -56,9 +58,19 @@ class App extends React.Component {
         localStorage.removeItem('ot-user');
         this.setState({user_fetched: true, user: null});
     }
+
+    closeProfileUser = () => {
+        this.setState({profileUser: null});
+    }
+    
+    viewProfileUser = ( user ) => {
+        if(window.innerWidth < 541){
+            this.setState({profileUser: user});
+        }
+    }
   
     render() { 
-        const { user, user_fetched } = this.state;
+        const { user, user_fetched, profileUser } = this.state;
         const user_logged_in = user && user.id && user.token;
         return (
             <div className="ot-app-wrapper" context="counter1">
@@ -72,7 +84,15 @@ class App extends React.Component {
                         <Login user={user} onLogin={this.login} /> 
                     )}
 
-                    { user_logged_in && <PostList user={ user } /> }
+                    { user_logged_in && 
+                        <React.Fragment>
+                            <PostList
+                                user={ user }
+                                onViewUser={this.viewProfileUser} />
+                            
+                            { profileUser && <UserProfile onClose={this.closeProfileUser} sessionUser={ user } user={profileUser} /> }
+                        </React.Fragment>
+                    }
                 </main>
             </div>
         );

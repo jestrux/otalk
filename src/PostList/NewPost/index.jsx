@@ -6,14 +6,14 @@ import { slice } from 'lodash'
 
 import axios, { post as aPost } from 'axios';
 
-import PostVideo, { _parseYoutubeURL, _getEmbedUrl } from "../PostMedia/PostVideo";
+import PostVideo, { _parseYoutubeURL, _getEmbedUrl } from "../PostItem/PostMedia/PostVideo";
 
 import TextareaAutosize from 'react-autosize-textarea';
 import NewPostMobile from "./NewPostMobile";
 import NewPostMedia from "./NewPostMedia";
 
-import { notification, notify } from '../Notifications';
-import { API_BASE_URL } from '../constants';
+import { notification, notify } from '../../Notifications';
+import { API_BASE_URL } from '../../constants';
 
 const MAX_IMAGE_COUNT = 5;
 class NewPost extends React.Component {
