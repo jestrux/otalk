@@ -65,3 +65,25 @@
     opacity: 0;
     transition: opacity 0.1s ease-out 0.3s, transform 0.25s ease-out;
 }
+
+.ot-bottom-sheet .back-btn{
+    position: absolute;
+    top: 2em;
+    left: 2em;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+}
+
+.ot-bottom-sheet .back-btn svg{
+    width: 28px;
+    height: 28px;
+}
+
+.ot-bottom-sheet.fixed .back-btn{
+    position: absolute;
+    top: 1.5em;
+    left: 1.5em;
+    width: 30px;
+    height: 30px;
+}
