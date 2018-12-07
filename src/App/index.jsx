@@ -20,6 +20,14 @@ class App extends React.Component {
         this.fetchUser();
     }
 
+    componentDidMount(){
+        this._isMounted = true;
+        window.onpopstate = () => {
+            document.dispatchEvent(new CustomEvent('ot-popstate'));
+            console.log("State popped!");
+        }
+    }
+
     fetchUser = async () => {
         const session_user = await localStorage.getItem('ot-user');
         this.setState({user_fetched: true});
@@ -97,7 +105,7 @@ class App extends React.Component {
                                 onViewUser={this.viewProfileUser} />
                             
                             { profileUser && 
-                                <BottomSheet contentLoaded={userProfilePostsLoaded} peekHeight={320} onClose={this.closeProfileUser}>
+                                <BottomSheet id="profileUser" contentLoaded={userProfilePostsLoaded} peekHeight={320} onClose={this.closeProfileUser}>
                                     <UserProfile onLogout={this.logout} onPostsLoaded={this.handleProfilePostsLoaded} sessionUser={ user } user={profileUser} />
                                 </BottomSheet>
                             }

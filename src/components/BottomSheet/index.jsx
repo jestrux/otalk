@@ -4,10 +4,31 @@ import Observer from '@researchgate/react-intersection-observer';
 import "./bottom-sheet.css";
 
 class BottomSheet extends React.Component {
-    state = { visible: false, fixed: false };
+    state = { visible: false, closing: false, fixed: false };
+
+    constructor(props){
+        super(props)
+        this.contentWrapper = React.createRef();
+    }
 
     componentDidMount(){
         this.setState({visible: true});
+
+        const { id } = this.props;
+        window.history.pushState({[id]: true}, id, '#'+id);
+
+        document.addEventListener('ot-popstate', (e) => {
+            const { hash } = window.location;
+            console.log("State was popped yo!", hash, hash.indexOf(id));
+            if(hash.indexOf(id) === -1 && this.state.visible){
+                if(this.contentWrapper && this.contentWrapper.current){
+                    this.contentWrapper.current.scrollTop = 0
+                }
+                this.setState({closing: true}, () => {
+                    this.closeBottomSheet();
+                });
+            }
+        }, false);
     }
 
     handleIntersection = (event) => {
@@ -19,9 +40,11 @@ class BottomSheet extends React.Component {
         }
     }
 
-    handleClose = () => { 
-        this.setState({visible: false});
-
+    handleClose = () => {
+        window.history.back();
+    }
+    
+    closeBottomSheet = () => {
         setTimeout(() => {
             if(this.props.onClose) 
                 this.props.onClose()
@@ -34,7 +57,7 @@ class BottomSheet extends React.Component {
             root: '.ot-bottom-sheet',
             rootMargin: `0% 0% -${window.innerHeight}px`,
         };
-        const { visible, fixed } = this.state;
+        const { visible, fixed, closing } = this.state;
         let {contentLoaded, peekHeight} = this.props;
         if(!peekHeight)
             peekHeight = 300;
@@ -42,10 +65,10 @@ class BottomSheet extends React.Component {
         const tx = window.innerHeight - (peekHeight + 32);
 
         return (
-            <div className={'ot-bottom-sheet ' + ( visible ? 'visible ' : '' ) + ( fixed ? 'fixed ' : '') + ( contentLoaded ? 'content-loaded' : '' ) }>
+            <div className={'ot-bottom-sheet ' + ( visible ? 'visible ' : '' ) + ( fixed ? 'fixed ' : '') + ( contentLoaded ? 'content-loaded ' : '' ) + ( closing ? 'closing' : '' ) }>
                 <div className="ot-bottom-sheet-bg" onClick={ this.handleClose }></div>
                 <Observer {...options}>
-                    <div className="ot-bottom-sheet-content"
+                    <div ref={this.contentWrapper} className="ot-bottom-sheet-content"
                         style={ { transform: `translateY( ${(tx)}px)` } }>
                         { this.props.children }
                     </div>

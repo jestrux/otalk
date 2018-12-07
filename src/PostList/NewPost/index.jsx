@@ -30,18 +30,18 @@ class NewPost extends React.Component {
         window.addEventListener("drop", this.FileSelectHandler, false);
 
         this._isMounted = true;
-        window.onpopstate = () => {
-            console.log("State popped!");
+
+        document.addEventListener('ot-popstate', (e) => {
             if(this._isMounted) {
                 const { hash } = window.location;
                 console.log("Popstate hash: ", hash, hash.indexOf('creatingOnMobile'));
                 if(hash.indexOf('creatingOnMobile') === -1 && this.state.creatingOnMobile)
                     this.setState({creatingOnMobile: false})
-
+    
                 if(hash.indexOf('takingPicture') === -1 && this.state.takingPicture)
                     this.setState({takingPicture: false})
             }
-        }
+        }, false);
     }
 
     FileDragHover = (e) => {
