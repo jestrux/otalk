@@ -80,6 +80,8 @@ class App extends React.Component {
     viewProfileUser = ( user ) => {
         if(window.innerWidth < 541){
             this.setState({profileUser: user});
+        }else{
+            this.logout();
         }
     }
   
