@@ -39,18 +39,45 @@
     color: #333;
 }
 
+.ot-post-manager{
+    position: relative;
+}
+
+.ot-post-manager-options{
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 0.5em;
+    border-radius: 2px;
+    transition: all 0.1s ease-out;
+}
+
+.ot-post-options-btn:not(:focus) + .ot-post-manager-options:not(:hover){
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9) translate3d(5%, -5%, 0);
+}
+
+.ot-post-manager-options .ot-btn{
+    padding: 8px 16px;
+    min-width: 150px;
+    justify-content: flex-start;
+}
+
 .ot-post-options-btn{
     margin-right: 0;
     transition: 0.3s ease-out;
 }
 
-.ot-post-options-btn svg{
-    fill: #656565;
+.ot-post-options-btn:focus{
+    background: #f0f0f0;
 }
 
-.ot-post-item:not(:hover) .ot-post-options-btn{
-    opacity: 0;
-    transition: none;
+.ot-post-options-btn svg{
+    fill: #656565;
 }
 
 .ot-post-reactions{

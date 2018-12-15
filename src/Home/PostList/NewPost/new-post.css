@@ -25,7 +25,11 @@
     letter-spacing: 0.05em;
 }
 
-.ot-new-post:not(.posting):before{
+.ot-new-post.saving:before{
+    content: 'SAVING...';
+}
+
+.ot-new-post:not(.posting):not(.saving):before{
     opacity: 0;
     pointer-events: none;
 }

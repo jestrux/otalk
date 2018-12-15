@@ -1,19 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 
+import Observer from '@researchgate/react-intersection-observer';
+
 import './post-list.css';
 
 import sample_posts from './posts';
 
-import { API_BASE_URL } from '../constants';
+import { API_BASE_URL } from '../../constants';
+import { confirm } from '../../Popups';
 
 import PostItem from "./PostItem";
 import NewPost from './NewPost';
-import { notification, notify } from '../Notifications';
-import Loader from '../components/Loader';
+import { notification, notify } from '../../Notifications';
+import Loader from '../../components/Loader';
+import EditPost from './EditPost';
 
 class PostList extends React.Component {
-    state = { initial_fetch: false, posts: [] };
+    state = { initial_fetch: false, fetching: false, page: 1, postToEdit: null, posts: [] };
 
     componentDidMount(){
         const { user, posts, readonly } = this.props;
@@ -33,16 +37,17 @@ class PostList extends React.Component {
         // setTimeout(() => {
         //     this.setState({posts: sample_posts, initial_fetch: true});
         // }, 2000);
-        const params = { token: this.state.token };
+        this.setState({fetching: true});
+        const params = { token: this.state.token, page: this.state.page };
             
         axios.get(API_BASE_URL + '/wall/', { params })
         .then(({data}) => {
             console.log("Fetch posts result", data);
-            this.setState({posts: data, initial_fetch: true})
+            this.setState({posts: [...this.state.posts, ...data], fetching: false, initial_fetch: true, page: this.state.page + 1})
         })
         .catch((err) => {
             console.error("Fetch posts Error", err);
-            this.setState({initial_fetch: true});
+            this.setState({initial_fetch: true, fetching: false});
         });
 
     }
@@ -150,12 +155,18 @@ class PostList extends React.Component {
         this.setState({ posts: new_posts });
 
         const params = { token: this.state.token };
+        let form_data = new FormData();
+        form_data.append('content', content);
+        form_data.append('post_id', post.id);
 
         axios({
             method: 'POST',
             url: API_BASE_URL + '/publish_comment/',
+            headers: {
+                'content-type': 'application/x-www-form-urlencode'
+            },
             params,
-            data: { post_id: post.id, content }
+            data: form_data
         })
         .then(({data}) => {
             const response = data[0];
@@ -201,16 +212,16 @@ class PostList extends React.Component {
         const params = { token: this.state.token, post_id: post.id };
 
         axios.get(API_BASE_URL + '/comments/', { params })
-        .then(({data}) => {
-            const response = data[0];
-            console.log("Post Comments result: ", response);
+        .then((response) => {
+            console.log("Post Comments result: ", response, response.status === 200);
             
-            if(response.status){
-                post.comments = data;
+            if(response.status === 200){
+                post.comments = response.data;
             }
 
             post.fetching_comments = false;
             new_posts.splice(index, 1, post);
+            console.log(new_posts[0]);
             this.setState({ posts: new_posts });
         })
         .catch((error) => {
@@ -231,31 +242,106 @@ class PostList extends React.Component {
         });
     }
 
+    editPost = (post, index) => {
+        this.setState({ postToEdit: { post, index } });
+    }
+    
+    savePost = (post) => {
+        let posts = [...this.state.posts];
+        const index = this.state.postToEdit.index;
+        posts.splice(index, 1, post);
+
+        this.setState({ posts });
+    }
+    
+    cancelEditPost = () => {
+        this.setState({ postToEdit: null });
+    }
+
+    deletePost = (post, index) => {
+        let posts = [...this.state.posts];
+        const url = API_BASE_URL + '/delete_post';
+        const params = { token: this.state.token, post_id: post.id };
+
+        confirm("Delete Post", "Are you sure you want to delete post", 
+            "Delete", ( accepted ) => {
+                if(!accepted)
+                    return;
+                
+                axios.get(url, { params })
+                    .then(({data}) => {
+                        const response = data[0];
+
+                        if(response.status){
+                            notify( notification(`Post Deleted`) );
+                            posts.splice(index, 1);
+                            
+                            this.setState({ posts });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Delete post Error", error);
+                    });
+            });
+    }
+
+    handleReachedBottom = (event) => {
+        console.log("ReachedBottom Event", event);
+        if(event.isIntersecting && !this.state.fetching){
+            this.fetchUserPosts();
+        }
+    }
+
     render() { 
-        const { scrolled, posts, initial_fetch } = this.state;
+        const { scrolled, posts, postToEdit, initial_fetch, fetching } = this.state;
         const { user, readonly } = this.props;
+        const options = {
+            onChange: this.handleReachedBottom,
+            root: 'body',
+            rootMargin: `60px 0%`,
+        };
 
-        return ( 
-            <div className={ 'ot-post-list-wrapper ' + ( scrolled ? 'scrolled' : '' )}>
-                { !readonly && <NewPost user={ user } onNewPost={ this.newPost } /> }
-            
-                <div className="ot-post-list">
-                    {!initial_fetch && <div className="layout center-justified"><Loader/></div>}
+        return (
+            <React.Fragment>
+                { postToEdit && 
+                    <EditPost 
+                        user={user} 
+                        post={postToEdit.post}
+                        onNewPost={this.savePost}
+                        onCancelEditting={this.cancelEditPost} /> 
+                }
 
-                    {initial_fetch && (
-                        <React.Fragment>
-                            { posts.map( (post, index) => 
+                <div className={ 'ot-post-list-wrapper ' + ( scrolled ? 'scrolled' : '' )}>
+                    { !readonly && <NewPost user={ user } onNewPost={ this.newPost } /> }
+                
+                    <div className="ot-post-list">
+                        {initial_fetch && (
+                            posts.map( (post, index) => 
                                 <PostItem key={post.id} post={post} user={user}
                                     onToggleLiked={ () => this.toggleLiked(post, index) }
                                     onNewComment={ (comment) => this.addComment(post, index, comment) }
                                     onToggleCommentLiked={ (comment_index) => this.toggleCommentLiked(post, index, comment_index) }
                                     onShowComments={ () => this.showComments(post, index) }
+                                    onEditPost={ () => this.editPost(post, index) }
+                                    onDeletePost={ () => this.deletePost(post, index) }
                                     onViewUser={() => this.props.onViewUser(post.publisher)} />
-                            )}
-                        </React.Fragment>
-                    )}
+                            )
+                        )}
+                    </div>
+
+                    { fetching && 
+                        <div className="layout center-justified">
+                            <Loader/>
+                        </div>
+                    }
+
+                    { <Observer {...options}>
+                            <div style={{height: 20+'px'}} 
+                                className="layout center-justified" />
+                        </Observer>
+                    }
                 </div>
-            </div>
+            </React.Fragment> 
         );
     }
 }

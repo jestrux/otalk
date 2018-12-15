@@ -9,11 +9,12 @@ import PostCommenter from "./PostCommenter";
 
 const PostItem = (props) => {
     const { user, post } = props;
-    const { fetching_comments, is_liked, publisher, owned, published_at, content, images, videos, comments, total_likes, total_commenets } = post;
+    const { fetching_comments, is_liked, publisher, published_at, content, images, videos, comments, total_likes, total_commenets } = post;
     const total_comments = total_commenets;
+    const owned = publisher.id === user.id;
     
     let like_text = total_likes + ' Like';
-    like_text += ( total_likes != 1) ? 's' : '';
+    like_text += ( total_likes !== 1) ? 's' : '';
     
     let comment_text = total_comments + ' Comment';
     comment_text += ( total_comments != 1) ? 's' : '';
@@ -49,9 +50,18 @@ const PostItem = (props) => {
 
                 <span className="flex"></span>
 
-                <button className="ot-post-options-btn ot-btn action">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                </button>
+                { owned &&  
+                    <div className="ot-post-manager">
+                        <button className="ot-post-options-btn ot-btn action">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                        </button>
+
+                        <div className="ot-post-manager-options">
+                            <button onClick={props.onEditPost} className="ot-btn flat">Edit</button>
+                            <button onClick={props.onDeletePost} className="ot-btn flat">Delete</button>
+                        </div>
+                    </div>
+                }
             </div>
             
             <p className="ot-post-item-content">
@@ -63,7 +73,7 @@ const PostItem = (props) => {
             <div className="ot-post-reactions">
                 <small>{ like_text }</small>
                 <span></span>
-                <small className={total_comments > 0 ? 'can-click' : ''}
+                <small className={total_comments > 0 && total_comments !== comments.length ? 'can-click' : ''}
                     onClick={ handleShowComments }>{ comment_text }</small>
             </div>
 

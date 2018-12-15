@@ -3,9 +3,8 @@ import React from 'react';
 import "./profile.css";
 import axios from 'axios';
 import { API_BASE_URL } from '../constants';
-import BottomSheet from '../components/BottomSheet';
 import Loader from '../components/Loader';
-import PostList from '../PostList';
+import PostList from '../Home/PostList';
 
 class UserProfile extends React.Component {
     state = { user: {}, profileLoaded: false, postsLoaded: false }

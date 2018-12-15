@@ -62,7 +62,8 @@
     right: -1.5em;
 }
 
-.ot-bottom-sheet .ot-post-list{
+.ot-bottom-sheet .ot-post-list-wrapper{
     margin: 0 -2em;
     margin-top: 1.5em;
+    background: #e9e9e9;
 }

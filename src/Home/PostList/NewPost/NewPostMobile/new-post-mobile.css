@@ -97,7 +97,11 @@
     letter-spacing: 0.08em;
 }
 
-.ot-new-post-mobile:not(.posting):after{
+.ot-new-post-mobile.saving:after{
+    content: 'SAVING...';
+}
+
+.ot-new-post-mobile:not(.posting):not(.saving):after{
     opacity: 0;
     pointer-events: none;
 }

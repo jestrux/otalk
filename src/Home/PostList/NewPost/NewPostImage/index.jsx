@@ -2,7 +2,7 @@ import React from 'react';
 import workerize from 'workerize'
 import axios, { post } from 'axios'
 
-import { API_BASE_URL } from "../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 
 class NewPostImage extends React.Component {
     state = { was_setup: false };
@@ -28,7 +28,7 @@ class NewPostImage extends React.Component {
                     // this.props.onImageLoaded(img);
                     // this.ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
                 // });
-            }else{
+            }else if(src){
                 this.uploadImage(src);
             }
         }
@@ -86,12 +86,12 @@ class NewPostImage extends React.Component {
 
     render() {
         const { image } = this.props;
-        const { id, src, loading } = image;
+        const { id, src, photo, loading } = image;
         const is_temp = id.toString().indexOf('ot-temp-id') !== -1;
         // const is_temp = false;
         return ( 
             <div className={'ot-new-post-image ' + ( loading ? 'loading' : '' ) + ( is_temp ? ' is-temp' : '' )}>
-                <img src={src} alt=""/>
+                <img src={src || photo} alt=""/>
                 <button className="ot-btn action" onClick={this.props.onRemoveImage}>
                     <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>

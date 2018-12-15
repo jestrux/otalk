@@ -12,12 +12,12 @@ import TextareaAutosize from 'react-autosize-textarea';
 import NewPostMobile from "./NewPostMobile";
 import NewPostMedia from "./NewPostMedia";
 
-import { notification, notify } from '../../Notifications';
-import { API_BASE_URL } from '../../constants';
+import { notification, notify } from '../../../Notifications';
+import { API_BASE_URL } from '../../../constants';
 
 const MAX_IMAGE_COUNT = 5;
 class NewPost extends React.Component {
-    state = { creatingOnMobile: false, takingPicture: false, posting: false, dragover: false, focused: false, content: '', images: [], videos: [] }
+    state = { creatingOnMobile: false, takingPicture: false, posting: false, dragover: false, focused: false, post_id: null, content: '', images: [], videos: [] }
 
     constructor(props){
         super(props);
@@ -25,6 +25,15 @@ class NewPost extends React.Component {
     }
 
     componentDidMount(){
+        if(this.props.post){
+            const { id, content, images, videos } = this.props.post;
+            this.setState({post_id: id, content, images, videos}, () => {
+                if(window.innerWidth < 541){
+                    this.openMobileCreate();
+                }
+            });
+        }
+
         window.addEventListener("dragover", this.FileDragHover, false);
         window.addEventListener("dragleave", this.FileDragHover, false);
         window.addEventListener("drop", this.FileSelectHandler, false);
@@ -35,8 +44,12 @@ class NewPost extends React.Component {
             if(this._isMounted) {
                 const { hash } = window.location;
                 console.log("Popstate hash: ", hash, hash.indexOf('creatingOnMobile'));
-                if(hash.indexOf('creatingOnMobile') === -1 && this.state.creatingOnMobile)
-                    this.setState({creatingOnMobile: false})
+                if(hash.indexOf('creatingOnMobile') === -1 && this.state.creatingOnMobile){
+                    this.setState({creatingOnMobile: false});
+                    if(this.state.post_id){
+                        this.props.onCancelEditting();
+                    }
+                }
     
                 if(hash.indexOf('takingPicture') === -1 && this.state.takingPicture)
                     this.setState({takingPicture: false})
@@ -48,6 +61,9 @@ class NewPost extends React.Component {
         e.stopPropagation();
         e.preventDefault();
 
+        if(this.state.videos.length)
+            return;
+            
         const hovering = e.type !== "dragleave" && e.type !== "drop";
         
         setTimeout(() => {
@@ -56,6 +72,9 @@ class NewPost extends React.Component {
     }
 
     FileSelectHandler = (e) => {
+        if(this.state.videos.length)
+            return notify( notification(`You can not upload both videos and images`) )
+
         this.FileDragHover(e);
     
         var files = e.target.files || e.dataTransfer.files;
@@ -172,6 +191,9 @@ class NewPost extends React.Component {
     closeMobileCreate = () => {
         window.history.back();
         this.setState({creatingOnMobile: false})
+        if(this.state.post_id){
+            this.props.onCancelEditting();
+        }
     }
     
     handleChange = (event) => {
@@ -231,7 +253,13 @@ class NewPost extends React.Component {
         }
 
         const params = { token: this.props.user.token };
-        this.sendPost(API_BASE_URL + '/publish_post/', form_data, params)
+        const url = API_BASE_URL + ( this.state.post_id ? '/edit_post' : '/publish_post/');
+
+        if(this.state.post_id){
+            form_data.append('id', this.state.post_id);
+        }
+        
+        this.sendPost(url, form_data, params)
             .then(({data}) => {
                 this.setState({posting: false});
                 const response = data[0];
@@ -265,7 +293,9 @@ class NewPost extends React.Component {
 
     render() {
         const { user } = this.props;
-        const { creatingOnMobile, takingPicture, posting, dragover, focused, content, images, videos } = this.state;
+        const { creatingOnMobile, takingPicture, posting, post_id, dragover, focused, content, images, videos } = this.state;
+        const saving = posting && post_id;
+
         const has_media = images.length || videos.length;
         const media_type = has_media ? images.length ? 'image' : 'video' : null;
 
@@ -279,6 +309,7 @@ class NewPost extends React.Component {
                         videos={videos}
                         takingPicture={takingPicture}
                         posting={posting}
+                        editting={post_id != null}
                         onChange={this.handleChange}
                         onKeyUp={this.handleKeyup}
                         onFilesPicked={this.FileSelectHandler}
@@ -291,7 +322,7 @@ class NewPost extends React.Component {
                         onAddPicture={this.handleAddPicture} />
                 }
 
-                <div ref={this.wrapper} className={ 'ot-new-post ' + ( posting ? 'posting ' : ' ') + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
+                <div ref={this.wrapper} className={ 'ot-new-post ' + ( saving ? 'saving ' : ' ') + ( posting ? 'posting ' : ' ') + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
                     <div className="ot-new-post-wrapper layout">
                         <div className="ot-dp">
                             <img src={user.dp} alt=""/>
@@ -320,7 +351,7 @@ class NewPost extends React.Component {
                     <div className={'layout end-justified ot-new-post-button-wrapper' + (content.length || focused ? ' visible' : '')}>
                         <button className={'ot-btn flat' + (!content.length ? ' disabled' : '') }
                             onClick={ this.submitClicked }>
-                            POST
+                            { post_id ? 'SAVE' : 'POST' }
                         </button>
                     </div>
                 </div>

@@ -1,0 +1,44 @@
+.ot-edit-post-wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    padding-top: 3em;
+    display: flex;
+    align-items: flex-start;
+}
+
+.ot-edit-post-wrapper .ot-edit-post{
+    width: 100%;
+    max-width: 660px;
+    margin: 0 auto;
+}
+
+.ot-edit-post-title{
+    background: #eee;
+    padding: 0.7em 1.1em;
+    padding-right: 0.8em;
+}
+
+@media all and (max-width: 540px){
+    .ot-edit-post-title{
+        display: none;
+    }
+}
+
+@media all and (min-width: 541px){
+    .ot-edit-post-wrapper .ot-edit-post{
+        border-radius: 3px;
+        border: 1px solid #e6e6e6;
+    }
+
+    .ot-edit-post-wrapper .ot-new-post{
+        margin-top: 0;
+        margin-bottom: 0;
+        border-radius: 0;
+        border: none;
+    }
+}

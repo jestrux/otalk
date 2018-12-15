@@ -1,7 +1,7 @@
 import React from 'react';
 import { post } from 'axios'
 
-import { API_BASE_URL } from "../../../constants";
+import { API_BASE_URL } from "../../../../constants";
 import PostVideo from '../../PostItem/PostMedia/PostVideo';
 
 class NewPostVideo extends React.Component {

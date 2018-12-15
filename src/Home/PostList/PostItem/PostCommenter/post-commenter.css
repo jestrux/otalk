@@ -8,14 +8,28 @@
     margin-right: 0.7em;
 }
 
-.ot-post-commenter input{
+.ot-post-commenter input,
+.ot-post-commenter .input{
     font-size: 1em;
-    padding: 0.3em 0;
+    /* padding: 0.3em 0; */
     border: none;
     outline: none;
+    position: relative;
+    line-height: 1.4em;
+    resize: none;
 }
 
-.ot-post-commenter input::placeholder{
+.ot-post-commenter .input:empty::before{
+    content: 'Write a comment';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.ot-post-commenter input::placeholder,
+.ot-post-commenter .input::before{
     color: #aaa;
 }
 

@@ -6,8 +6,8 @@ import axios from "axios";
 import Notifications, { notify, notification } from '../Notifications';
 
 import Login from '../Login';
-import Header from '../Header';
-import PostList from '../PostList';
+import Home from '../Home';
+
 import UserProfile from '../UserProfile';
 import BottomSheet from '../components/BottomSheet';
 
@@ -89,10 +89,6 @@ class App extends React.Component {
         return (
             <div className="ot-app-wrapper" context="counter1">
                 <Notifications />
-                { user_logged_in && ( 
-                    <Header dp={user.dp} onViewProfile={ () => this.viewProfileUser(user) } />
-                )}
-
                 <main>
                     { !user_logged_in && user_fetched && ( 
                         <Login user={user} onLogin={this.login} /> 
@@ -100,8 +96,9 @@ class App extends React.Component {
 
                     { user_logged_in && 
                         <React.Fragment>
-                            <PostList
+                            <Home
                                 user={ user }
+                                onViewProfile={ () => this.viewProfileUser(user) }
                                 onViewUser={this.viewProfileUser} />
                             
                             { profileUser && 
