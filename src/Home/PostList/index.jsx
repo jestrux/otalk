@@ -7,7 +7,7 @@ import './post-list.css';
 
 import sample_posts from './posts';
 
-import { API_BASE_URL } from '../../constants';
+import { API_BASE_URL, MOBILE_WIDTH } from '../../constants';
 import { confirm } from '../../Popups';
 
 import PostItem from "./PostItem";
@@ -15,9 +15,10 @@ import NewPost from './NewPost';
 import { notification, notify } from '../../Notifications';
 import Loader from '../../components/Loader';
 import EditPost from './EditPost';
+import PostCommentsMobile from './PostItem/PostCommentsMobile';
 
 class PostList extends React.Component {
-    state = { initial_fetch: false, fetching: false, page: 1, postToEdit: null, posts: [] };
+    state = { initial_fetch: false, fetching: false, page: 1, postToEdit: null, postToComment: null, posts: [] };
 
     componentDidMount(){
         const { user, posts, readonly } = this.props;
@@ -87,6 +88,21 @@ class PostList extends React.Component {
                 new_posts.splice(index, 1, post);
                 this.setState({ posts: new_posts });
             });
+    }
+
+    setCommentLiked = (post, index, comment_index, like_state) => {
+        let comment = JSON.parse(JSON.stringify(post.comments[comment_index]));
+        let new_posts = [...this.state.posts]
+        comment.is_liked = like_state;
+        // comment.total_likes += like_state ? 1 : -1;
+
+        if(post.comments.length < comment_index){
+            return; //incase comment wasn't loaded with post
+        }
+        post.comments.splice(comment_index, 1, comment);
+        new_posts.splice(index, 1, post);
+
+        this.setState({ posts: new_posts });
     }
     
     toggleLiked = (post, index) => {
@@ -200,8 +216,23 @@ class PostList extends React.Component {
             this.setState({ posts: new_posts });
         });
     }
+
+    addCommentToPost = (post, index, comment) => {
+        post.total_comments += 1;
+        post.total_commenets += 1;
+        post.comments.push(comment);
+
+        let new_posts = [...this.state.posts]
+        new_posts.splice(index, 1, post);
+
+        this.setState({ posts: new_posts });
+    }
     
     showComments = (post, index) => {
+        if(window.innerWidth < MOBILE_WIDTH){
+            return this.commentOnMobile(post, index);
+        }
+
         post.fetching_comments = true;
 
         let new_posts = [...this.state.posts]
@@ -242,6 +273,14 @@ class PostList extends React.Component {
         });
     }
 
+    commentOnMobile = (post, index) => {
+        this.setState({ postToComment: { post, index } });
+    }
+    
+    cancelCommenting = () => {
+        this.setState({ postToComment: null });
+    }
+    
     editPost = (post, index) => {
         this.setState({ postToEdit: { post, index } });
     }
@@ -293,7 +332,7 @@ class PostList extends React.Component {
     }
 
     render() { 
-        const { scrolled, posts, postToEdit, initial_fetch, fetching } = this.state;
+        const { scrolled, posts, postToEdit, postToComment, initial_fetch, fetching } = this.state;
         const { user, readonly } = this.props;
         const options = {
             onChange: this.handleReachedBottom,
@@ -309,6 +348,15 @@ class PostList extends React.Component {
                         post={postToEdit.post}
                         onNewPost={this.savePost}
                         onCancelEditting={this.cancelEditPost} /> 
+                }
+                
+                { postToComment && 
+                    <PostCommentsMobile 
+                        user={user} 
+                        post={postToComment.post}
+                        onNewComment={comment => this.addCommentToPost(postToComment.post, postToComment.index, comment)}
+                        onToggleCommentLike={(comment_index, like_state) => this.setCommentLiked(postToComment.post, postToComment.index, comment_index, like_state)}
+                        onCancelCommenting={this.cancelCommenting} /> 
                 }
 
                 <div className={ 'ot-post-list-wrapper ' + ( scrolled ? 'scrolled' : '' )}>

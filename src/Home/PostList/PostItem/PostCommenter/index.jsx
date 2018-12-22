@@ -8,8 +8,14 @@ import './post-commenter.css';
 class PostCommenter extends React.Component {
     constructor(props) {
         super(props);
-        
+        this.inputField = React.createRef();
         this.state = { comment: '', animate_icon: true };
+    }
+
+    componentDidMount(){
+        if(this.props.autofocus && this.inputField){
+            this.inputField.current.textarea.focus();
+        }
     }
 
     handleChange = (event) => {
@@ -50,11 +56,13 @@ class PostCommenter extends React.Component {
                     <img src={user.dp} alt="" />
                 </div>
 
-                <TextareaAutosize 
+                <TextareaAutosize
+                    ref={this.inputField} 
                     placeholder="Write a Comment" 
                     className="flex input" rows={1}
                     onChange={this.handleChange}
                     onKeyUp={this.handleKeyup}
+                    onClick={this.props.onFocused}
                     value={comment} />
 
                 {/* <ContentEditable
@@ -70,8 +78,8 @@ class PostCommenter extends React.Component {
                     onChange={this.handleChange}
                     onKeyUp={this.handleKeyup} /> */}
 
-                <div className={'ot-post-commenter-actions self-end' + ((!comment.length) ? ' can-like' : '')}>
-                    <button className="ot-btn flat" onClick={ this.sendComment } >
+                <div className={'ot-post-commenter-actions self-end' + ((!comment.length && this.props.onToggleLiked) ? ' can-like' : '')}>
+                    <button className={ 'ot-btn flat ' + ( !comment.length ? 'disabled' : '' ) } onClick={ this.sendComment } >
                         POST
                     </button>
                     <button className="ot-post-liker ot-btn action" onClick={ this.props.onToggleLiked }>

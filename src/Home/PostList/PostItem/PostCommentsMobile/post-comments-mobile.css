@@ -1,0 +1,80 @@
+.ot-post-comments-mobile{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #fff;
+    z-index: 100;
+}
+
+.ot-post-comments-mobile-nav{
+    padding: 0.5em;
+    padding-left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.ot-post-comments-mobile-nav .ot-btn.action{
+    width: 40px;
+    height: 40px;
+    padding-bottom: 2px;
+    margin-right: 1em;
+}
+
+.ot-post-comments-mobile-nav .ot-btn.action svg{
+    width: 24px;
+    height: 24px;
+}
+
+.ot-post-comments-mobile-nav span{
+    font-size: 1.2em;
+}
+
+.ot-post-comments-mobile-actions{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    z-index: 100;
+    border-top: 1px solid #e5e5e5;
+}
+
+.ot-post-comments-mobile .ot-comments-loader {
+    padding: 0.9em 0.2em;
+    font-size: 1.1em;
+}
+
+.ot-post-comments-mobile .ot-post-comments {
+    margin-top: 40px;
+    background: transparent;
+    padding: 0.8em 1.4em;
+    padding-left: 0.8em;
+}
+
+.ot-post-comments-mobile .ot-post-comment{
+    margin-top: 0.9em;
+}
+
+.ot-post-comments-mobile .ot-post-comment .ot-dp.small{
+    width: 40px;
+    height: 40px;
+    margin-right: 0.9em;
+}
+
+.ot-post-comments-mobile .ot-post-comment p{
+    margin-top: 0.4em;
+    font-size: 1em;
+    line-height: 1.6em;
+}
+
+.ot-post-comments-mobile .ot-comment-liker {
+    top: 1em;
+}
+
+.ot-post-comments-mobile .ot-post-commenter .input{
+    font-size: 1.1em;
+}

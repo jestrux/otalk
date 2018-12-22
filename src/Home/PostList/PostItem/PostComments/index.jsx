@@ -5,7 +5,7 @@ import PostComment from "./PostComment";
 
 class PostComments extends React.Component {
     render() { 
-        const { comments, loading } = this.props;
+        const { fetched, comments, loading } = this.props;
 
         return ( 
             <div className="ot-post-comments">
@@ -21,6 +21,12 @@ class PostComments extends React.Component {
                 { loading && (
                     <span className="ot-comments-loader">
                         { comments.length > 0 ? 'loading more comments....' : 'loading comments....'}
+                    </span>
+                ) }
+                
+                { !loading && comments.length < 1 && (
+                    <span className="ot-comments-loader">
+                        No comments
                     </span>
                 ) }
             </div>

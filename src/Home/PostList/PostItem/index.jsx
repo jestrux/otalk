@@ -6,6 +6,7 @@ import PostMedia from "./PostMedia";
 
 import PostComments from "./PostComments";
 import PostCommenter from "./PostCommenter";
+import { MOBILE_WIDTH } from '../../../constants';
 
 const PostItem = (props) => {
     const { user, post } = props;
@@ -17,11 +18,17 @@ const PostItem = (props) => {
     like_text += ( total_likes !== 1) ? 's' : '';
     
     let comment_text = total_comments + ' Comment';
-    comment_text += ( total_comments != 1) ? 's' : '';
+    comment_text += ( total_comments !== 1) ? 's' : '';
 
     function handleShowComments(){
         if(comments && total_comments > 0 && total_comments !== comments.length)
             props.onShowComments()
+    }
+
+    function handleCommenterInputClicked(){
+        console.log("Innerwidth:", window.innerWidth);
+        if(window.innerWidth < MOBILE_WIDTH)
+            props.onShowComments();
     }
 
     return ( 
@@ -85,6 +92,7 @@ const PostItem = (props) => {
             <PostCommenter 
                 user={user} faved={is_liked}
                 onToggleLiked={ props.onToggleLiked }
+                onFocused={ handleCommenterInputClicked }
                 onNewComment = { props.onNewComment } />
         </div>
     );

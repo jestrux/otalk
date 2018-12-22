@@ -13,7 +13,7 @@ import NewPostMobile from "./NewPostMobile";
 import NewPostMedia from "./NewPostMedia";
 
 import { notification, notify } from '../../../Notifications';
-import { API_BASE_URL } from '../../../constants';
+import { API_BASE_URL, MOBILE_WIDTH } from '../../../constants';
 
 const MAX_IMAGE_COUNT = 5;
 class NewPost extends React.Component {
@@ -28,7 +28,7 @@ class NewPost extends React.Component {
         if(this.props.post){
             const { id, content, images, videos } = this.props.post;
             this.setState({post_id: id, content, images, videos}, () => {
-                if(window.innerWidth < 541){
+                if(window.innerWidth < MOBILE_WIDTH){
                     this.openMobileCreate();
                 }
             });
@@ -178,7 +178,7 @@ class NewPost extends React.Component {
         if(!fromClick)
             this.setState({focused: state});
         
-        if(state && fromClick && window.innerWidth < 541){
+        if(state && fromClick && window.innerWidth < MOBILE_WIDTH){
             this.openMobileCreate();
         }
     }
