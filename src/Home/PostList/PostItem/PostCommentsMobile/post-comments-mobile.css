@@ -15,6 +15,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .ot-post-comments-mobile-nav .ot-btn.action{
@@ -49,10 +50,16 @@
 }
 
 .ot-post-comments-mobile .ot-post-comments {
-    margin-top: 40px;
     background: transparent;
-    padding: 0.8em 1.4em;
+    padding: 0 1.4em;
     padding-left: 0.8em;
+    position: fixed;
+    top: 55px;
+    bottom: 102px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .ot-post-comments-mobile .ot-post-comment{

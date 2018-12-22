@@ -169,9 +169,10 @@ class PostCommentsMobile extends React.Component {
                 </div>
                 
                 <div className="ot-post-comments-mobile-actions">
-                    <PostCommenter 
+                    <PostCommenter
                         user={user} faved={post.is_liked}
                         autofocus
+                        quickemojis
                         onNewComment = { this.addComment } />
                 </div>
             </div>

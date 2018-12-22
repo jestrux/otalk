@@ -1,3 +1,16 @@
+#quickEmojis{
+    display: flex;
+    align-items: center;
+}
+
+#quickEmojis span{
+    flex: 1;
+    flex-shrink: 0;
+    text-align: center;
+    padding: 0.65em 0;
+    font-size: 1.3em;
+}
+
 .ot-post-commenter{
     padding: 0.5em 1.2em;
     padding-left: 0.9em;

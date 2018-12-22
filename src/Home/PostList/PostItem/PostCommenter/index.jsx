@@ -33,6 +33,11 @@ class PostCommenter extends React.Component {
             this.sendComment();
     }
 
+    addQuickEmoji = (e) => {
+        this.setState({ comment: this.state.comment + e.target.innerText });
+        this.inputField.current.textarea.focus();
+    }
+
     sendComment = () => {
         const state_copy = JSON.parse(JSON.stringify(this.state));
         const comment = state_copy.comment.replace(/\*([^*]+)\*/g , '<b>$1</b>');
@@ -46,49 +51,63 @@ class PostCommenter extends React.Component {
     render(){
         const { comment, animate_icon } = this.state;
         // const formatted_comment = comment.replace(/\*([^*]+)\*/g , '<b>$1</b>');
-        const { user, faved } = this.props;
+        const { user, faved, quickemojis } = this.props;
 
         const animation_duration = animate_icon ? 500 : 0;
 
         return (
-            <div className="ot-post-commenter layout center">
-                <div className="ot-dp small self-start">
-                    <img src={user.dp} alt="" />
+            <React.Fragment>
+                { quickemojis &&
+                    <div id="quickEmojis" className="layout">
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="rotfl">🤣</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="lol">😂</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="thanks">🙏</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="respect">🙌</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="wink">😉</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="hmmm">🤔</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="angry">😡</span>
+                        <span onClick={this.addQuickEmoji} role="img" aria-label="watching">👀</span>
+                    </div> 
+                }
+                <div className="ot-post-commenter layout center">
+                    <div className="ot-dp small self-start">
+                        <img src={user.dp} alt="" />
+                    </div>
+
+                    <TextareaAutosize
+                        ref={this.inputField} 
+                        placeholder="Write a Comment" 
+                        className="flex input" rows={1}
+                        onChange={this.handleChange}
+                        onKeyUp={this.handleKeyup}
+                        onClick={this.props.onFocused}
+                        value={comment} />
+
+                    {/* <ContentEditable
+                        tagName="div"
+                        className="flex input"
+                        content={comment}
+                        editable={true}
+                        multiLine={false}
+                        onChange={this.handleChange} /> */}
+
+                    {/* <input className="flex" type="text" placeholder="Write a Comment" 
+                        value={comment} 
+                        onChange={this.handleChange}
+                        onKeyUp={this.handleKeyup} /> */}
+
+                    <div className={'ot-post-commenter-actions self-end' + ((!comment.length && this.props.onToggleLiked) ? ' can-like' : '')}>
+                        <button className={ 'ot-btn flat ' + ( !comment.length ? 'disabled' : '' ) } onClick={ this.sendComment } >
+                            POST
+                        </button>
+                        <button className="ot-post-liker ot-btn action" onClick={ this.props.onToggleLiked }>
+                            <MorphReplace width={20} height={20} duration={animation_duration} rotation={'none'}>
+                                { faved ? <FavoritedIcon key="favorited_icon" /> : <FavoriteIcon key="favorite_icon" /> }
+                            </MorphReplace>
+                        </button>
+                    </div>
                 </div>
-
-                <TextareaAutosize
-                    ref={this.inputField} 
-                    placeholder="Write a Comment" 
-                    className="flex input" rows={1}
-                    onChange={this.handleChange}
-                    onKeyUp={this.handleKeyup}
-                    onClick={this.props.onFocused}
-                    value={comment} />
-
-                {/* <ContentEditable
-                    tagName="div"
-                    className="flex input"
-                    content={comment}
-                    editable={true}
-                    multiLine={false}
-                    onChange={this.handleChange} /> */}
-
-                {/* <input className="flex" type="text" placeholder="Write a Comment" 
-                    value={comment} 
-                    onChange={this.handleChange}
-                    onKeyUp={this.handleKeyup} /> */}
-
-                <div className={'ot-post-commenter-actions self-end' + ((!comment.length && this.props.onToggleLiked) ? ' can-like' : '')}>
-                    <button className={ 'ot-btn flat ' + ( !comment.length ? 'disabled' : '' ) } onClick={ this.sendComment } >
-                        POST
-                    </button>
-                    <button className="ot-post-liker ot-btn action" onClick={ this.props.onToggleLiked }>
-                        <MorphReplace width={20} height={20} duration={animation_duration} rotation={'none'}>
-                            { faved ? <FavoritedIcon key="favorited_icon" /> : <FavoriteIcon key="favorite_icon" /> }
-                        </MorphReplace>
-                    </button>
-                </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
