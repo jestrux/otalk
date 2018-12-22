@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from '../../../../components/Image';
 
 const PostImage = ( props ) => {
     const { images } = props;
@@ -39,7 +40,7 @@ const PostImage = ( props ) => {
             {   
                 images.slice(0, shown_image_count).map( i => 
                     <div key={i.id} className="ot-post-image">
-                        <img src={i.photo} alt=""/> 
+                        <Image src={i.photo} />
                     </div>
                 )
             }

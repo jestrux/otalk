@@ -4,13 +4,14 @@ import logo from '../components/logo.png';
 
 import PostList from './PostList';
 import Header from '../components/Header';
+import OtPage from '../components/OtPage';
 
 class Home extends React.Component {
     render() { 
         const { user, onViewProfile, onViewUser } = this.props;
 
         return (
-            <React.Fragment>
+            <OtPage bg="#e9e9e9">
                 <Header>
                     <img className="ot-logo" src={logo} alt=""/>
                     &emsp;
@@ -28,7 +29,7 @@ class Home extends React.Component {
                 <PostList
                     user={ user }
                     onViewUser={onViewUser} />
-            </React.Fragment> 
+            </OtPage> 
         );
     }
 }

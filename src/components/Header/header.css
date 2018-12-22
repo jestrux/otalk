@@ -2,11 +2,19 @@
     position: fixed;
     top: 0;
     width: 100vw;
-    height: 60px;
     background: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
     z-index: 5;
     padding: 0 1.5em;
+}
+
+.ot-header, 
+.ot-header .top-bar{
+    min-height: 60px;
+}
+
+.ot-header .top-bar{
+    width: 100%;
 }
 
 .ot-header .ot-logo{
@@ -15,10 +23,27 @@
 
 .ot-header-title{
     font-size: 1.4em;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 540px){
     .ot-header{
         padding: 0 0.5em;
+    }
+
+    .ot-header.no-border{
+        padding: 0;
+        box-shadow: none;
+        min-height: 80px;
+    }
+
+    .ot-header.no-border, 
+    .ot-header.no-border .top-bar{
+        padding: 0;
+    }
+
+    .ot-header.no-border .ot-header-title{
+        padding-left: 0.8em;
     }
 }

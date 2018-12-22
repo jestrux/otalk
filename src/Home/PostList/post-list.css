@@ -10,3 +10,7 @@
 .ot-post-item{
     margin-bottom: 1.5em;
 }
+
+.ot-new-post ~ .ot-btn.fab{
+    bottom: 80px;
+}

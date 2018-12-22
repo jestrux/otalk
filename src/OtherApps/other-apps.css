@@ -1,0 +1,35 @@
+.ob-app-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 33.333%;
+    padding: 0 1.5em;
+    margin-bottom: 1.5em;
+    position: relative;
+}
+
+.ob-app-item-image{
+    align-self: flex-start;
+    width: 90%;
+    padding-bottom: 90%;
+    border-radius: 50%;
+    border: 2px solid #CECECE;
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.ob-app-item img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+}
+
+.ob-app-item .ob-app-item-text{
+    letter-spacing: 0.05em;
+}

@@ -7,14 +7,19 @@ import Notifications, { notify, notification } from '../Notifications';
 
 import Login from '../Login';
 import Home from '../Home';
+import Woza from '../Woza';
+import Discover from '../Discover';
+import Ochat from '../Ochat';
+import OtherApps from '../OtherApps';
 
 import UserProfile from '../UserProfile';
 import BottomSheet from '../components/BottomSheet';
+import MobileNav from './MobileNav';
 
 // const profileUser = {display_name: "Daniel Kindimba", id: 290, dp: "https://olbongo.blob.core.windows.net/olbongo/stuff_images/2018/12/01/takescripter.jpg"}
 // const profileUser = {"status":"wacky","display_name":"walter","id":10,"dp":"https://olbongo.blob.core.windows.net/olbongo/CACHE/images/stuff_images/2017/04/28/20170416_121348_s8ddhse/444c59972c18921ada293c2c40bfe2a4.png","token":"51w-fe20639ab5c964bb1c15:@olb:dXE="}
 class App extends React.Component {
-    state = {user: {}, profileUser: null, userProfilePostsLoaded: false, user_fetched: false};
+    state = {page: 'discover', user: {}, profileUser: null, userProfilePostsLoaded: false, user_fetched: false};
 
     componentWillMount(){
         this.fetchUser();
@@ -84,9 +89,13 @@ class App extends React.Component {
             this.logout();
         }
     }
+
+    setPage = ( page ) => {
+        this.setState({ page });
+    }
   
     render() { 
-        const { user, user_fetched, profileUser, userProfilePostsLoaded } = this.state;
+        const { page, user, user_fetched, profileUser, userProfilePostsLoaded } = this.state;
         const user_logged_in = user && user.id && user.token;
         return (
             <div className="ot-app-wrapper" context="counter1">
@@ -98,16 +107,36 @@ class App extends React.Component {
 
                     { user_logged_in && 
                         <React.Fragment>
-                            <Home
-                                user={ user }
-                                onViewProfile={ () => this.viewProfileUser(user) }
-                                onViewUser={this.viewProfileUser} />
+                            { page === 'home' && 
+                                <Home
+                                    user={ user }
+                                    onViewProfile={ () => this.viewProfileUser(user) }
+                                    onViewUser={this.viewProfileUser} />
+                            }
+
+                            { page === 'woza' && 
+                                <Woza user={ user } />
+                            }
+                            
+                            { page === 'discover' && 
+                                <Discover user={ user } />
+                            }
+                            
+                            { page === 'ochat' && 
+                                <Ochat user={ user } />
+                            }
+                            
+                            { page === 'apps' && 
+                                <OtherApps user={ user } />
+                            }
                             
                             { profileUser && 
                                 <BottomSheet id="profileUser" contentLoaded={userProfilePostsLoaded} peekHeight={320} onClose={this.closeProfileUser}>
                                     <UserProfile onLogout={this.logout} onPostsLoaded={this.handleProfilePostsLoaded} sessionUser={ user } user={profileUser} />
                                 </BottomSheet>
                             }
+
+                            <MobileNav page={page} onNavigateTo={ this.setPage } />
                         </React.Fragment>
                     }
                 </main>
