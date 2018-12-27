@@ -27,12 +27,19 @@ class App extends React.Component {
 
     componentDidMount(){
         this._isMounted = true;
+        //remove hash on first load
+        this.setPage('home');
+
         window.onpopstate = () => {
             document.dispatchEvent(new CustomEvent('ot-popstate'));
             console.log("State popped!");
+
+            const { pathname } = window.location;
+            console.log("Base pathname changed", pathname);
+            this.setPage(pathname.substring(1), false);
         }
     }
-
+    
     fetchUser = async () => {
         const session_user = await localStorage.getItem('ot-user');
         this.setState({user_fetched: true});
@@ -90,8 +97,10 @@ class App extends React.Component {
         }
     }
 
-    setPage = ( page ) => {
+    setPage = ( page, updateUrl = true ) => {
         this.setState({ page });
+        if(updateUrl)
+            window.history.pushState([page], page, '/' + page);
     }
   
     render() { 

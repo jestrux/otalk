@@ -1,10 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 
 import './ochat.css';
 import OtPage from '../components/OtPage';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
 import { API_BASE_URL } from '../constants';
-import axios from 'axios';
 
 class Ochat extends React.Component {
     state = { initial_fetch: false, page: 1, friends: [] };
@@ -32,7 +33,7 @@ class Ochat extends React.Component {
     }
 
     render(){
-        const { friends } = this.state;
+        const { fetching, friends } = this.state;
         return (
             <OtPage padding="111px">
                 <Header noborder centers>
@@ -66,6 +67,12 @@ class Ochat extends React.Component {
                                 </div>
                             )
                         )}
+                        
+                        { fetching && 
+                            <div className="layout center-justified">
+                                <Loader/>
+                            </div>
+                        }
                     </div>
                 </div>
             </OtPage>

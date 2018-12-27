@@ -25,11 +25,11 @@ const MobileNav = ( props ) => {
                 Discover
             </button>
 
-            <button className={'ot-btn flat layout vertical center-center ' + ( page === 'ochat' ? 'active' : '' )} 
+            {/* <button className={'ot-btn flat layout vertical center-center ' + ( page === 'ochat' ? 'active' : '' )} 
                 onClick={ () => onNavigateTo('ochat') }>
                 <svg><use xlinkHref='feather.svg#message-circle' /></svg>
                 OChat
-            </button>
+            </button> */}
 
             <button className={'ot-btn flat layout vertical center-center ' + ( page === 'apps' ? 'active' : '' )} 
                 onClick={ () => onNavigateTo('apps') }>

@@ -20,38 +20,38 @@ class OtherApps extends React.Component {
 
                 <div className="ob-other-apps">
                     <div className="apps-wrapper layout wrap">
-                        <div className="ob-app-item">
+                        <a href="https://www.olbongo.com/odrive" target="_blank" rel="noopener noreferrer" className="ob-app-item">
                             <div className="ob-app-item-image">
                                 <img src={odrive} alt=""/>
                             </div>
                             <span className="ob-app-item-text">
                                 Odrive
                             </span>
-                        </div>
-                        <div className="ob-app-item">
+                        </a>
+                        <a href="https://www.olbongo.com/findit" target="_blank" rel="noopener noreferrer" className="ob-app-item">
                             <div className="ob-app-item-image">
                                 <img src={findit} alt=""/>
                             </div>
                             <span className="ob-app-item-text">
                                 Find It
                             </span>
-                        </div>
-                        <div className="ob-app-item">
+                        </a>
+                        <a href="https://www.olbongo.com/oclass" target="_blank" rel="noopener noreferrer" className="ob-app-item">
                             <div className="ob-app-item-image">
                                 <img src={oclass} alt=""/>
                             </div>
                             <span className="ob-app-item-text">
                                 Oclass
                             </span>
-                        </div>
-                        <div className="ob-app-item">
+                        </a>
+                        <a href="https://www.olbongo.com/ojob" target="_blank" rel="noopener noreferrer" className="ob-app-item">
                             <div className="ob-app-item-image">
                                 <img src={ojob} alt=""/>
                             </div>
                             <span className="ob-app-item-text">
                                 Ojob
                             </span>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </OtPage>

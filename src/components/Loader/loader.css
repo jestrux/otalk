@@ -1,6 +1,7 @@
 .ot-loader {
     display: inline-block;
     position: relative;
+    margin: 1.5em 0;
     width: 64px;
     height: 64px;
 }
