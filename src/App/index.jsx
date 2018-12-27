@@ -28,7 +28,7 @@ class App extends React.Component {
     componentDidMount(){
         this._isMounted = true;
         //remove hash on first load
-        this.setPage('woza');
+        this.setPage('home');
 
         window.onpopstate = () => {
             document.dispatchEvent(new CustomEvent('ot-popstate'));
