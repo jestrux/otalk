@@ -4,3 +4,26 @@
     padding-top: 60px;
     padding-bottom: 63px;
 }
+
+#otPage.full{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#otPage .ot-header,
+#otPage ~ .ot-mobile-nav{
+    transition: all 0.35s ease-out;
+}
+
+#otPage.full .ot-header,
+#otPage.full ~ .ot-mobile-nav{
+    transition: all 0.2s ease-out;
+}
+
+#otPage.full .ot-header{
+    transform: translateY(-100%);
+}
+
+#otPage.full ~ .ot-mobile-nav{
+    transform: translateY(100%);
+}

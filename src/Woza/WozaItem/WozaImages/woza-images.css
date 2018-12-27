@@ -15,7 +15,7 @@
     object-position: top;
 }
 
-.ot-woza-images img:not(.active){
+.ot-woza-images img:not(.visible){
     opacity: 0;
 }
 

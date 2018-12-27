@@ -6,7 +6,7 @@ class Image extends React.Component{
     
     handleImageInView = (e) => {
         if(e.isIntersecting){
-            console.log("Image is in view,", e.isIntersecting, this.props.src);
+            // console.log("Image is in view,", e.isIntersecting, this.props.src);
             this.setState({visible: true, src: this.props.src});
         }
     }
@@ -17,12 +17,12 @@ class Image extends React.Component{
             rootMargin: `0% 0%`,
         };
         const { src } = this.state;
-        const { className } = this.props;
+        const { className, style } = this.props;
 
         return (
             <React.Fragment>
                 <Observer { ...options }>
-                    <img className={className} src={src} alt=""/>
+                    <img style={style} className={className} src={src} alt=""/>
                 </Observer>
             </React.Fragment>
         )

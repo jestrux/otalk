@@ -5,9 +5,24 @@ import OtPage from '../components/OtPage';
 import Header from '../components/Header';
 
 import WozaList from './WozaList';
+import WozaPreviewer from './WozaPreviewer';
 
 class Woza extends React.Component {
-    state = { mode: 'grid' };
+    state = { mode: 'grid', previewing: false };
+
+    componentDidMount(){
+        document.addEventListener('ot-popstate', (e) => {
+            const { hash } = window.location;
+            if(hash.indexOf("#wozaPreviewing") === -1 && this.state.previewing){
+                this.setState({previewing: false});
+            }
+        }, false);
+    }
+
+    enterPreviewing = () => {
+        window.history.pushState({"wozaPreviewing": true}, "wozaPreviewing", '#wozaPreviewing');
+        this.setState({previewing: true});
+    }
 
     handleSwitchMode = () => {
         this.setState({ mode: this.state.mode === 'grid' ? 'strip' : 'grid'})
@@ -15,9 +30,9 @@ class Woza extends React.Component {
 
     render(){
         const { user } = this.props;
-        const { mode } = this.state;
+        const { mode, previewing } = this.state;
         return (
-            <OtPage>
+            <OtPage full={previewing}>
                 <Header noborder>
                     <span className="ot-header-title">
                         Woza
@@ -30,7 +45,8 @@ class Woza extends React.Component {
                     </button>
                 </Header>
 
-                <WozaList mode={ mode } user={ user } />
+                <WozaList previewing={ previewing } mode={ mode } user={ user }
+                    onPreview={this.enterPreviewing} />
             </OtPage>
         );
     }

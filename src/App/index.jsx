@@ -28,15 +28,19 @@ class App extends React.Component {
     componentDidMount(){
         this._isMounted = true;
         //remove hash on first load
-        this.setPage('home');
+        this.setPage('woza');
 
         window.onpopstate = () => {
             document.dispatchEvent(new CustomEvent('ot-popstate'));
             console.log("State popped!");
 
             const { pathname } = window.location;
-            console.log("Base pathname changed", pathname);
-            this.setPage(pathname.substring(1), false);
+            const page = pathname.substring(1);
+
+            if(page !== this.state.page){
+                // console.log("Base pathname changed", pathname);
+                this.setPage(page, false);
+            }
         }
     }
     

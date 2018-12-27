@@ -4,7 +4,7 @@ import WozaImages from './WozaImages';
 import WozaResponder from './WozaResponder';
 
 const PostItem = (props) => {
-    const { user, woza } = props;
+    const { user, woza, curImageIndex, quickresponder } = props;
     const { is_liked, publisher, published_at, images } = woza;
 
     return ( 
@@ -13,11 +13,15 @@ const PostItem = (props) => {
                 <div className="ot-dp">
                     <img src={publisher.dp} alt="" />
                 </div>
+
+                <span className="ot-post-item-owner" onClick={props.onViewUser}>
+                    { publisher.display_name }
+                </span>
             </div>
 
-            <WozaImages images={images} />
+            <WozaImages index={curImageIndex} images={images} />
             
-            <WozaResponder user={user} faved={is_liked}/>
+            { !quickresponder && <WozaResponder user={user} faved={is_liked}/> }
         </div>
     );
 }

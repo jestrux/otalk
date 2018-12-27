@@ -7,8 +7,6 @@ import Header from '../components/Header';
 import Loader from '../components/Loader';
 import { API_BASE_URL } from '../constants';
 
-const discoverSearchState = {"discoverSearching": true};
-
 class Discover extends React.Component {
     state = { initial_fetch: false, searching: false, page: 1, people: [] };
 
@@ -27,7 +25,7 @@ class Discover extends React.Component {
     }
 
     startSearching = () => {
-        window.history.pushState(discoverSearchState, "discoverSearching", '#discoverSearching');
+        window.history.pushState({"discoverSearching": true}, "discoverSearching", '#discoverSearching');
         this.setState({searching: true});
     }
 
