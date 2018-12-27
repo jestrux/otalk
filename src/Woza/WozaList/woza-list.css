@@ -1,0 +1,66 @@
+.ot-woza-list-wrapper{
+    position: relative;
+}
+
+.ot-woza-list-wrapper.mode-strip{
+    height: 100%;
+}
+
+.ot-woza-list{
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 0 0.5em;
+}
+
+.ot-woza-list.mode-strip{
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    flex-wrap: nowrap
+}
+
+.ot-new-woza ~ .ot-btn.fab{
+    bottom: 80px;
+}
+
+.ot-woza-list .ot-woza-item-wrapper{
+    width: 50%;
+    padding: 0.5em;
+    height: 38vh;
+    min-height: 260px;
+    max-height: 320px;
+    margin-bottom: 0.5em;
+    position: relative;
+    flex-shrink: 0;
+    /* background: #ddd; */
+}
+
+.ot-woza-list.mode-strip .ot-woza-item-wrapper{
+    width: 90%;
+    height: 100%;
+    max-height: 100%;
+    margin-bottom: 0;
+}
+
+.ot-woza-list .ot-woza-item-wrapper:nth-child(odd){
+    /* background: #555; */
+}
+
+.ot-woza-list .ot-woza-item-wrapper > *{
+    /* opacity: 0; */
+}
+
+.ot-woza-list .ot-woza-item{
+    height: 100%;
+}
+
+.ot-woza-list.mode-strip .ot-woza-item-title .ot-dp {
+    border: 4px solid #fff;
+    width: 50px;
+    height: 50px;
+}
+
+.ot-woza-list.mode-strip .ot-woza-item-title {
+    top: 0.8em;
+    left: 0.8em;
+}

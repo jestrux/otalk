@@ -1,0 +1,24 @@
+.ot-woza-images{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #eee;
+}
+
+.ot-woza-images img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.ot-woza-images img:not(.active){
+    opacity: 0;
+}
+
+@media all and (max-width: 540px){
+    
+}

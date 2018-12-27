@@ -1,3 +1,19 @@
 .ob-ochat{
     
 }
+
+.ob-friend-item{
+    padding: 1em 1.2em;
+}
+
+.ob-friend-item .ot-dp{
+    width: 50px;
+    height: 50px;
+    margin-right: 1.2em;
+}
+
+.ob-friend-item span{
+    text-transform: capitalize;
+    font-size: 1.3em;
+    letter-spacing: 0.05em;
+}

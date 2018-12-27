@@ -1,3 +1,11 @@
 .ot-woza{
     
 }
+
+.ot-btn.mode-switch-btn{
+    font-size: 1.1em;
+    letter-spacing: 0.05em;
+    color: #696666;
+    margin-right: 0.7em;
+    -webkit-tap-highlight-color: transparent;
+}

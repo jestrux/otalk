@@ -1,0 +1,39 @@
+.ot-woza-item{
+    background: #fff;
+    min-height: 80px;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #ddd;
+}
+
+.ot-woza-item-title{
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    z-index: 1;
+}
+
+.ot-woza-item-title .ot-dp{
+    margin-right: 0.8em;
+    border: 2px solid #fff;
+}
+
+.ot-woza-item-title .ot-woza-item-owner{
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.06em;
+    text-transform: capitalize;
+}
+
+.ot-woza-item-date{
+    font-size: 0.85em;
+    color: #555;
+}
+
+@media screen and (max-width: 540px){
+    .ot-woza-item-title {
+        
+    }
+}

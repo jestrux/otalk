@@ -1,0 +1,25 @@
+#quickEmojis{
+    display: flex;
+    align-items: center;
+}
+
+#quickEmojis span{
+    flex: 1;
+    flex-shrink: 0;
+    text-align: center;
+    padding: 0.65em 0;
+    font-size: 1.3em;
+}
+
+.ot-woza-responder{
+    position: absolute;
+    bottom: 2em;
+    left: 0;
+    right: 0;
+}
+
+@media screen and (max-width: 500px){
+    .ot-woza-responder{
+        position: fixed;
+    }
+}

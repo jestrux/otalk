@@ -17,11 +17,12 @@ class Image extends React.Component{
             rootMargin: `0% 0%`,
         };
         const { src } = this.state;
+        const { className } = this.props;
 
         return (
             <React.Fragment>
                 <Observer { ...options }>
-                    <img src={src} alt=""/>
+                    <img className={className} src={src} alt=""/>
                 </Observer>
             </React.Fragment>
         )
