@@ -35,7 +35,7 @@ class App extends React.Component {
             console.log("State popped!");
 
             const { pathname } = window.location;
-            const page = pathname.substring(1);
+            const page = pathname.replace('/otalk/', '');
 
             if(page !== this.state.page){
                 // console.log("Base pathname changed", pathname);
@@ -104,7 +104,7 @@ class App extends React.Component {
     setPage = ( page, updateUrl = true ) => {
         this.setState({ page });
         if(updateUrl)
-            window.history.pushState([page], page, '/' + page);
+            window.history.pushState([page], page, '/otalk/' + page);
     }
   
     render() { 
