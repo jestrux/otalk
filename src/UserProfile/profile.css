@@ -50,11 +50,12 @@
 .ot-bottom-sheet .logout-btn{
     margin-top: 0;
     position: absolute;
-    top: -0.5em;
-    right: -0.8em;
+    top: -1.7em;
+    right: -1.5em;
     min-width: 0 !important;
     font-size: 0.85em !important;
     z-index: 1;
+    background: transparent;
 }
 
 .ot-bottom-sheet.fixed .logout-btn{

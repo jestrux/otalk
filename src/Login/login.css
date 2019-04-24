@@ -5,6 +5,9 @@
     right: 0;
     bottom: 0;
     display: flex;
+    background: #afafaf;
+    background: rgb(255,168,99);
+    background: linear-gradient(192deg, rgba(255,168,99,1) 0%, rgba(156,200,193,1) 35%, rgba(212,169,135,1) 75%);
 }
 
 .ot-login-form{
@@ -108,16 +111,17 @@ input:-webkit-autofill {
 }
 
 @media all and (max-width: 540px){
-    @media all and (max-width: 540px){
-        .ot-login-page{
-            background: #fff;
-        }
+    .ot-login-page{
+        /* background: #fff; */
     }
     .ot-login-form{
         width: 100vw !important;
-        padding: 0 2.5em !important;
+        padding: 0 1.5em !important;
         border-radius: 0 !important;
         box-shadow: none !important;
+        background: transparent;
+        margin: 0 auto;
+        margin-top: 14vh;
     }
 
     .ot-login-title{
@@ -127,13 +131,17 @@ input:-webkit-autofill {
     .ot-login-form .ot-login-title img{
         margin-right: 0;
         margin-bottom: 0.6em;
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: auto;
+        border-radius: 50%;
+        background: #fff;
+        padding: 2%;
+        box-sizing: content-box;
     }
 
     .ot-login-form .ot-btn{
         width: 100%;
-        padding: 12px 30px;
+        padding: 8px 30px;
         font-size: 16px;
     }
 }
