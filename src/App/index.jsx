@@ -92,12 +92,9 @@ class App extends React.Component {
         this.setState({profileUser: null});
     }
     
-    viewProfileUser = ( user ) => {
-        if(window.innerWidth < 541){
-            this.setState({profileUser: user});
-        }else{
-            this.logout();
-        }
+    viewProfileUser = ( paramUser ) => {
+        const user = paramUser || this.state.user;
+        this.setState({profileUser: user});
     }
 
     setPage = ( page, updateUrl = true ) => {
@@ -123,7 +120,8 @@ class App extends React.Component {
                             { page === 'home' && 
                                 <Home
                                     user={ user }
-                                    onViewProfile={ () => this.viewProfileUser(user) }
+                                    onViewProfile={ this.viewProfileUser }
+                                    onLogout={ this.logout }
                                     onViewUser={this.viewProfileUser} />
                             }
 
