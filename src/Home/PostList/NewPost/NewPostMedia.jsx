@@ -12,7 +12,7 @@ const NewPostMedia = ( props ) => {
             { videos && videos.length > 0 && 
                 <NewPostVideo video={video}
                     token={token}
-                    onVideoUploaded={ ( res ) => { if(!readonly) props.onVideoUploaded(res) } }
+                    onVideoUploaded={ ( res ) => { if(!readonly) props.onVideoUploaded(res); } }
                     onRemoveVideo={ props.onRemoveVideo } />
             }
             { images && images.length > 0 &&
@@ -20,8 +20,8 @@ const NewPostMedia = ( props ) => {
                     { images.map( (image, index) => 
                         <NewPostImage key={ index } image={image}
                             token={token}
-                            onImageLoaded={ (src) => { if(!readonly) props.onImageLoaded(image, index, src) } }
-                            onImageUploaded={ (new_image) => { if(!readonly) props.onImageUploaded(image, index, new_image) } }
+                            onImageLoaded={ (src) => { if(!readonly) props.onImageLoaded(image, index, src); } }
+                            onImageUploaded={ (new_image) => { if(!readonly) props.onImageUploaded(image, index, new_image); } }
                             onRemoveImage={ () =>  props.onRemoveImage(index) } />
                     )}
                 </div>

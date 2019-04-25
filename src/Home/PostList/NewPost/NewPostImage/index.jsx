@@ -1,6 +1,6 @@
 import React from 'react';
 import workerize from 'workerize'
-import axios, { post } from 'axios'
+import { post } from 'axios'
 
 import { API_BASE_URL } from "../../../../constants";
 
@@ -13,8 +13,16 @@ class NewPostImage extends React.Component {
     //     this.ctx = this.canvas.getContext('2d')
     // }
 
+    componentDidMount(){
+        this.handleIncomingImage();
+    }
+
     componentWillReceiveProps(props){
-        const { image } = props;
+        this.handleIncomingImage(props);
+    }
+
+    handleIncomingImage = (props) => {
+        const { image } = props || this.props;
         const { file, src } = image;
 
         if(!this.state.was_setup && image){

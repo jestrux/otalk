@@ -71,11 +71,15 @@ class NewPost extends React.Component {
         }, 20);
     }
 
-    FileSelectHandler = (e) => {
+    FileSelectHandler = (e, fromDragNDrop = true) => {
+        e.stopPropagation();
+        e.preventDefault();
+        
         if(this.state.videos.length)
             return notify( notification(`You can not upload both videos and images`) )
 
-        this.FileDragHover(e);
+        if(fromDragNDrop)
+            this.FileDragHover(e);
     
         var files = e.target.files || e.dataTransfer.files;
     
@@ -165,7 +169,6 @@ class NewPost extends React.Component {
             notify( notification(`You can not upload more than ${MAX_IMAGE_COUNT} images`) )
         }
         this.setState({ images: this.state.images.concat(slice(images, 0, diff)) });
-        
         Array.from(files).filter(f => f.type.indexOf("image") === -1)
             .forEach( f => {
                 let fname = f.name.substr(0, 15).trim();
@@ -322,7 +325,7 @@ class NewPost extends React.Component {
                         onAddPicture={this.handleAddPicture} />
                 }
 
-                <div ref={this.wrapper} className={ 'ot-new-post ' + ( saving ? 'saving ' : ' ') + ( posting ? 'posting ' : ' ') + ( dragover ? images.length ? 'dragging has-images' : 'dragging' : '' ) }>
+                <div ref={this.wrapper} className={ 'ot-new-post ' + ( saving ? 'saving ' : ' ') + ( posting ? 'posting ' : ' ') + ( dragover ? 'dragging ' : '') + (images.length ? 'has-images' : '' ) }>
                     <div className="ot-new-post-wrapper layout">
                         <div className="ot-dp">
                             <img src={user.dp} alt=""/>
@@ -348,7 +351,15 @@ class NewPost extends React.Component {
                         onVideoUploaded={this.videoUpLoaded}
                         onRemoveVideo={this.removeVideo} />
 
-                    <div className={'layout end-justified ot-new-post-button-wrapper' + (content.length || focused ? ' visible' : '')}>
+                    <div className="ot-new-post-buttons layout justified">
+                        <div className="layout center">
+                            <input type="file" id="mobileImages" onChange={(e) => this.FileSelectHandler(e, false)}/>
+                            <label className="ot-btn flat rounded" htmlFor="mobileImages">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                                &nbsp;&nbsp;ADD IMAGE
+                            </label>
+                        </div>
+
                         <button className={'ot-btn flat' + (!content.length ? ' disabled' : '') }
                             onClick={ this.submitClicked }>
                             { post_id ? 'SAVE' : 'POST' }

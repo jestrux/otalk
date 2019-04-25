@@ -39,12 +39,16 @@
     outline: none;
 }
 
-.ot-new-post-button-wrapper{
-    padding: 0.4em 1em;
+.ot-new-post-buttons{
+    padding: 0 1em;
+    padding-bottom: 0.5em;
 }
 
-.ot-new-post-button-wrapper:not(.visible){
-    display: none;
+.ot-new-post-buttons .rounded{
+    padding: 0 1em;
+    background-color: #eeeeee;
+    padding: 4px 10px;
+    font-size: 0.8em;
 }
 
 .ot-new-post.dragging{
@@ -266,6 +270,10 @@
 }
 
 @media screen and (max-width: 540px){
+    .ot-new-post-buttons{
+        display: none;
+    }
+
     .ot-new-post-wrapper {
         padding: 0.7em 0.5em;
         position: relative;
