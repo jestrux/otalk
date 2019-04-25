@@ -62,9 +62,32 @@
     margin-right: 1.5em;
 }
 
+.ot-auth-user{
+    min-width: 180px;
+}
+
+.ot-auth-user svg{
+    margin-left: auto;
+}
+
+.ot-auth-user > p{
+    text-transform: capitalize;
+}
+
+
+@media screen and (min-width: 541px){
+    .ot-header > .ot-dp{
+        display: none;
+    }
+}
+
 @media screen and (max-width: 540px){
     .ot-header{
         padding: 0 0.5em;
+    }
+
+    .ot-auth-user{
+        display: none;
     }
 
     .ot-header.no-border{
