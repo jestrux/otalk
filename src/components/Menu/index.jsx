@@ -2,9 +2,9 @@ import React from 'react';
 import './styles.css';
 
 class Menu extends React.Component {
-    static Options = ({ className, children }) => {
+    static Options = ({ className, baseLeft, children }) => {
         return (
-            <div className={'ot-menu-options ' + className}>
+            <div className={'ot-menu-options ' + ( baseLeft ? 'base-left ' : ' ' ) + className }>
                 { children }
             </div>
         );
@@ -20,8 +20,7 @@ class Menu extends React.Component {
     
     static Trigger = ({ children, className }) => {
         const id = 'ot-menu-id' + Math.random().toString(36).substr(2, 5);
-        let fullClassName = "ot-menu-opener ot-btn flat layout center ";
-        fullClassName += className;
+        let fullClassName = `ot-menu-opener ${className}`;
 
         return ( 
             <button htmlFor={id} className={fullClassName}>

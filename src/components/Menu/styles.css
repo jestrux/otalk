@@ -4,7 +4,7 @@
 
 .ot-menu-options{
     position: absolute;
-    left: 1em;
+    right: 1em;
     top: 1em;
     width: 100%;
     min-width: 150px;
@@ -16,8 +16,9 @@
     transition: all 0.1s ease-out;
 }
 
-.ot-menu-opener{
-    min-width: 100%;
+.ot-menu-options.base-left{
+    right: auto;
+    left: 1em;
 }
 
 .ot-menu-opener:not(:focus) ~ .ot-menu-options:not(:hover){
