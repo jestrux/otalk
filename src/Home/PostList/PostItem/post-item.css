@@ -108,4 +108,8 @@
         padding: 0.5em;
         margin-top: 0.5em;
     }
+
+    .ot-post-item-content {
+        margin: 0.5em 0.9em;
+    }
 }
