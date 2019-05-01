@@ -57,7 +57,12 @@ class WozaList extends React.Component {
     }
 
     handleReachedBottom = (event) => {
-        // console.log("ReachedBottom Event", event);
+        const { wozas } = this.state;
+        const { maxCount } = this.props;
+
+        if(maxCount && wozas.length >= maxCount)
+            return;
+
         if(event.isIntersecting && !this.state.fetching){
             this.fetchUserWozas();
         }
@@ -70,7 +75,7 @@ class WozaList extends React.Component {
 
     render() { 
         const { scrolled, wozas, initial_fetch, fetching, previewIndex } = this.state;
-        const { user, mode = 'grid', previewing } = this.props;
+        const { user, maxCount, mode = 'grid', previewing } = this.props;
         const options = {
             onChange: this.handleReachedBottom,
             root: 'body',
@@ -82,9 +87,11 @@ class WozaList extends React.Component {
                 <div className={ 'ot-woza-list layout wrap mode-' + mode }>
                     {initial_fetch && (
                         wozas.map( (woza, index) => 
-                            <div key={woza.id} className="ot-woza-item-wrapper" onClick={() => this.previewWoza(index)}>
-                                <WozaItem key={woza.id} woza={woza} user={user}/>
-                            </div>
+                            ( (!maxCount || (index < maxCount) ) &&
+                                <div key={woza.id} className="ot-woza-item-wrapper" onClick={() => this.previewWoza(index)}>
+                                    <WozaItem key={woza.id} woza={woza} user={user}/>
+                                </div>
+                            )
                         )
                     )}
                 </div>
