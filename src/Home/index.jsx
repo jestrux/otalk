@@ -27,7 +27,7 @@ class Home extends React.Component {
                     </div>
 
                     <Menu className="ot-auth-user">
-                        <Menu.Trigger>
+                        <Menu.Trigger className="ot-btn flat layout center">
                             <span className="ot-dp">
                                 <img src={user.dp} alt="" />
                             </span>

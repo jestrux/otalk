@@ -74,6 +74,10 @@
     text-transform: capitalize;
 }
 
+.ot-auth-user > .ot-btn{
+    min-width: 100%;
+}
+
 
 @media screen and (min-width: 541px){
     .ot-header > .ot-dp{
