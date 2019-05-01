@@ -2,9 +2,9 @@ import React from 'react';
 
 import './header.css';
 
-const Header = ( { noborder, center, children} ) => {
+const Header = ( { id, noborder, center, children, ...props } ) => {
     return ( 
-        <div className={'ot-header layout center wrap ' + ( noborder ? 'no-border ' : '' ) + ( center ? 'center-justified' : '' )}>
+        <div id={id} className={'ot-header layout center wrap ' + ( noborder ? 'no-border ' : '' ) + ( center ? 'center-justified' : '' )}>
             { children }
         </div>
     );
