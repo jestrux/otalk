@@ -3,7 +3,7 @@ import './woza-item.css';
 import WozaImages from './WozaImages';
 import WozaResponder from './WozaResponder';
 
-const PostItem = (props) => {
+const WozaItem = (props) => {
     const { user, woza, curImageIndex, quickresponder } = props;
     const { is_liked, publisher, published_at, images } = woza;
 
@@ -26,4 +26,4 @@ const PostItem = (props) => {
     );
 }
  
-export default PostItem;
+export default WozaItem;
