@@ -30,11 +30,11 @@ const OtNav = ( props ) => {
                     Home
                 </button>
 
-                <button className={'ot-btn flat layout vertical center-center ' + ( page === 'discover' ? 'active' : '' )} 
+                {/* <button className={'ot-btn flat layout vertical center-center ' + ( page === 'discover' ? 'active' : '' )} 
                     onClick={ () => onNavigateTo('discover') }>
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     Discover
-                </button>
+                </button> */}
 
                 <button className={'ot-btn flat layout vertical center-center ' + ( page === 'alerts' ? 'active' : '' )} 
                     onClick={ () => onNavigateTo('alerts') }>
