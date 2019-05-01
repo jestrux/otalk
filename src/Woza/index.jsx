@@ -31,7 +31,7 @@ class Woza extends React.Component {
         const { user } = this.props;
         const { mode, previewing } = this.state;
         return (
-            <OtPage full={previewing}>
+            <OtPage full={previewing} className="woza-page">
                 <Header noborder>
                     <span className="ot-header-title">
                         Woza

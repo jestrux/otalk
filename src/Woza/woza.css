@@ -9,3 +9,9 @@
     margin-right: 0.7em;
     -webkit-tap-highlight-color: transparent;
 }
+
+@media screen and (max-width: 540px){
+    .woza-page{
+        background: #fff !important;
+    }
+}
