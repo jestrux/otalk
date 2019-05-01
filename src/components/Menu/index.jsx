@@ -12,7 +12,9 @@ class Menu extends React.Component {
     
     static Option = ({ className, children, onSelected }) => {
         return ( 
-            <button onClick={ onSelected } className={ 'ot-btn flat ' + className }>{ children }</button>
+            <button onClick={ onSelected } className={ 'ot-btn flat ' + className }>
+                { children }
+            </button>
         );
     }
     
@@ -22,12 +24,9 @@ class Menu extends React.Component {
         fullClassName += className;
 
         return ( 
-            <React.Fragment>
-                {/* <input className="ot-menu-opener-input" id={id} type="checkbox"/> */}
-                <button htmlFor={id} className={fullClassName}>
-                    { children }
-                </button>
-            </React.Fragment>
+            <button htmlFor={id} className={fullClassName}>
+                { children }
+            </button>
         );
     }
 
