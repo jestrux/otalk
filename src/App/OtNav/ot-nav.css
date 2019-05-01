@@ -1,0 +1,45 @@
+.ot-nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: -4em;
+}
+
+.ot-nav .ot-btn{
+    color: #5E5A56;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    width: 150px;
+    flex-direction: row;
+}
+
+.ot-nav .ot-btn:hover{
+    background: #f0f0f0;
+}
+
+.ot-nav .ot-btn.active{
+    background: #eaf2f1;
+    color: #047362;
+}
+
+.ot-nav .ot-btn svg{
+    width:24px;
+    height:24px;
+    stroke: #7E7A76;
+    fill:none;
+    stroke-width:2;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    margin-bottom: 0.2em;
+    margin-right: 1em;
+}
+
+.ot-nav .ot-btn.active svg{
+    stroke: #047362;
+}
+
+@media screen and (max-width: 540px){
+    #desktopHeader{
+        display: none;
+    }
+}

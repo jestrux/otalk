@@ -15,6 +15,7 @@ import OtherApps from '../OtherApps';
 import UserProfile from '../UserProfile';
 import BottomSheet from '../components/BottomSheet';
 import MobileNav from './MobileNav';
+import OtNav from './OtNav';
 
 // const profileUser = {display_name: "Daniel Kindimba", id: 290, dp: "https://olbongo.blob.core.windows.net/olbongo/stuff_images/2018/12/01/takescripter.jpg"}
 // const profileUser = {"status":"wacky","display_name":"walter","id":10,"dp":"https://olbongo.blob.core.windows.net/olbongo/CACHE/images/stuff_images/2017/04/28/20170416_121348_s8ddhse/444c59972c18921ada293c2c40bfe2a4.png","token":"51w-fe20639ab5c964bb1c15:@olb:dXE="}
@@ -117,6 +118,8 @@ class App extends React.Component {
 
                     { user_logged_in && 
                         <React.Fragment>
+                            <OtNav user={user} page={page} onNavigateTo={ this.setPage } />
+
                             { page === 'home' && 
                                 <Home
                                     user={ user }
