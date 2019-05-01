@@ -2,8 +2,8 @@ import React from 'react';
 
 import './post-item.css';
 
+import Menu from "../../../components/Menu";
 import PostMedia from "./PostMedia";
-
 import PostComments from "./PostComments";
 import PostCommenter from "./PostCommenter";
 import { MOBILE_WIDTH } from '../../../constants';
@@ -58,16 +58,16 @@ const PostItem = (props) => {
                 <span className="flex"></span>
 
                 { owned &&  
-                    <div className="ot-post-manager">
-                        <button className="ot-post-options-btn ot-btn action">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                        </button>
+                    <Menu className="ot-post-manager">
+                        <Menu.Trigger className="ot-btn action">
+                            <svg width="28" height="28" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                        </Menu.Trigger>
 
-                        <div className="ot-post-manager-options">
-                            <button onClick={props.onEditPost} className="ot-btn flat">Edit</button>
-                            <button onClick={props.onDeletePost} className="ot-btn flat">Delete</button>
-                        </div>
-                    </div>
+                        <Menu.Options>
+                            <Menu.Option onSelected={ props.onEditPost }> Edit </Menu.Option>
+                            <Menu.Option onSelected={ props.onDeletePost }> Delete </Menu.Option>
+                        </Menu.Options>
+                    </Menu>
                 }
             </div>
             
