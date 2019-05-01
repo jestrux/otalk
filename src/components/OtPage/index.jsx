@@ -7,7 +7,7 @@ const OtPage = ({className , ...props}) => {
     const full = props.full || false;
     
     return (
-        <div id="otPage" className={className + '' + ( full ? 'full' : '' )} style={ { backgroundColor: bg, paddingTop: padding } }>
+        <div id="otPage" className={className + ' ' + ( full ? 'full' : '' )} style={ { backgroundColor: bg, paddingTop: padding } }>
             { props.children }
         </div>
     );
