@@ -37,3 +37,21 @@
         
     }
 }
+
+@media screen and (max-width: 350px){
+    .ot-woza-list{
+        padding: 0.25em 0;
+    }
+    
+    .ot-woza-list .ot-woza-item-wrapper{
+        margin-bottom: 0;
+    }
+    
+    .ot-woza-item-wrapper:nth-child(even){
+        padding-left: 0.25em;
+    }
+    
+    .ot-woza-item-wrapper:nth-child(odd){
+        padding-right: 0.25em;
+    }
+}
