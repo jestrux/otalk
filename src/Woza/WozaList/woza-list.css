@@ -1,5 +1,8 @@
 .ot-woza-list-wrapper{
     position: relative;
+    width: 100%;
+    max-width: 660px;
+    margin: 0 auto;
 }
 
 .ot-woza-list-wrapper.mode-strip{
@@ -7,8 +10,7 @@
 }
 
 .ot-woza-list{
-    max-width: 660px;
-    margin: 0 auto;
+    width: 100%;
     padding: 0 0.5em;
 }
 

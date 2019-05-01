@@ -1,6 +1,11 @@
-.ot-post-list{
+.ot-post-list-wrapper{
+    width: 100%;
     max-width: 660px;
-    margin: 2em auto;
+    margin: auto;
+}
+.ot-post-list{
+    width: 100%;
+    margin: 2em 0;
 }
 
 .ot-post-list .ot-post-list-item:not(:last-child){
