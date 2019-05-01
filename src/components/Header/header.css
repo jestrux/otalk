@@ -3,9 +3,9 @@
     top: 0;
     width: 100vw;
     background: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
     z-index: 5;
     padding: 0 1.5em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.22);
 }
 
 .ot-header, 
@@ -97,6 +97,7 @@
     .ot-header.no-border{
         padding: 0;
         box-shadow: none;
+        border: none;
     }
 
     .ot-header.no-border, 
@@ -106,5 +107,25 @@
 
     .ot-header.no-border .ot-header-title{
         padding-left: 0.8em;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .ot-header, 
+    .ot-header .top-bar{
+        min-height: 50px;
+    }
+
+    .ot-header .ot-logo{
+        height: 30px;
+    }
+
+    .ot-header-title{
+        font-size: 20px;
+    }
+
+    .ot-header .ot-dp {
+        width: 35px;
+        height: 35px;
     }
 }
