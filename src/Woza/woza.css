@@ -10,7 +10,17 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+@media screen and (min-width: 541px){
+    .woza-page .ot-woza-list-wrapper{
+        margin: 1em auto;
+    }
+}
+
 @media screen and (max-width: 540px){
+    .woza-page .ot-woza-list-wrapper{
+        margin: 0 auto;
+    }
+    
     .woza-page{
         background: #fff !important;
     }
