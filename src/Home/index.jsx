@@ -12,7 +12,7 @@ class Home extends React.Component {
         const { user, onViewProfile, onLogout, onViewUser } = this.props;
 
         return (
-            <OtPage bg="#e9e9e9">
+            <OtPage>
                 <Header>
                     <img className="ot-logo" src={logo} alt=""/>
                     &emsp;
