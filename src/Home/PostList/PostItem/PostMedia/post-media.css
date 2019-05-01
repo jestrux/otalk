@@ -15,8 +15,9 @@
 
 .ot-post-images img{
     width: 100%;
+    max-height: 530px;
     object-fit: cover;
-    object-position: top;
+    object-position: center;
 }
 
 .ot-post-images.two-image-grid,
