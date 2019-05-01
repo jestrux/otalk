@@ -5,7 +5,6 @@ import OtPage from '../components/OtPage';
 import Header from '../components/Header';
 
 import WozaList from './WozaList';
-import WozaPreviewer from './WozaPreviewer';
 
 class Woza extends React.Component {
     state = { mode: 'grid', previewing: false };
