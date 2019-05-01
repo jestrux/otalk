@@ -1,15 +1,21 @@
 import React from 'react';
 
-import PostList from './PostList';
+import useScreenSize from '../hooks/useScreenSize';
 import Header from '../components/Header';
 import OtPage from '../components/OtPage';
 import Menu from '../components/Menu';
+import WozaList from '../Woza/WozaList';
 
 import logo from '../components/logo.png';
 
+import PostList from './PostList';
+import './home.css';
+
 const Home = ({ user, onViewProfile, onLogout, onViewUser }) => {
+    const { isLarge } = useScreenSize();
+
     return (
-        <OtPage>
+        <OtPage style={{ marginTop: isLarge ? '1.5em' : ''}}>
             <Header>
                 <img className="ot-logo" src={logo} alt=""/>
                 &emsp;
@@ -40,9 +46,30 @@ const Home = ({ user, onViewProfile, onLogout, onViewUser }) => {
                 </Menu>
             </Header>
 
-            <PostList 
-                user={ user } 
-                onViewUser={onViewUser} />
+            <div className="home-page-wrapper layout start">
+                <PostList 
+                    user={ user } 
+                    onViewUser={onViewUser} />
+
+                { isLarge && 
+                    <div className="home-page-wozas">
+                        <div className="layout center justified">
+                            <h3>Woza</h3>
+                            <button className="ot-btn flat">
+                                See All
+                            </button>
+                        </div>
+
+                        <WozaList maxCount={4} user={user} onPreview={() => {}} />
+
+                        <div>
+                            <button className="ot-btn block">
+                                Share your moments
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
         </OtPage> 
     );
 }

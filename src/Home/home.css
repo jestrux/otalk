@@ -1,0 +1,40 @@
+.home-page-wrapper{
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.home-page-wozas{
+    width: 40%;
+    flex-shrink: 0;
+    margin-left: 2em;
+    max-width: 350px;
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #d2d2d2;
+}
+
+.home-page-wozas > div:first-child{
+    padding: 0.5em 1em;
+}
+
+.home-page-wozas > div:last-child{
+    padding: 1em;
+    padding-top: 0;
+
+}
+
+.home-page-wozas h3{
+    font-size: 1.3em;
+}
+
+.home-page-wozas .ot-woza-list .ot-woza-item-wrapper{
+    margin-bottom: 0;
+    min-height: 0;
+    max-height: 230px;
+}
+
+.home-page-wozas .ot-woza-list .ot-woza-item-wrapper:nth-child(n+5){
+    display: none;
+}
