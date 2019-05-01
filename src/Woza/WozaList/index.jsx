@@ -4,10 +4,6 @@ import _ from 'lodash';
 
 import Observer from '@researchgate/react-intersection-observer';
 
-import './woza-list.css';
-
-import sample_wozas from './wozas';
-
 import { API_BASE_URL } from '../../constants';
 
 import WozaItem from "../WozaItem";
@@ -15,12 +11,13 @@ import WozaItem from "../WozaItem";
 import Loader from '../../components/Loader';
 import WozaPreviewer from '../WozaPreviewer';
 
+import './woza-list.css';
+
 class WozaList extends React.Component {
     state = { initial_fetch: false, fetching: false, page: 1, wozas: [], previewing: false, previewIndex: -1 };
 
     componentDidMount(){
         const { user } = this.props;
-        // this.setState({user, wozas: sample_wozas, initial_fetch: true});
 
         this.setState({token: user.token}, () => {
             this.fetchUserWozas();
@@ -28,8 +25,7 @@ class WozaList extends React.Component {
     }
 
     componentDidUpdate(){
-        // console.log("Woza list props", this.props);
-        if(this.props.previewing !== this.state.previewing){
+        if(this.props.previewing !== undefined && this.props.previewing !== this.state.previewing){
             this.setState({previewing: this.props.previewing});
 
             if(!this.props.previewing)
@@ -74,7 +70,7 @@ class WozaList extends React.Component {
 
     render() { 
         const { scrolled, wozas, initial_fetch, fetching, previewIndex } = this.state;
-        const { user, mode, previewing } = this.props;
+        const { user, mode = 'grid', previewing } = this.props;
         const options = {
             onChange: this.handleReachedBottom,
             root: 'body',
