@@ -27,3 +27,16 @@
 #otPage.full ~ .ot-mobile-nav{
     transform: translateY(100%);
 }
+
+@media screen and (max-width: 350px){
+    #otPage {
+        padding-top: 50px;
+        padding-bottom: 53px;
+    }
+}
+
+@media screen and (min-width: 541px){
+    #otPage .ot-header{
+        display: none;
+    }
+}

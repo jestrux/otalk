@@ -42,3 +42,22 @@
         display: none;
     }
 }
+
+@media screen and (max-width: 350px){
+    .ot-mobile-nav{
+        height: 50px;
+    }
+    
+    .ot-mobile-nav .ot-btn{
+        font-size: 11px;
+    }
+    
+    .ot-mobile-nav .ot-btn svg{
+        width: 19px;
+        height: 19px;
+    }
+
+    .ot-mobile-nav .ot-btn span{
+        /* display: none; */
+    }
+}
