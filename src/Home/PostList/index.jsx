@@ -379,7 +379,7 @@ class PostList extends React.Component {
 
                     { fetching && 
                         <div className="layout center-justified">
-                            <Loader/>
+                            <Loader thin/>
                         </div>
                     }
 
