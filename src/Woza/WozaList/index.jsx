@@ -69,7 +69,9 @@ class WozaList extends React.Component {
     }
 
     previewWoza = (idx) => {
-        this.props.onPreview();
+        if(this.props.onPreview)
+            this.props.onPreview();
+            
         this.setState({previewIndex: idx});
     }
 
