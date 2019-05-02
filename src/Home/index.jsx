@@ -60,7 +60,7 @@ const Home = ({ user, onViewProfile, onLogout, onViewUser }) => {
                             </button>
                         </div>
 
-                        <WozaList maxCount={4} user={user} onPreview={() => {}} />
+                        <WozaList maxCount={4} user={user} />
 
                         <div>
                             <button className="ot-btn block">
