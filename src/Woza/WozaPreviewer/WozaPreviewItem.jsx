@@ -28,7 +28,6 @@ class WozaPreviewItem extends React.Component {
     }
 
     startSlideshow = () => {
-        console.log("Slideshow started!");
         const { woza } = this.props;
         const { images } = woza;
 
