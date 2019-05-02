@@ -50,14 +50,6 @@
     transform-origin: bottom right;
 }
 
-.ot-woza-preview-scoller .ot-woza-preview-item:not(.active){
-    transform: rotate(20deg);
-}
-
-.ot-woza-preview-scoller .ot-woza-preview-item.visible:not(.active){
-    transform: rotate(-20deg);
-}
-
 .ot-woza-preview-item .ot-woza-item-title{
     padding-right: 2em;
 }
