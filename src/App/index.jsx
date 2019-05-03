@@ -118,7 +118,9 @@ class App extends React.Component {
 
                     { user_logged_in && 
                         <React.Fragment>
-                            <OtNav user={user} page={page} onNavigateTo={ this.setPage } />
+                            <OtNav user={user} page={page} 
+                                onNavigateTo={ this.setPage }
+                                onLogout={ this.logout } />
 
                             { page === 'home' && 
                                 <Home
