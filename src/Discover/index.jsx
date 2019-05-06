@@ -33,7 +33,7 @@ class Discover extends React.Component {
         this.setState({fetching: true});
         const params = { token: this.state.token, page: this.state.page };
             
-        axios.get(API_BASE_URL + '/following/', { params })
+        axios.get(API_BASE_URL + '/peoples/', { params })
         .then(({data}) => {
             console.log("Fetch people result", data);
             this.setState({people: [...this.state.people, ...data], fetching: false, initial_fetch: true, page: this.state.page + 1})
