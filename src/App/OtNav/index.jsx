@@ -30,17 +30,17 @@ const OtNav = ( props ) => {
                     Home
                 </button>
 
-                {/* <button className={'ot-btn flat layout vertical center-center ' + ( page === 'discover' ? 'active' : '' )} 
+                <button className={'ot-btn flat layout vertical center-center ' + ( page === 'discover' ? 'active' : '' )} 
                     onClick={ () => onNavigateTo('discover') }>
                     <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     Discover
-                </button> */}
+                </button>
 
-                <button className={'ot-btn flat layout vertical center-center ' + ( page === 'alerts' ? 'active' : '' )} 
+                {/* <button className={'ot-btn flat layout vertical center-center ' + ( page === 'alerts' ? 'active' : '' )} 
                     onClick={ () => onNavigateTo('alerts') }>
                     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
                     Alerts
-                </button>
+                </button> */}
                 
                 <button className={'ot-btn flat layout vertical center-center ' + ( page === 'ochat' ? 'active' : '' )} 
                     onClick={ () => onNavigateTo('ochat') }>
@@ -62,7 +62,7 @@ const OtNav = ( props ) => {
                 </Menu.Trigger>
 
                 <Menu.Options>
-                    {/* <Menu.Option onSelected={ onViewProfile }> Profile </Menu.Option> */}
+                    <Menu.Option onSelected={ () => onNavigateTo('profile')  }> Profile </Menu.Option>
                     <Menu.Option onSelected={ onLogout }> Logout </Menu.Option>
                 </Menu.Options>
             </Menu>        
