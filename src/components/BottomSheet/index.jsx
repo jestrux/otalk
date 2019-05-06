@@ -43,6 +43,14 @@ class BottomSheet extends React.Component {
     handleClose = () => {
         window.history.back();
     }
+
+    manualClose = () => {
+        const { id } = this.props;
+        window.history.replaceState({[id]: true}, id, '#');
+        this.setState({closing: true}, () => {
+            this.closeBottomSheet();
+        });
+    }
     
     closeBottomSheet = () => {
         setTimeout(() => {
@@ -58,7 +66,7 @@ class BottomSheet extends React.Component {
             rootMargin: `0% 0% -${window.innerHeight}px`,
         };
         const { visible, fixed, closing } = this.state;
-        let {contentLoaded, peekHeight} = this.props;
+        let {contentLoaded, peekHeight, closeOnClick} = this.props;
         if(!peekHeight)
             peekHeight = 300;
 
@@ -74,7 +82,9 @@ class BottomSheet extends React.Component {
                             <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                         </button>
 
-                        { this.props.children }
+                        <div onClick={closeOnClick ? this.manualClose : null}>
+                            { this.props.children }
+                        </div>
                     </div>
                 </Observer>
             </div>

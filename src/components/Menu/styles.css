@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.ot-menu-options{
+.ot-menu .ot-menu-options{
     position: absolute;
     right: 1em;
     top: 1em;
@@ -48,4 +48,20 @@
 
 .ot-menu-opener svg{
     fill: #656565;
+}
+
+.ot-menu .ot-bottom-sheet-content{
+    padding: 4em 0 2em 0;
+}
+
+.ot-bottom-sheet .ot-menu-option{
+    font-size: 1.1em;
+    padding: 1.2em;
+    width: 100%;
+    border: solid #ccc;
+    border-width: 1px 0;
+}
+
+.ot-bottom-sheet .ot-menu-option + .ot-menu-option{
+    border-top: none;
 }
