@@ -32,16 +32,115 @@
 
 .ot-person-item{
     padding: 1em 1.2em;
+    padding-bottom: 0.em;
+    position: relative;
+}
+
+.ot-person-item:after{
+    content: '';
+    position: absolute;
+    left: 80px; 
+    right: 0;
+    bottom: -0.2em;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .ot-person-item .ot-dp{
     width: 50px;
     height: 50px;
-    margin-right: 1.2em;
+    margin-right: 0.9em;
 }
 
 .ot-person-item span{
     text-transform: capitalize;
     font-size: 1.3em;
     letter-spacing: 0.05em;
+    display: block;
+}
+
+.ot-person-item span + button{
+    margin-right: -0.3em;
+    padding: 8px 24px !important;
+    min-width: 0 !important;
+    font-size: 1em;
+    letter-spacing: 0.03em
+}
+
+.ot-person-item > div:last-child{
+    flex: 1;
+}
+
+#peopleList.for-large{
+    max-width: 1000px;
+    margin: 2em auto;
+    display: grid;
+    grid-gap: 1.3em;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ot-person-card{
+    background: #fff;
+    padding: 1em;
+    border-radius: 6px;
+    min-height: 270px;
+}
+
+.ot-person-card .ot-dp{
+    margin: 1em auto;
+    margin-top: 0.3em;
+    width: 75px;
+    height: 75px;
+    border: 1px solid #eee;
+}
+
+.ot-person-card h3{
+    text-transform: capitalize;
+    font-size: 1.2em;
+    letter-spacing: 0.05em;
+    text-align: center;
+    text-transform: capitalize;
+    margin-bottom: 0.5em;
+}
+
+.ot-person-card .user-stats{
+    margin-bottom: 0.6em;
+    padding: 0.4em 0;
+    width: 100%;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.ot-person-card .user-stat{
+    text-align: center;
+    padding: 0.15em 0.75em;
+    padding-bottom: 0.41em;
+    width: 33.333%;
+    border: solid #ddd;
+    border-width: 1px 1px 1px 0;
+}
+
+.ot-person-card .user-stat:last-child{
+    border-right-width: 0;
+}
+
+.ot-person-card .user-stat .number{
+    font-size: 1.35em;
+}
+
+.ot-person-card .user-stat .label{
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    font-size: 0.85em;
+    color: #555;
+}
+
+.ot-person-card button{
+    margin: 0 auto;
+    margin-bottom: 0.3em;
+}
+
+@media screen and (max-width: 540px){
+    .discover-page{
+        background: #fff !important;
+    }
 }

@@ -6,6 +6,7 @@ import OtPage from '../components/OtPage';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import { API_BASE_URL } from '../constants';
+import DiscoverList from './DiscoverList';
 
 class Discover extends React.Component {
     state = { initial_fetch: false, searching: false, page: 1, people: [] };
@@ -48,7 +49,7 @@ class Discover extends React.Component {
         const { fetching, searching, people } = this.state;
         const padding = searching ? '111px' : '60px';
         return (
-            <OtPage padding={padding}>
+            <OtPage padding={padding} className="discover-page">
                 <Header noborder={searching} centers>
                     <div className="top-bar layout center">
                         <span className="ot-header-title layout center">
@@ -85,22 +86,11 @@ class Discover extends React.Component {
                 </Header>
 
                 <div className="ot-discover">
-                    <div id="peopleList">
-                        { people.map( person => (
-                                <div key={person.id} className="ot-person-item layout center">
-                                    <div className="ot-dp lg">
-                                        <img src={person.dp} alt=""/>
-                                    </div>
-
-                                    <span>{ person.display_name }</span>
-                                </div>
-                            )
-                        )}
-                    </div>
+                    <DiscoverList people={ people } />
 
                     { fetching && 
                         <div className="layout center-justified">
-                            <Loader/>
+                            <Loader thin />
                         </div>
                     }
                 </div>
