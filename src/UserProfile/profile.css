@@ -26,8 +26,8 @@
 .ot-user-profile-title .user-stat{
     text-align: center;
     padding: 0 0.75em;
-    flex: 1;
     flex-shrink: 0;
+    width: 33.333%;
 }
 
 .ot-user-profile-title .user-stat .number{
