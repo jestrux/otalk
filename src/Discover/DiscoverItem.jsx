@@ -47,18 +47,23 @@ const DiscoverItem = ({ type, person }) => {
     );
 
     const discoverItem = (
-        <div className="ot-person-item layout center">
+        <div className="ot-person-item layout start">
             <div className="ot-dp lg">
                 <img src={person.dp} alt=""/>
             </div>
 
-            <span>{ person.display_name.toLowerCase() }</span>
-
-            <span className="flex"></span>
-            
-            <button className="ot-btn rounded">
-                Follow
-            </button>
+            <div>
+                <span>{ person.display_name.toLowerCase() }</span>
+                
+                <div className="layout center">
+                    <button className="ot-btn rounded">
+                        Follow
+                    </button>
+                    <button className="ot-btn rounded">
+                        Add Friend
+                    </button>
+                </div>
+            </div>
         </div>
     );
     

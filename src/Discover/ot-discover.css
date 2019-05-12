@@ -8,17 +8,6 @@
     margin-right: 0.6em;
 }
 
-#ot-discover-search::before{
-    /* content: ''; */
-    position: absolute;
-    left: -0.5em;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
-    height: 45%;
-    border-left: 1px solid #aaa;
-}
-
 #ot-discover-search input{
     width: 100%;
     font-size: 1em;
@@ -32,38 +21,41 @@
 
 .ot-person-item{
     padding: 1em 1.2em;
-    padding-bottom: 0.em;
+    padding-bottom: 0;
+    margin-bottom: 0.5em;
     position: relative;
 }
 
-.ot-person-item:after{
-    content: '';
-    position: absolute;
-    left: 80px; 
-    right: 0;
-    bottom: -0.2em;
-    border-bottom: 1px solid #e5e5e5;
-}
-
 .ot-person-item .ot-dp{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     margin-right: 0.9em;
+    border: 1px solid #eee;
 }
 
 .ot-person-item span{
     text-transform: capitalize;
-    font-size: 1.3em;
+    font-size: 1.2em;
     letter-spacing: 0.05em;
     display: block;
+    margin-bottom: 0.5em;
 }
 
-.ot-person-item span + button{
-    margin-right: -0.3em;
+.ot-person-item button{
     padding: 8px 24px !important;
-    min-width: 0 !important;
-    font-size: 1em;
-    letter-spacing: 0.03em
+    font-size: 0.9em;
+    letter-spacing: 0.03em;
+    margin-right: 0.5em;
+    min-width: 125px !important;
+    border-width: 2px !important;
+    background: #047362 !important;
+    color: #fff;
+}
+
+.ot-person-item button:last-child{
+    background: transparent !important;
+    border-color: #aaa;
+    color: #000;
 }
 
 .ot-person-item > div:last-child{
@@ -115,7 +107,7 @@
     padding: 0.15em 0.75em;
     padding-bottom: 0.41em;
     width: 33.333%;
-    border: solid #ddd;
+    border: solid #eee;
     border-width: 1px 1px 1px 0;
 }
 
@@ -142,5 +134,36 @@
 @media screen and (max-width: 540px){
     .discover-page{
         background: #fff !important;
+    }
+}
+
+@media screen and (max-width: 380px){
+    .ot-person-item{
+        padding: 0.8em;
+        margin-bottom: 0em;
+    }
+    
+    .ot-person-item:not(:last-child):after{
+        display: none;
+    }
+    
+    .ot-person-item .ot-dp{
+        width: 55px;
+        height: 55px;
+        margin-right: 0.9em;
+        border: 1px solid #eee;
+    }
+    
+    .ot-person-item span{
+        text-transform: capitalize;
+        font-size: 1.1em;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 0.5em;
+    }
+    
+    .ot-person-item button{
+        padding: 6px 18px !important;
+        min-width: 0 !important;
     }
 }
