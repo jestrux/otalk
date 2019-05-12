@@ -325,7 +325,6 @@ class PostList extends React.Component {
     }
 
     handleReachedBottom = (event) => {
-        console.log("ReachedBottom Event", event);
         if(event.isIntersecting && !this.state.fetching){
             this.fetchUserPosts();
         }

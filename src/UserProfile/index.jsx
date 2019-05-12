@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-
-import "./profile.css";
 import axios from 'axios';
+import Observer from '@researchgate/react-intersection-observer';
+
 import { API_BASE_URL } from '../constants';
 import Loader from '../components/Loader';
 import PostList from '../Home/PostList';
@@ -11,12 +11,15 @@ import Header from '../components/Header';
 import useScreenSize from '../hooks/useScreenSize';
 import Image from '../components/Image';
 
+import "./profile.css";
+
 const UserProfile = (props) => {
     const [ user, setUser ] = useState({});
     const [ posts, setPosts ] = useState([]);
     const [ profileLoaded, setProfileLoaded ] = useState(false);
     const [ postsLoaded, setPostsLoaded ] = useState(false);
     const [ userMedia, setUserMedia ] = useState(null);
+    const [ fixMedia, setFixMedia ] = useState(false); 
 
     useEffect(() => {
         setUser(props.user);
@@ -25,6 +28,11 @@ const UserProfile = (props) => {
         fetchUserMedia();
     }, []);
 
+    const handleReachedBottom = (event) => {
+        // console.log("At the top event", event);
+        setFixMedia(!event.isIntersecting);
+    }
+
     const fetchUserProfile = () => {
         const { user, sessionUser } = props;
         const token = sessionUser.token;
@@ -32,7 +40,6 @@ const UserProfile = (props) => {
         axios.get(API_BASE_URL + '/profile/', { params })
             .then(({data}) => {
                 const res = data[0];
-                console.log("Fetch user profile result", res.user);
                 setProfileLoaded(true);
                 setUser({...user, ...res.user});
             })
@@ -44,11 +51,9 @@ const UserProfile = (props) => {
     const fetchUserPosts = () => {
         const { sessionUser } = props;
         const token = sessionUser.token;
-        console.log("Props: ", props.user.id, props.sessionUser.token);
         const params = { token, user_id: props.user.id };
         axios.get(API_BASE_URL + '/user_wall/', { params })
             .then(({data}) => {
-                console.log("User posts loaded: ", {...user, posts: data});
                 setPosts(data);
                 setPostsLoaded(true);
             })
@@ -75,7 +80,6 @@ const UserProfile = (props) => {
                 return media;
             });
             setUserMedia([...videos, ...photos]);
-            console.log("User media: ", videos, photos);
         })
         .catch((err) => {
             console.error("Failed to fetch user media", err);
@@ -87,10 +91,17 @@ const UserProfile = (props) => {
     const loading = !profileLoaded && !postsLoaded;
     const { display_name, dp } = user;
     const { isLarge } = useScreenSize();
+
+    const options = {
+        onChange: handleReachedBottom,
+        root: 'body',
+        rootMargin: `-60px 0%`,
+    };
     
     const pageContent = (
         <div className="ot-user-profile">
-            <div className="ot-user-profile-title layout vertical center">
+            <Observer {...options}>
+                <div className="ot-user-profile-title layout vertical center">
                 <div className="user-details">
                     <div className="ot-dp">
                         <img src={dp} alt=""/>
@@ -108,6 +119,8 @@ const UserProfile = (props) => {
                 </div>
                 
                 { !isAuthUser && loading && <Loader thin /> }
+                
+                { !profileLoaded && <Loader size="40" thin /> }
 
                 { profileLoaded &&
                     <React.Fragment>
@@ -147,7 +160,9 @@ const UserProfile = (props) => {
                 }
             </div>
 
-            <div className="layout start profile-page-content">
+            </Observer>
+
+            <div className={'layout start profile-page-content ' + ( isLarge ? 'for-large ' : '' ) + (fixMedia ? 'fix-media ' : '') }>
                 <div className="flex">
                     { !postsLoaded && 
                         <div style={ { paddingTop: '1.5em' } } className="layout center-justified">
@@ -159,26 +174,29 @@ const UserProfile = (props) => {
                 </div>
 
                 { isLarge && 
-                    <div id="userMedia">
-                        <h3>User Media</h3>
-                        <div className="layout wrap">
-                            { userMedia && userMedia.map(m => 
-                                <div key={m.id} className="user-media-item">
-                                    { m.type === 'photo' &&
-                                        <Image src={m.path} alt="m" />
-                                    }
-                                    
-                                    { m.type === 'photo' &&
-                                        <video src={m.path} />
-                                    }
-                                </div>
-                            ) }
+                    <div>
+                        <div id="userMedia">
+                            <h3>User Media</h3>
+                            <div className="layout wrap">
+                                { userMedia && userMedia.map((m, index) => (
+                                    index < 9 && 
+                                        <div key={m.id} className="user-media-item">
+                                            { m.type === 'photo' &&
+                                                <Image src={m.path} alt="m" />
+                                            }
+                                            
+                                            { m.type === 'photo' &&
+                                                <video src={m.path} />
+                                            }
+                                        </div>
+                                ))}
 
-                            { !userMedia && 
-                                <div style={ { paddingTop: '1.5em', width: '100%' } } className="layout center-justified">
-                                    <Loader thin />
-                                </div>
-                            }
+                                { !userMedia && 
+                                    <div style={ { paddingTop: '1.5em', width: '100%' } } className="layout center-justified">
+                                        <Loader thin />
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 }
