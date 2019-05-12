@@ -46,26 +46,28 @@ const Home = ({ user, onViewProfile, onLogout, onViewUser }) => {
                 </Menu>
             </Header>
 
-            <div className="home-page-wrapper layout start">
+            <div className={'home-page-wrapper layout start ' + (isLarge ? 'for-large' : '')}>
                 <PostList 
                     user={ user } 
                     onViewUser={onViewUser} />
 
                 { isLarge && 
-                    <div className="home-page-wozas">
-                        <div className="layout center justified">
-                            <h3>Woza</h3>
-                            <button className="ot-btn flat">
-                                See All
-                            </button>
-                        </div>
+                    <div>
+                        <div className="home-page-wozas">
+                            <div className="layout center justified">
+                                <h3>Woza</h3>
+                                <button className="ot-btn flat">
+                                    See All
+                                </button>
+                            </div>
 
-                        <WozaList maxCount={4} user={user} />
+                            <WozaList maxCount={4} user={user} />
 
-                        <div>
-                            <button className="ot-btn block">
-                                Share your moments
-                            </button>
+                            <div>
+                                <button className="ot-btn block">
+                                    Share your moments
+                                </button>
+                            </div>
                         </div>
                     </div>
                 }

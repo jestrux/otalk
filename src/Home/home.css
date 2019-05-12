@@ -4,11 +4,15 @@
     margin: 0 auto;
 }
 
-.home-page-wozas{
-    width: 40%;
-    flex-shrink: 0;
+.home-page-wrapper.for-large > div:last-child{
+    width: 350px;
     margin-left: 2em;
-    max-width: 350px;
+}
+
+.home-page-wozas{
+    position: fixed;
+    width: 350px;
+    flex-shrink: 0;
     background: #fff;
     border-radius: 6px;
     overflow: hidden;
@@ -22,7 +26,6 @@
 .home-page-wozas > div:last-child{
     padding: 1em;
     padding-top: 0;
-
 }
 
 .home-page-wozas h3{
