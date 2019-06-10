@@ -81,6 +81,11 @@ body {
     opacity: 1;
 }
 
+.ot-btn.block {
+    display: block;
+    width: 100%;
+}
+
 .ot-btn.-dark {
     color: var(--color-snow);
     background: var(--color-dark);
