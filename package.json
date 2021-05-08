@@ -7,7 +7,7 @@
     "@researchgate/react-intersection-observer": "^0.7.4",
     "EventEmitter": "^1.0.0",
     "axios": "^0.18.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "react": "^16.8.4",
     "react-autosize-textarea": "^5.0.0",
     "react-camera": "^0.1.3",
